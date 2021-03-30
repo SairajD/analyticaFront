@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect, useHistory } from "react-router-dom";
 import { fade, makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -14,6 +14,8 @@ import MailIcon from "@material-ui/icons/Mail";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 import MoreIcon from "@material-ui/icons/MoreVert";
 import axios from "axios";
+import {useDispatch} from 'react-redux';
+import {addNegatives, addPositives} from '../reduxStore/actions/addTweets';
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -93,14 +95,12 @@ export default function PrimarySearchAppBar() {
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
   const [id, setId] = useState("");
   const [timerId, setTimerId] = useState("");
-  const [finalNegative, setfinalNegative] = useState([
-    { caption: "", likes: 0, comments: 0, timestamp: 0, thumbnail: "" },
-  ]);
-  const [finalPositive, setfinalPositive] = useState([
-    { caption: "", likes: 0, comments: 0, timestamp: 0, thumbnail: "" },
-  ]);
+  
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+
+  const dispatch = useDispatch();
+  const history = useHistory();
 
   let globalId;
   const checkStatus = async () => {
@@ -116,6 +116,7 @@ export default function PrimarySearchAppBar() {
         `https://analytica-parsb-api.herokuapp.com/analytica/twitter/search/download?documentId=${globalId}`
       );
       let finalNegatives = [];
+      let finalPositives = [];
       response.data.negatives.forEach((l) => {
         let tempneg = {
           caption: l.full_text,
@@ -125,12 +126,26 @@ export default function PrimarySearchAppBar() {
           thumbnail: "",
         };
 
-        finalNegative.push(tempneg);
+        finalNegatives.push(tempneg);
       });
 
-      setfinalNegative(finalNegative);
+      response.data.positives.forEach((l) => {
+        let temppos = {
+          caption: l.full_text,
+          likes: l.favorite_count,
+          comments: 0,
+          timestamp: l.created_at,
+          thumbnail: "",
+        };
+
+        finalPositives.push(temppos);
+      });
+      
+      dispatch(addNegatives(finalNegatives));
+      dispatch(addPositives(finalPositives));
+
     } else if (response.status == 204) {
-      const timer = setTimeout(this.checkStatus, 5000);
+      const timer = setTimeout(checkStatus, 5000);
       setTimerId(timer);
     }
   };
@@ -149,10 +164,10 @@ export default function PrimarySearchAppBar() {
 
   const onInputChange = (e) => {
     if (e.key === "Enter") {
-      // console.log(e.target.value)
       onSearch(e.target.value);
-    }
-  };
+      history.push('/SearchDisplay');
+  }
+};
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -229,14 +244,14 @@ export default function PrimarySearchAppBar() {
       <AppBar position="fixed" className={classes.appBar}>
         <Toolbar>
           <div className={classes.search}>
-            <Link to="/SearchDisplay" className={classes.linkStyle}>
+            
               <div className={classes.searchIcon}>
                 <SearchIcon />
               </div>
-            </Link>
+            
             <InputBase
               placeholder="Search…"
-              id="searchId"
+              onKeyDown={onInputChange}
               classes={{
                 root: classes.inputRoot,
                 input: classes.inputInput,

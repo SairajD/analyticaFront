@@ -121,8 +121,8 @@ export default function PermanentDrawerLeft() {
         </div>
         <List>
           {SidebarData.map((item, index) => (
-            <Link to={item.path} className={classes.linkStyle}>
-            <ListItem button key={item.text}>
+            <Link to={item.path} className={classes.linkStyle} key={index}>
+            <ListItem button>
               <ListItemIcon>{item.icon}</ListItemIcon>
               <ListItemText primary={item.text} />
             </ListItem>

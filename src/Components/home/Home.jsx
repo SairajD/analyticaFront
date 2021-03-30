@@ -16,7 +16,6 @@ import Avatar from '@material-ui/core/Avatar';
 import Divider from '@material-ui/core/Divider';
 import FacebookIcon from '@material-ui/icons/Facebook';
 import Paper from '@material-ui/core/Paper';
-
 const drawerWidth = 240;
 
 const documentID = '604865dc9c7f42544d67f492'
@@ -203,8 +202,6 @@ const useStyles = makeStyles((theme) => ({
                 console.log(err)
             })
             
-
-                console.log(facebookData)
             }
     
 

@@ -6,26 +6,29 @@ import PermanentDrawerLeft from './Components/sidebar/Sidebar';
 import { makeStyles } from '@material-ui/core/styles';
 import CustomTimeline from './Components/timeline/Timeline';
 import SearchDataDisplay from './Components/searchDisplay/SearchDisplay';
-
+import Login from './Components/login/Login';
+import Register from './Components/login/Register';
+import GettingStarted from './Components/gettingStarted/GettingStarted';
 const useStyles = makeStyles((theme) => ({
   root: {
-    backgroundColor: "#eeeeee"
   }
 }));
 
 
 function App() {
-  let abcd;
   const classes = useStyles();
   return (
     <div className={classes.root}>
       <Router>
-      <PermanentDrawerLeft/>
-      <PrimarySearchAppBar/>
+      {/* <PermanentDrawerLeft/>
+      <PrimarySearchAppBar/> */}
         <Switch>
           <Route path ="/" exact component={Home}/>
           <Route path ="/Timeline"  component={CustomTimeline}/>
           <Route path ="/SearchDisplay"  component={SearchDataDisplay}/>
+          <Route path="/Login" component={Login}/>
+          <Route path="/Register" component={Register}/>          
+          <Route path="/GettingStarted" component={GettingStarted}/>
         </Switch>
         </Router>
     </div>

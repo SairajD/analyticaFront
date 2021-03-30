@@ -9,7 +9,8 @@ import InstagramIcon from '@material-ui/icons/Instagram';
 import LinkedInIcon from '@material-ui/icons/LinkedIn';
 import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 import CommentIcon from '@material-ui/icons/Comment';
-import axios from 'axios'
+import axios from 'axios';
+import {useSelector} from 'react-redux';
 
 const drawerWidth = 240;
 
@@ -51,33 +52,9 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SearchDataDisplay() {
   const classes = useStyles();
-  const [socialInfoNegatives, setSocialInfoNegatives] = useState([{caption:"", likes:0, comments:0, timestamp:0, thumbnail:""}])
-  
-  const socialData = () => {
-    
-    axios
-        .get(`https://analytica-parsb-api.herokuapp.com/instagram/tags/${documentID}/download`)
-        .then(response => {
-            const negData = response.data.negatives;
-            setSocialInfoNegatives(negData);
-        })
-        .catch(err => {
-            console.log(err);
-        })
-        
-            
-        }
+  const socialInfoNegatives = useSelector(state => state.negativeTweets);  
+  const socialInfoPositives = useSelector(state => state.positiveTweets)
 
-
-
-
-useEffect(() => {
-    
-    socialData();
-                                                                         
-}, [])
-
-console.log(socialInfoNegatives)
 
   return (
     <div className={classes.timelineRoot}>
@@ -87,7 +64,7 @@ console.log(socialInfoNegatives)
     
     {socialInfoNegatives.map((item, index) => (
       
-          <Paper elevation={3} className={classes.paper}>
+          <Paper elevation={3} className={classes.paper} key={index}>
             <Typography className={classes.timelineTitle} variant="h6" component="h1">
               {item.sentiment}
             </Typography>
@@ -101,6 +78,23 @@ console.log(socialInfoNegatives)
           </Paper>
         
       ))}
+
+{socialInfoPositives.map((item, index) => (
+      
+      <Paper elevation={3} className={classes.paper} key={index}>
+        <Typography className={classes.timelineTitle} variant="h6" component="h1">
+          {item.sentiment}
+        </Typography>
+        <Typography className={classes.timelineContent}>{item.caption}</Typography>
+        <div className={classes.likeComment}>
+            <Typography className={classes.likeComItem}>{item.likes}</Typography>
+            <ThumbUpIcon color="primary"/>
+            <Typography className={classes.likeComItem}>{item.comments}</Typography>
+            <CommentIcon color="primary"/>
+        </div>
+      </Paper>
+    
+  ))}
     
     </div>
   );
