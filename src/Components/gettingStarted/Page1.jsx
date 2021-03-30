@@ -3,6 +3,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+import {useHistory} from 'react-router-dom';
+
 const useStyles = makeStyles((theme) => ({
 		loginButton:{
 			marginTop:theme.spacing(2),
@@ -46,6 +48,7 @@ const useStyles = makeStyles((theme) => ({
 function Page1() {
 
     const classes = useStyles();
+    const history = useHistory();
 
     return (
         <div>
@@ -112,7 +115,7 @@ function Page1() {
                     <Typography className={classes.btnDesc}>
                         New to Analytica... Join us Now 
                     </Typography>
-                    <Button className={classes.loginButton} variant="contained" color="secondary">
+                    <Button className={classes.loginButton} variant="contained" color="secondary" onClick={()=>{history.push("/Register");window.location.reload(false);}}>
                         Create New Account
                     </Button>
                 </div>
@@ -120,7 +123,7 @@ function Page1() {
                     <Typography className={classes.btnDesc}>
                         Already a Member of Analytica Family?
                     </Typography>
-                    <Button className={classes.loginButton} variant="contained" color="secondary">
+                    <Button className={classes.loginButton} variant="contained" color="secondary" onClick={()=>{history.push("/Login");window.location.reload(false);}}>
                         Sign In
                     </Button>
                 </div>						

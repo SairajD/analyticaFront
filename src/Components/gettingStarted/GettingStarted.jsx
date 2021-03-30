@@ -86,7 +86,7 @@ const useStyles = makeStyles((theme) => ({
 
 function GettingStarted() {
 
-    const classes = useStyles();
+    	const classes = useStyles();
 		const [value, setValue] = useState('1');
 		const history = useHistory();
 
@@ -135,12 +135,12 @@ function GettingStarted() {
 						<Grid item xs={7}>
 						</Grid>
 						<Grid item xs={2}>
-							<Button className={classes.loginButton} variant="contained" color="secondary">
+							<Button className={classes.loginButton} variant="contained" color="secondary" onClick={()=>{history.replace("/Register");window.location.reload(false);}}>
 								Create New Account
 							</Button>
 						</Grid>
 						<Grid item xs={1}>
-							<Button className={classes.loginButton} variant="contained" color="secondary">
+							<Button className={classes.loginButton} variant="contained" color="secondary" onClick={()=>{history.replace("/Login");window.location.reload(false);}}>
 								Sign In
 							</Button>
 						</Grid>
@@ -150,7 +150,7 @@ function GettingStarted() {
 							className={classes.slideBtn}
 							checked={value === '1'}
 							onChange={handleChange}
-							onClick={()=>{history.push("/GettingStarted")}}
+							onClick={()=>{history.push("/")}}
 							value="1"
 							name="slide"
 						/>
@@ -158,7 +158,7 @@ function GettingStarted() {
 							className={classes.slideBtn}
 							checked={value === '2'}
 							onChange={handleChange}							
-							onClick={()=>{history.push("/GettingStarted/SentimentAnalysis")}}
+							onClick={()=>{history.push("/SentimentAnalysis")}}
 							value="2"
 							name="slide"
 						/>
@@ -166,7 +166,7 @@ function GettingStarted() {
 							className={classes.slideBtn}
 							checked={value === '3'}
 							onChange={handleChange}
-							onClick={()=>{history.push("/GettingStarted/TrendAnalysis")}}
+							onClick={()=>{history.push("/TrendAnalysis")}}
 							value="3"
 							name="slide"
 						/>
@@ -174,7 +174,7 @@ function GettingStarted() {
 							className={classes.slideBtn}
 							checked={value === '4'}
 							onChange={handleChange}
-							onClick={()=>{history.push("/GettingStarted/DataVisualization")}}
+							onClick={()=>{history.push("/DataVisualization")}}
 							value="4"
 							name="slide"
 						/>
@@ -182,7 +182,7 @@ function GettingStarted() {
 							className={classes.slideBtn}
 							checked={value === '5'}
 							onChange={handleChange}
-							onClick={()=>{history.push("/GettingStarted/EasyUpload")}}
+							onClick={()=>{history.push("/EasyUpload")}}
 							value="5"
 							name="slide"
 						/>
