@@ -54,7 +54,7 @@ const useStyles = makeStyles((theme) => ({
 		},
 		logoIcon:{
 			backgroundColor:theme.palette.secondary.main,
-			marginTop:theme.spacing(2),
+			marginTop:theme.spacing(4),
 			width: theme.spacing(7),
    	  height: theme.spacing(7),
 			fontSize:theme.spacing(3),
@@ -82,7 +82,19 @@ const useStyles = makeStyles((theme) => ({
 		},
 		link:{			
 			textDecoration:"none"
-		}
+		},
+		addornment:{
+			color:theme.palette.primary.main
+		},
+		lineColor:{
+			color:theme.palette.alternate.main,
+		},
+		loginBtn:{
+			color:"#ffffff",
+			fontWeight:"bold",
+			fontSize:theme.spacing(2),
+			marginTop:theme.spacing(2)
+		},
 }))
 
 function Register() {
@@ -111,9 +123,13 @@ function Register() {
 													InputProps={{
           									startAdornment: (
 															<InputAdornment position="start">
-																<AccountCircleIcon />
+																<AccountCircleIcon className={classes.addornment}/>
 															</InputAdornment>
 														),
+														className:classes.lineColor,
+													}}
+													InputLabelProps={{
+														className: classes.lineColor,
 													}}/>
                         <TextField 
 													className={classes.infoField}
@@ -126,9 +142,13 @@ function Register() {
 													InputProps={{
           									startAdornment: (
 															<InputAdornment position="start">
-																<EmailIcon />
+																<EmailIcon className={classes.addornment}/>
 															</InputAdornment>
 														),
+														className:classes.lineColor,
+													}}
+													InputLabelProps={{
+														className: classes.lineColor,
 													}}/>
                         <TextField 
 													className={classes.infoField}
@@ -141,9 +161,13 @@ function Register() {
 													InputProps={{
           									startAdornment: (
 															<InputAdornment position="start">
-																<LockIcon />
+																<LockIcon className={classes.addornment}/>
 															</InputAdornment>
 														),
+														className:classes.lineColor,
+													}}
+													InputLabelProps={{
+														className: classes.lineColor,
 													}}/>
                         <TextField 
 													className={classes.infoField}
@@ -156,27 +180,17 @@ function Register() {
 													InputProps={{
 														startAdornment: (
 															<InputAdornment position="start">
-																<LockIcon />
+																<LockIcon className={classes.addornment}/>
 															</InputAdornment>
 														),
-												}}/>
-												<Button fullWidth variant="contained" color="secondary">
+														className:classes.lineColor,
+													}}
+													InputLabelProps={{
+														className: classes.lineColor,
+													}}/>
+												<Button className={classes.loginBtn} fullWidth variant="contained" color="secondary">
 													Sign In
 												</Button>
-												<div className={classes.buttonGroup}>
-													<Avatar className={classes.socialButton}>
-														<FacebookIcon/>
-													</Avatar>
-													<Avatar className={classes.socialButton}>
-														<TwitterIcon/>
-													</Avatar>
-													<Avatar className={classes.socialButton}>
-														<InstagramIcon/>
-													</Avatar>
-													<Avatar className={classes.socialButton}>
-														<LinkedInIcon/>
-													</Avatar>										
-												</div>
                     </Grid>
 										<Grid item xs={6}>
 											<div className={classes.linkGroup}>

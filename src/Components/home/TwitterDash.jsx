@@ -68,8 +68,7 @@ const useStyles = makeStyles((theme) => ({
       display:"flex",
   },
   socialSnippetIcon:{
-      color: theme.palette.getContrastText(theme.palette.primary.main),
-      backgroundColor: theme.palette.primary.main
+    backgroundColor:theme.palette.primary.main,
   },
   }));
 

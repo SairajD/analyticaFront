@@ -1,8 +1,7 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Avatar from '@material-ui/core/Avatar';
-import FacebookIcon from '@material-ui/icons/Facebook';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -11,10 +10,9 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import LockIcon from '@material-ui/icons/Lock';
 import Button from '@material-ui/core/Button';
-import TwitterIcon from '@material-ui/icons/Twitter';
-import InstagramIcon from '@material-ui/icons/Instagram';
-import LinkedInIcon from '@material-ui/icons/LinkedIn';
 import {Link} from 'react-router-dom';
+
+
 
 const useStyles = makeStyles((theme) => ({
     signInRoot:{
@@ -81,12 +79,28 @@ const useStyles = makeStyles((theme) => ({
 		},
 		link:{			
 			textDecoration:"none"
+		},
+		loginBtn:{
+			color:"#ffffff",
+			fontWeight:"bold",
+			fontSize:theme.spacing(2)
+		},
+		forgotPass:{
+			color:theme.palette.text.secondary,
+			marginTop:theme.spacing(2),
+		},
+		addornment:{
+			color:theme.palette.primary.main
+		},
+		lineColor:{
+			color:theme.palette.alternate.main,
 		}
 }))
 
 function Login() {
 
     const classes = useStyles();
+		const theme= useTheme();
 
     return (
         <div className={classes.signInRoot}>
@@ -243,10 +257,14 @@ function Login() {
 													placeholder="User Name" 
 													InputProps={{
           									startAdornment: (
-															<InputAdornment position="start">
-																<AccountCircleIcon />
+															<InputAdornment position="start" >
+																<AccountCircleIcon className={classes.addornment}/>
 															</InputAdornment>
 														),
+														className:classes.lineColor,
+													}}
+													InputLabelProps={{
+														className: classes.lineColor,
 													}}/>                      
                         <TextField 
 													className={classes.infoField}
@@ -259,27 +277,22 @@ function Login() {
 													InputProps={{
           									startAdornment: (
 															<InputAdornment position="start">
-																<LockIcon />
+																<LockIcon className={classes.addornment}/>
 															</InputAdornment>
 														),
+														className:classes.lineColor,
+													}}
+													InputLabelProps={{
+														className: classes.lineColor,
 													}}/>
-                        <Button fullWidth variant="contained" color="secondary">
+                        <Button className={classes.loginBtn} fullWidth variant="contained" color="secondary">
 													Sign In
 												</Button>
-												<div className={classes.buttonGroup}>
-													<Avatar className={classes.socialButton}>
-														<FacebookIcon/>
-													</Avatar>
-													<Avatar className={classes.socialButton}>
-														<TwitterIcon/>
-													</Avatar>
-													<Avatar className={classes.socialButton}>
-														<InstagramIcon/>
-													</Avatar>
-													<Avatar className={classes.socialButton}>
-														<LinkedInIcon/>
-													</Avatar>										
-												</div>
+												<Link to="/" className={classes.link}>
+													<Typography className={classes.forgotPass}>
+														Forgot Password?
+													</Typography>
+												</Link>
                     </Grid>
                 </Grid>
             </Paper>

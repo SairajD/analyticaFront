@@ -8,6 +8,7 @@ import {useHistory} from 'react-router-dom';
 const useStyles = makeStyles((theme) => ({
 		loginButton:{
 			marginTop:theme.spacing(2),
+            color:"#ffffff"
 		},
 		svgVector:{
 			position:"absolute",

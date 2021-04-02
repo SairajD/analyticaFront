@@ -20,14 +20,14 @@ const useStyles = makeStyles((theme) => ({
 			zIndex:-1
 		},
 		logoIcon:{
-			backgroundColor:theme.palette.secondary.main,
+			backgroundColor:theme.palette.alternate.main,
 			marginTop:theme.spacing(2),
 			fontSize:theme.spacing(2),
 			marginLeft:theme.spacing(2),
 			fontWeight:"bold",
 		},
 		appName:{
-			color:theme.palette.secondary.main,
+			color:theme.palette.alternate.main,
 			marginTop:theme.spacing(2),
 			fontSize:theme.spacing(3),
 			fontWeight:"bold",
@@ -35,6 +35,7 @@ const useStyles = makeStyles((theme) => ({
 		},
 		loginButton:{
 			marginTop:theme.spacing(2),
+			color:"#ffffff"
 		},
 		svgVector:{
 			position:"absolute",
@@ -81,6 +82,7 @@ const useStyles = makeStyles((theme) => ({
 		slideBtn:{
 			marginLeft:theme.spacing(2),
 			marginRight:theme.spacing(2),
+			color:theme.palette.alternate.main
 		}
 }))
 
@@ -153,6 +155,7 @@ function GettingStarted() {
 							onClick={()=>{history.push("/")}}
 							value="1"
 							name="slide"
+							color="alternate"
 						/>
 						<Radio
 							className={classes.slideBtn}
@@ -161,6 +164,7 @@ function GettingStarted() {
 							onClick={()=>{history.push("/SentimentAnalysis")}}
 							value="2"
 							name="slide"
+							color="alternate"
 						/>
 						<Radio
 							className={classes.slideBtn}
@@ -169,6 +173,7 @@ function GettingStarted() {
 							onClick={()=>{history.push("/TrendAnalysis")}}
 							value="3"
 							name="slide"
+							color="alternate"
 						/>
 						<Radio
 							className={classes.slideBtn}
@@ -177,6 +182,7 @@ function GettingStarted() {
 							onClick={()=>{history.push("/DataVisualization")}}
 							value="4"
 							name="slide"
+							color="alternate"
 						/>
 						<Radio
 							className={classes.slideBtn}
@@ -185,6 +191,7 @@ function GettingStarted() {
 							onClick={()=>{history.push("/EasyUpload")}}
 							value="5"
 							name="slide"
+							color="alternate"
 						/>
 					</div>
 				</div>

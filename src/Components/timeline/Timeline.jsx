@@ -50,6 +50,9 @@ const useStyles = makeStyles((theme) => ({
   timelineTitle:{
       marginTop:theme.spacing(2),
       marginBottom:theme.spacing(2),
+  },
+  timelineBtn:{
+    color:"#ffffff"
   }
 }));
 
@@ -98,7 +101,7 @@ console.log(socialInfoNegatives)
         </TimelineOppositeContent>
         <TimelineSeparator>
           <TimelineDot color="primary">
-            <FacebookIcon/>
+            <FacebookIcon className={classes.timelineBtn}/>
           </TimelineDot>
           <TimelineConnector />
         </TimelineSeparator>
