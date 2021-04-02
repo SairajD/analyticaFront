@@ -73,6 +73,7 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up("md")]: {
       width: "20ch",
     },
+    color:"#ffffff",
   },
   sectionDesktop: {
     display: "none",
@@ -108,6 +109,9 @@ const useStyles = makeStyles((theme) => ({
     padding:0,
     marginLeft:theme.spacing(1),
     marginRight:theme.spacing(1),
+  },
+  searchIconColor:{
+    color:"#ffffff"
   }
 }));
 
@@ -291,7 +295,7 @@ export default function PrimarySearchAppBar() {
           <div className={classes.search}>
             
               <div className={classes.searchIcon}>
-                <SearchIcon />
+                <SearchIcon className={classes.searchIconColor}/>
               </div>
             
             <InputBase
