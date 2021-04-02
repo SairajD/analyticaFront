@@ -1,16 +1,9 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import FacebookIcon from '@material-ui/icons/Facebook';
-import TwitterIcon from '@material-ui/icons/Twitter';
-import InstagramIcon from '@material-ui/icons/Instagram';
-import LinkedInIcon from '@material-ui/icons/LinkedIn';
-import ThumbUpIcon from '@material-ui/icons/ThumbUp';
-import CommentIcon from '@material-ui/icons/Comment';
-import axios from 'axios';
 import {useSelector} from 'react-redux';
+import SearchComponent from './SearchComponent';
+
 
 const drawerWidth = 240;
 
@@ -53,7 +46,8 @@ const useStyles = makeStyles((theme) => ({
 export default function SearchDataDisplay() {
   const classes = useStyles();
   const socialInfoNegatives = useSelector(state => state.negativeTweets);  
-  const socialInfoPositives = useSelector(state => state.positiveTweets)
+  const socialInfoPositives = useSelector(state => state.positiveTweets);
+
 
 
   return (
@@ -63,37 +57,12 @@ export default function SearchDataDisplay() {
     
     
     {socialInfoNegatives.map((item, index) => (
-      
-          <Paper elevation={3} className={classes.paper} key={index}>
-            <Typography className={classes.timelineTitle} variant="h6" component="h1">
-              {item.sentiment}
-            </Typography>
-            <Typography className={classes.timelineContent}>{item.caption}</Typography>
-            <div className={classes.likeComment}>
-                <Typography className={classes.likeComItem}>{item.likes}</Typography>
-                <ThumbUpIcon color="primary"/>
-                <Typography className={classes.likeComItem}>{item.comments}</Typography>
-                <CommentIcon color="primary"/>
-            </div>
-          </Paper>
-        
+      <SearchComponent key={index} sentiment={item.sentiment} caption={item.caption} likes={item.likes} comments={item.comments}/>
+
       ))}
 
 {socialInfoPositives.map((item, index) => (
-      
-      <Paper elevation={3} className={classes.paper} key={index}>
-        <Typography className={classes.timelineTitle} variant="h6" component="h1">
-          {item.sentiment}
-        </Typography>
-        <Typography className={classes.timelineContent}>{item.caption}</Typography>
-        <div className={classes.likeComment}>
-            <Typography className={classes.likeComItem}>{item.likes}</Typography>
-            <ThumbUpIcon color="primary"/>
-            <Typography className={classes.likeComItem}>{item.comments}</Typography>
-            <CommentIcon color="primary"/>
-        </div>
-      </Paper>
-    
+      <SearchComponent key={index} sentiment={item.sentiment} caption={item.caption} likes={item.likes} comments={item.comments}/>
   ))}
     
     </div>

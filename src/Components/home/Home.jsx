@@ -16,9 +16,13 @@ import Avatar from '@material-ui/core/Avatar';
 import Divider from '@material-ui/core/Divider';
 import FacebookIcon from '@material-ui/icons/Facebook';
 import Paper from '@material-ui/core/Paper';
+import {useSelector} from 'react-redux';
+import TwitterDash from './TwitterDash';
+import InstagramDash from './InstagramDash';
+
 const drawerWidth = 240;
 
-const documentID = '604865dc9c7f42544d67f492'
+const documentID = '604866549c7f42544d67f493'
 
 const useStyles = makeStyles((theme) => ({
     homeRoot: {
@@ -88,7 +92,9 @@ const useStyles = makeStyles((theme) => ({
         width:460,
         padding: '6px 16px',
         margin: theme.spacing(3),
-        borderRadius:theme.spacing(1)
+        borderRadius:theme.spacing(1),
+        height:"60vh",
+        overflowY:"scroll"
     },
     timelineContent:{
         width: 360,
@@ -118,13 +124,26 @@ const useStyles = makeStyles((theme) => ({
     socialSnippetIcon:{
         color: theme.palette.getContrastText(theme.palette.primary.main),
         backgroundColor: theme.palette.primary.main
-    }
+    },
+    '@global': {
+        '*::-webkit-scrollbar': {
+          width: '0.4em'
+        },
+        '*::-webkit-scrollbar-track': {
+          '-webkit-box-shadow': 'inset 0 0 6px rgba(0,0,0,0.00)'
+        },
+        '*::-webkit-scrollbar-thumb': {
+          backgroundColor: 'rgba(0,0,0,.1)',
+          outline: '1px solid slategrey'
+        }
+      }
   }));
 
   
 
   export default function Home() {
     const classes = useStyles();
+    const socialLoc = useSelector(state => state.changeSocial);
     const [facebookData, setFacebookData] = useState({series:[],options:{labels:[],
         dataLabels:{
         enabled: false,
@@ -176,116 +195,84 @@ const useStyles = makeStyles((theme) => ({
     const [lineData, setLineData] = useState({series:[{data:[]}],options:{xaxis:{categories:[]}}})
     const [socialInfo, setSocialInfo] = useState([{caption:"", likes:0, comments:0, timestamp:0, thumbnail:""}])
 
-    const facebookChart = () => {
-        let positive
-        let negative
-        axios
-            .get(`https://analytica-parsb-api.herokuapp.com/instagram/tags/${documentID}/download`)
-            .then(response => {
+    // const facebookChart = () => {
+    //     let positive
+    //     let negative
+    //     axios
+    //         .get(`https://analytica-parsb-api.herokuapp.com/analytica/instagram/tags/${documentID}/download`)
+    //         .then(response => {
 
-                positive = parseInt(response.data.numberOfPositives)
-                negative = parseInt(response.data.numberOfNegatives)
-                setFacebookData({
-                    series:[positive, negative],
-                    options:{
-                        labels:["positive feedback", "negative feedback"]
-                    },
+    //             positive = parseInt(response.data.numberOfPositives)
+    //             negative = parseInt(response.data.numberOfNegatives)
+    //             setFacebookData({
+    //                 series:[positive, negative],
+    //                 options:{
+    //                     labels:["positive feedback", "negative feedback"]
+    //                 },
                     
-                })
-                setLineData({
-                    series:[{data:[positive, negative]}],
-                    options:{xaxis:{categories:[positive, negative]}}
-                })
+    //             })
+    //             setLineData({
+    //                 series:[{data:[positive, negative]}],
+    //                 options:{xaxis:{categories:[positive, negative]}}
+    //             })
                                 
-            })
-            .catch(err => {
-                console.log(err)
-            })
+    //         })
+    //         .catch(err => {
+    //             console.log(err)
+    //         })
             
-            }
+    //         }
     
 
    
 
-    useEffect(() => {
+    // useEffect(() => {
         
-        facebookChart();
+    //     facebookChart();
                                                                              
-    }, [])
+    // }, [])
 
-    const socialData = () => {
+    // const socialData = () => {
     
-        axios
-            .get(`https://analytica-parsb-api.herokuapp.com/instagram/tags/${documentID}/download`)
-            .then(response => {
-                const negData = response.data.negatives;
-                setSocialInfo(negData);
-            })
-            .catch(err => {
-                console.log(err);
-            })
+    //     axios
+    //         .get(`https://analytica-parsb-api.herokuapp.com/analytica/instagram/tags/${documentID}/download`)
+    //         .then(response => {
+    //             const negData = response.data.negatives;
+    //             setSocialInfo(negData);
+    //         })
+    //         .catch(err => {
+    //             console.log(err);
+    //         })
             
                 
-            }
+    //         }
     
     
     
     
-    useEffect(() => {
+    // useEffect(() => {
         
-        socialData();
+    //     socialData();
                                                                              
-    }, [])
+    // }, [])
+
+    const socialDisplayData = ()=>{
+        if(socialLoc==="Twitter")
+        {
+            return (<TwitterDash/>)
+        }
+        else if(socialLoc==="Instagram")
+        {
+            return (<InstagramDash/>)
+        }
+    }
 
   
     return (
       <div className={classes.homeRoot}>
         <CssBaseline />
         <div className={classes.homeToolbar}/>
-        <div className={classes.socialCards}>
-            <SimpleCard socialPlat={Facebook} socialClass={classes.Facebook}/>
-            <SimpleCard socialPlat={Twitter} socialClass={classes.Twitter}/>
-            <SimpleCard socialPlat={Instagram} socialClass={classes.Instagram}/>
-            <SimpleCard socialPlat={Linkedin} socialClass={classes.Linkedin}/>
-        </div>
-        <div className={classes.chartRow}>
-        <div className={classes.pieChart}>
-            <Typography variant="body1" color="textPrimary"> 
-                Sentiment Analysis
-            </Typography>
-            <DougnutChart data = {facebookData} width = "250" height = "300"/>
-        </div>
-        <div className={classes.lineChart}>
-            <Typography variant="body1" color="textPrimary"> 
-                Growth Of Followers
-            </Typography>
-            <LineChart data = {lineData} width = "600" height = "280"/>
-        </div>
-        </div>
-        <Paper elevation={3} className={classes.paper}>    
-    {socialInfo.map((item, index) => (
-      
-      <div className={classes.socialSnippets} key={index}>
-          <Avatar className={classes.socialSnippetIcon}>
-            <FacebookIcon />
-          </Avatar>
-          <div>
-            <Typography className={classes.timelineTitle} variant="h6" component="h1">
-              {item.sentiment}
-            </Typography>
-            <Typography className={classes.timelineContent}>{item.caption}</Typography>
-            <div className={classes.likeComment}>
-                <Typography className={classes.likeComItem}>{item.likes}</Typography>
-                <ThumbUpIcon color="primary"/>
-                <Typography className={classes.likeComItem}>{item.comments}</Typography>
-                <CommentIcon color="primary"/>
-            </div>
-      <Divider/>
-            </div>
-      </div>
-  ))}
-  </Paper>
-        <div className={classes.homeToolbar}/>
+        {socialDisplayData()}
       </div>
     );
   }

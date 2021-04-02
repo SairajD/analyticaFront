@@ -9,7 +9,6 @@ import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
-import EmailIcon from '@material-ui/icons/Email';
 import LockIcon from '@material-ui/icons/Lock';
 import Button from '@material-ui/core/Button';
 import TwitterIcon from '@material-ui/icons/Twitter';
@@ -56,7 +55,7 @@ const useStyles = makeStyles((theme) => ({
 			backgroundColor:theme.palette.secondary.main,
 			marginTop:theme.spacing(4),
 			width: theme.spacing(7),
-   	  height: theme.spacing(7),
+   	  		height: theme.spacing(7),
 			fontSize:theme.spacing(3),
 			fontWeight:"bold",
 		},

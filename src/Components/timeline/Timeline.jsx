@@ -57,29 +57,29 @@ export default function CustomTimeline() {
   const classes = useStyles();
   const [socialInfoNegatives, setSocialInfoNegatives] = useState([{caption:"", likes:0, comments:0, timestamp:0, thumbnail:""}])
   
-  const socialData = () => {
+//   const socialData = () => {
     
-    axios
-        .get(`https://analytica-parsb-api.herokuapp.com/instagram/tags/${documentID}/download`)
-        .then(response => {
-            const negData = response.data.negatives;
-            setSocialInfoNegatives(negData);
-        })
-        .catch(err => {
-            console.log(err);
-        })
+//     axios
+//         .get(`https://analytica-parsb-api.herokuapp.com/analytica/instagram/tags/${documentID}/download`)
+//         .then(response => {
+//             const negData = response.data.negatives;
+//             setSocialInfoNegatives(negData);
+//         })
+//         .catch(err => {
+//             console.log(err);
+//         })
         
             
-        }
+//         }
 
 
 
 
-useEffect(() => {
+// useEffect(() => {
     
-    socialData();
+//     socialData();
                                                                          
-}, [])
+// }, [])
 
 console.log(socialInfoNegatives)
 

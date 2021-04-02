@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Link} from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -18,6 +18,8 @@ import SettingsIcon from '@material-ui/icons/Settings';
 import Avatar from '@material-ui/core/Avatar';
 import ProfilePic from "./prof-pic.jpg";
 import Typography from '@material-ui/core/Typography';
+import {useDispatch} from 'react-redux';
+import {dashLoc} from '../reduxStore/actions/addTweets';
 
 const drawerWidth = 240;
 
@@ -25,42 +27,42 @@ const SidebarData = [
     {
         text:"Home",
         icon:<DashboardIcon/>,
-        path:"/"
+        path:"/Dashboard"
     },
     {
         text:"Timeline",
         icon:<TimelineIcon/>,
-        path:"/Timeline"
+        path:"/Dashboard/Timeline"
     },
     {
         text:"Trend",
         icon:<WhatshotIcon/>,
-        path:"/"
+        path:"/Dashboard"
     },
     {
         text:"Upload",
         icon:<BackupIcon/>,
-        path:"/"
+        path:"/Dashboard"
     },
     {
         text:"History",
         icon:<HistoryIcon/>,
-        path:"/"
+        path:"/Dashboard"
     },
     {
         text:"Followers",
         icon:<FaceIcon/>,
-        path:"/"
+        path:"/Dashboard"
     },
     {
         text:"Sponsors",
         icon:<MonetizationOnIcon/>,
-        path:"/"
+        path:"/Dashboard"
     },
     {
         text:"Settings",
         icon:<SettingsIcon/>,
-        path:"/"
+        path:"/Dashboard/Settings"
     }
 ]
 
@@ -101,6 +103,8 @@ const useStyles = makeStyles((theme) => ({
 
 export default function PermanentDrawerLeft() {
   const classes = useStyles();
+  const [dash, setDash] = useState("Home"); 
+  const dispatch = useDispatch();
 
   return (
     <div className={classes.root}>
@@ -122,7 +126,7 @@ export default function PermanentDrawerLeft() {
         <List>
           {SidebarData.map((item, index) => (
             <Link to={item.path} className={classes.linkStyle} key={index}>
-            <ListItem button>
+            <ListItem button onClick={()=>dispatch(dashLoc(item.text))}>
               <ListItemIcon>{item.icon}</ListItemIcon>
               <ListItemText primary={item.text} />
             </ListItem>

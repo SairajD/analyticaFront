@@ -22,7 +22,7 @@ function App() {
           <Route path="/" exact component={GetStartedCombine}/>
           <Route path="/Login" component={Login}/>
           <Route path="/Register" component={Register}/>          
-          <Route path="/Dahboard" component={Dashboard}/>
+          <Route path="/Dashboard" component={Dashboard}/>
         </Switch>
         </Router>
     </div>

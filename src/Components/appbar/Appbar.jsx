@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, Redirect, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { fade, makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -14,8 +14,11 @@ import MailIcon from "@material-ui/icons/Mail";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 import MoreIcon from "@material-ui/icons/MoreVert";
 import axios from "axios";
-import {useDispatch} from 'react-redux';
-import {addNegatives, addPositives} from '../reduxStore/actions/addTweets';
+import {useDispatch, useSelector} from 'react-redux';
+import {addNegatives, addPositives, socialLoc} from '../reduxStore/actions/addTweets';
+import TwitterIcon from '@material-ui/icons/Twitter';
+import InstagramIcon from '@material-ui/icons/Instagram';
+import Avatar from '@material-ui/core/Avatar';
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -87,6 +90,14 @@ const useStyles = makeStyles((theme) => ({
     textDecoration: "none",
     color: "#ffffff",
   },
+  socialButton:{
+    backgroundColor:theme.palette.secondary.main,
+    marginLeft:theme.spacing(1.5),
+    marginRight:theme.spacing(1.5)
+  },
+  socialIcon:{
+    display:"flex"
+  }
 }));
 
 export default function PrimarySearchAppBar() {
@@ -95,6 +106,8 @@ export default function PrimarySearchAppBar() {
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
   const [id, setId] = useState("");
   const [timerId, setTimerId] = useState("");
+   
+  const dashLoc = useSelector(state => state.changeDash);
   
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -165,7 +178,7 @@ export default function PrimarySearchAppBar() {
   const onInputChange = (e) => {
     if (e.key === "Enter") {
       onSearch(e.target.value);
-      history.push('/SearchDisplay');
+      history.push('/Dashboard/SearchDisplay');
   }
 };
 
@@ -200,6 +213,22 @@ export default function PrimarySearchAppBar() {
       <MenuItem onClick={handleMenuClose}>Logout</MenuItem>
     </Menu>
   );
+
+  const socialBtnDisplay=()=>{
+    if(dashLoc==="Home")
+    {
+      return(
+        <div className={classes.socialIcon}>
+          <Avatar className={classes.socialButton} onClick={()=>dispatch(socialLoc("Twitter"))}>
+            <TwitterIcon/>
+          </Avatar>
+          <Avatar className={classes.socialButton} onClick={()=>dispatch(socialLoc("Instagram"))}>
+            <InstagramIcon/>
+          </Avatar>
+        </div>
+      )
+    }
+  }
 
   const mobileMenuId = "primary-search-account-menu-mobile";
   const renderMobileMenu = (
@@ -259,6 +288,8 @@ export default function PrimarySearchAppBar() {
               inputProps={{ "aria-label": "search" }}
             />
           </div>
+
+          {socialBtnDisplay()}
 
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>

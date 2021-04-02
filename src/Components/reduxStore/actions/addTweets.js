@@ -15,3 +15,21 @@ export const addPositives = (obj) => {
         }
     }
 }
+
+export const dashLoc = (obj) => {
+    return {
+        type: "changeDash",
+        payload: {
+            data: obj
+        }
+    }
+}
+
+export const socialLoc = (obj) => {
+    return {
+        type: "changeSocial",
+        payload: {
+            data: obj
+        }
+    }
+}
