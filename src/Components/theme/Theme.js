@@ -7,10 +7,12 @@ export const Theme = createMuiTheme({
             main:"#FFB174"
         },
         secondary:{
-            main:"#22EAAA"
+            main:"#22EAAA",
+            contrastText:"#ffffff"
         },
         alternate:{
-            main:"#EE5A5A"
+            main:"#EE5A5A",
+            contrastText:"#ffffff"
         }
     }
 })

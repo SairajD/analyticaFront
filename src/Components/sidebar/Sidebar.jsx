@@ -37,27 +37,27 @@ const SidebarData = [
     {
         text:"Trend",
         icon:<WhatshotIcon/>,
-        path:"/Dashboard"
+        path:"/Dashboard/Trend"
     },
     {
         text:"Upload",
         icon:<BackupIcon/>,
-        path:"/Dashboard"
+        path:"/Dashboard/Upload"
     },
     {
         text:"History",
         icon:<HistoryIcon/>,
-        path:"/Dashboard"
+        path:"/Dashboard/History"
     },
     {
         text:"Followers",
         icon:<FaceIcon/>,
-        path:"/Dashboard"
+        path:"/DashboardFollowers"
     },
     {
         text:"Sponsors",
         icon:<MonetizationOnIcon/>,
-        path:"/Dashboard"
+        path:"/Dashboard/Sponsors"
     },
     {
         text:"Settings",
