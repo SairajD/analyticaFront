@@ -8,7 +8,8 @@ function BarChart(props) {
               options={props.data.options}
               series={props.data.series}
               type="bar"
-              width="500"
+              width={props.width}
+              height={props.height}
             />
         </div>
     )
