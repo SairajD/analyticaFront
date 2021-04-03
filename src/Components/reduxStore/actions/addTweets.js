@@ -33,3 +33,9 @@ export const socialLoc = (obj) => {
         }
     }
 }
+
+export const darkLight = (obj) => {
+    return {
+        type: "changeTheme",
+    }
+}

@@ -1,8 +1,7 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Avatar from '@material-ui/core/Avatar';
-import FacebookIcon from '@material-ui/icons/Facebook';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -16,9 +15,15 @@ import InstagramIcon from '@material-ui/icons/Instagram';
 import LinkedInIcon from '@material-ui/icons/LinkedIn';
 import cookies from 'react-cookies'
 import {Link,useHistory} from 'react-router-dom';
-import Axios from 'axios'
+import Axios from 'axios';
 
 const url=' https://analytica-parsb-api.herokuapp.com'
+
+
+
+
+
+
 const useStyles = makeStyles((theme) => ({
     signInRoot:{
         width:"100vw",
@@ -56,11 +61,12 @@ const useStyles = makeStyles((theme) => ({
 		},
 		logoIcon:{
 			backgroundColor:theme.palette.secondary.main,
-			marginTop:theme.spacing(4),
+			marginTop:theme.spacing(6),
 			width: theme.spacing(7),
-   	  		height: theme.spacing(7),
+   	  height: theme.spacing(7),
 			fontSize:theme.spacing(3),
 			fontWeight:"bold",
+			color:"#ffffff",
 		},
 		appName:{
 			color:theme.palette.secondary.main,
@@ -84,7 +90,22 @@ const useStyles = makeStyles((theme) => ({
 		},
 		link:{			
 			textDecoration:"none"
-		}
+		},
+		loginBtn:{
+			color:"#ffffff",
+			fontWeight:"bold",
+			fontSize:theme.spacing(2)
+		},
+		forgotPass:{
+			color:theme.palette.text.secondary,
+			marginTop:theme.spacing(2),
+		},
+		// addornment:{
+		// 	color:theme.palette.primary.main
+		// },
+		// lineColor:{
+		// 	color:theme.palette.alternate.main,
+		// }
 }))
 //functions
 
@@ -157,6 +178,7 @@ function Login() {
 		}
 	}
     const classes = useStyles();
+		const theme= useTheme();
 
     return (
         <div className={classes.signInRoot}>
@@ -313,10 +335,14 @@ function Login() {
 													placeholder="User Name" 
 													InputProps={{
           									startAdornment: (
-															<InputAdornment position="start">
-																<AccountCircleIcon />
+															<InputAdornment position="start" >
+																<AccountCircleIcon className={classes.addornment}/>
 															</InputAdornment>
 														),
+														className:classes.lineColor,
+													}}
+													InputLabelProps={{
+														className: classes.lineColor,
 													}}/>                      
                         <TextField 
 													className={classes.infoField}
@@ -329,28 +355,25 @@ function Login() {
 													InputProps={{
           									startAdornment: (
 															<InputAdornment position="start">
-																<LockIcon />
+																<LockIcon className={classes.addornment}/>
 															</InputAdornment>
 														),
+														className:classes.lineColor,
+													}}
+													InputLabelProps={{
+														className: classes.lineColor,
 													}}/>
-                        <Button fullWidth variant="contained" color="secondary" onClick={loggedin}>
+
+                        <Button fullWidth className={classes.loginBtn} variant="contained" color="secondary" onClick={loggedin}>
 													Sign In
 												</Button>
 												<p id="displayFault"></p>
-												{/* <div className={classes.buttonGroup}>
-													<Avatar className={classes.socialButton}>
-														<FacebookIcon/>
-													</Avatar>
-													<Avatar className={classes.socialButton}>
-														<TwitterIcon/>
-													</Avatar>
-													<Avatar className={classes.socialButton}>
-														<InstagramIcon/>
-													</Avatar>
-													<Avatar className={classes.socialButton}>
-														<LinkedInIcon/>
-													</Avatar>										
-												</div> */}
+ 
+												<Link to="/" className={classes.link}>
+													<Typography className={classes.forgotPass}>
+														Forgot Password?
+													</Typography>
+												</Link>
                     </Grid>
                 </Grid>
             </Paper>

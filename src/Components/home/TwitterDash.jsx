@@ -18,7 +18,6 @@ import FacebookIcon from '@material-ui/icons/Facebook';
 import Paper from '@material-ui/core/Paper';
 import  BarChart  from '../charts/bar/BarChart';
 import TwitterIcon from '@material-ui/icons/Twitter';
-
 import cookies from 'react-cookies'
 //constants
 
@@ -75,9 +74,11 @@ const useStyles = makeStyles((theme) => ({
       display:"flex",
   },
   socialSnippetIcon:{
-      color: theme.palette.getContrastText(theme.palette.primary.main),
-      backgroundColor: theme.palette.primary.main
-  },
+    backgroundColor:theme.palette.primary.main,
+  },  
+  socialSnippetIconInner:{
+    color:"#ffffff"
+  }
   }));
 
   
@@ -347,7 +348,11 @@ const postFrequencyData={
    
                   <div className={classes.socialSnippets} key={index}>
                       <Avatar className={classes.socialSnippetIcon}>
+
                         <TwitterIcon />
+
+                        <FacebookIcon className={classes.socialSnippetIconInner}/>
+
                       </Avatar>
                       <div>
                         <Typography className={classes.timelineTitle} variant="h6" component="h1">

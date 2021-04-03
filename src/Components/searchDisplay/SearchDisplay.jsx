@@ -1,8 +1,11 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import {useSelector} from 'react-redux';
 import SearchComponent from './SearchComponent';
+import SearchGraph from './SearchGraph';
+import {useDispatch} from 'react-redux';
+import {dashLoc} from '../reduxStore/actions/addTweets';
 
 
 const drawerWidth = 240;
@@ -44,18 +47,23 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function SearchDataDisplay() {
+	const dispatch = useDispatch();
   const classes = useStyles();
   const socialInfoNegatives = useSelector(state => state.negativeTweets);  
   const socialInfoPositives = useSelector(state => state.positiveTweets);
 
-
+  useEffect(() => {
+    
+    dispatch(dashLoc("SearchDisplay"));
+                                                                           
+  }, [])
 
   return (
     <div className={classes.timelineRoot}>
     <CssBaseline />
     <div className={classes.timelineToolbar}/>
     
-    
+    <SearchGraph/>
     {socialInfoNegatives.map((item, index) => (
       <SearchComponent key={index} sentiment={item.sentiment} caption={item.caption} likes={item.likes} comments={item.comments}/>
 

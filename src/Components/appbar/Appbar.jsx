@@ -75,6 +75,7 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up("md")]: {
       width: "20ch",
     },
+    color:"#ffffff",
   },
   sectionDesktop: {
     display: "none",
@@ -93,12 +94,27 @@ const useStyles = makeStyles((theme) => ({
     color: "#ffffff",
   },
   socialButton:{
-    backgroundColor:theme.palette.secondary.main,
+    backgroundColor:theme.palette.alternate.main,
     marginLeft:theme.spacing(1.5),
-    marginRight:theme.spacing(1.5)
+    marginRight:theme.spacing(1.5),
+    color:"#ffffff"
   },
   socialIcon:{
     display:"flex"
+  },
+  customBadge:{
+    backgroundColor:theme.palette.secondary.main
+  },
+  badgeContent:{
+    color:"#ffffff"
+  },
+  iconBtn:{
+    padding:0,
+    marginLeft:theme.spacing(1),
+    marginRight:theme.spacing(1),
+  },
+  searchIconColor:{
+    color:"#ffffff"
   }
 }));
 //functions
@@ -272,16 +288,20 @@ export default function PrimarySearchAppBar() {
       onClose={handleMobileMenuClose}
     >
       <MenuItem>
-        <IconButton aria-label="mails" color="inherit">
-          <Badge badgeContent={7} color="secondary">
-            <MailIcon />
+        <IconButton aria-label="mails" >
+          <Badge badgeContent={7} classes={{ badge: classes.customBadge }} className={classes.badgeContent}>
+            <Avatar className={classes.socialButton}>
+              <MailIcon />
+            </Avatar>
           </Badge>
         </IconButton>
       </MenuItem>
       <MenuItem>
-        <IconButton aria-label="notifications" color="inherit">
-          <Badge badgeContent={12} color="secondary">
-            <NotificationsIcon />
+        <IconButton aria-label="notifications" >
+          <Badge badgeContent={12} classes={{ badge: classes.customBadge }} className={classes.badgeContent}> 
+            <Avatar className={classes.socialButton}>
+              <NotificationsIcon />
+            </Avatar>
           </Badge>
         </IconButton>
       </MenuItem>
@@ -290,9 +310,10 @@ export default function PrimarySearchAppBar() {
           aria-label="user-account"
           aria-controls="primary-search-account-menu"
           aria-haspopup="true"
-          color="inherit"
         >
-          <AccountCircle />
+          <Avatar className={classes.socialButton}>
+            <AccountCircle />
+          </Avatar>
         </IconButton>
       </MenuItem>
     </Menu>
@@ -305,7 +326,7 @@ export default function PrimarySearchAppBar() {
           <div className={classes.search}>
             
               <div className={classes.searchIcon}>
-                <SearchIcon />
+                <SearchIcon className={classes.searchIconColor}/>
               </div>
             
             <InputBase
@@ -323,14 +344,18 @@ export default function PrimarySearchAppBar() {
 
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
-            <IconButton aria-label="mails" color="inherit">
-              <Badge badgeContent={9} color="secondary">
-                <MailIcon />
+            <IconButton aria-label="mails" className={classes.iconBtn}>
+              <Badge badgeContent={9} classes={{ badge: classes.customBadge }} className={classes.badgeContent}>
+                <Avatar className={classes.socialButton}>
+                  <MailIcon />
+                </Avatar>
               </Badge>
             </IconButton>
-            <IconButton aria-label="notifications" color="inherit">
-              <Badge badgeContent={11} color="secondary">
-                <NotificationsIcon />
+            <IconButton aria-label="notifications" className={classes.iconBtn}>
+              <Badge badgeContent={11} classes={{ badge: classes.customBadge }} className={classes.badgeContent}>
+                <Avatar className={classes.socialButton}>
+                  <NotificationsIcon/>
+                </Avatar>
               </Badge>
             </IconButton>
             <IconButton
@@ -339,9 +364,11 @@ export default function PrimarySearchAppBar() {
               aria-controls={menuId}
               aria-haspopup="true"
               onClick={handleProfileMenuOpen}
-              color="inherit"
+              className={classes.iconBtn}
             >
-              <AccountCircle />
+              <Avatar className={classes.socialButton}>
+                <AccountCircle />
+              </Avatar>
             </IconButton>
           </div>
           <div className={classes.sectionMobile}>
@@ -350,9 +377,11 @@ export default function PrimarySearchAppBar() {
               aria-controls={mobileMenuId}
               aria-haspopup="true"
               onClick={handleMobileMenuOpen}
-              color="inherit"
+              className={classes.iconBtn}
             >
-              <MoreIcon />
+              <Avatar className={classes.socialButton}>
+                <MoreIcon />
+              </Avatar>
             </IconButton>
           </div>
         </Toolbar>

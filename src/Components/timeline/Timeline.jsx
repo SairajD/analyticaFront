@@ -16,7 +16,9 @@ import InstagramIcon from '@material-ui/icons/Instagram';
 import LinkedInIcon from '@material-ui/icons/LinkedIn';
 import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 import CommentIcon from '@material-ui/icons/Comment';
-import axios from 'axios'
+import axios from 'axios';
+import {useDispatch} from 'react-redux';
+import {dashLoc} from '../reduxStore/actions/addTweets';
 
 const drawerWidth = 240;
 
@@ -50,10 +52,15 @@ const useStyles = makeStyles((theme) => ({
   timelineTitle:{
       marginTop:theme.spacing(2),
       marginBottom:theme.spacing(2),
+  },
+  timelineBtn:{
+    color:"#ffffff"
   }
 }));
 
 export default function CustomTimeline() {
+
+  const dispatch = useDispatch();
   const classes = useStyles();
   const [socialInfoNegatives, setSocialInfoNegatives] = useState([{caption:"", likes:0, comments:0, timestamp:0, thumbnail:""}])
   
@@ -81,6 +88,12 @@ export default function CustomTimeline() {
                                                                          
 // }, [])
 
+useEffect(() => {
+    
+  dispatch(dashLoc("Timeline"));
+                                                                         
+}, [])
+
 console.log(socialInfoNegatives)
 
   return (
@@ -98,7 +111,7 @@ console.log(socialInfoNegatives)
         </TimelineOppositeContent>
         <TimelineSeparator>
           <TimelineDot color="primary">
-            <FacebookIcon/>
+            <FacebookIcon className={classes.timelineBtn}/>
           </TimelineDot>
           <TimelineConnector />
         </TimelineSeparator>

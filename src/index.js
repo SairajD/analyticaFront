@@ -8,10 +8,11 @@ import allReducer from './Components/reduxStore/reducers/allReducer';
 
 const analyticaStore = createStore(allReducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
+
 ReactDOM.render(
-<Provider store = {analyticaStore}>
-<App />
-</Provider>
-, document.getElementById('root'));
+    <Provider store = {analyticaStore}>
+        <App />
+    </Provider>
+    , document.getElementById('root'));
 
 reportWebVitals();
