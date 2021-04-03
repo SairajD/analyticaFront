@@ -287,7 +287,7 @@ function Register() {
 														className: classes.lineColor,
 													}}/>
 
-												}}/>
+												
 												<Button fullWidth className={classes.loginBtn} variant="contained" color="secondary" onClick={loginClicked}>
 													Sign In
 												</Button>
