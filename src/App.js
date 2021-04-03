@@ -18,6 +18,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 function App() {
+  
   (function() {
     let tokenValue= cookies.load('Token') ;
     if (tokenValue) {
