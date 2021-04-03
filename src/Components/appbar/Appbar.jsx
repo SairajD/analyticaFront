@@ -94,7 +94,8 @@ const useStyles = makeStyles((theme) => ({
   socialButton:{
     backgroundColor:theme.palette.alternate.main,
     marginLeft:theme.spacing(1.5),
-    marginRight:theme.spacing(1.5)
+    marginRight:theme.spacing(1.5),
+    color:"#ffffff"
   },
   socialIcon:{
     display:"flex"

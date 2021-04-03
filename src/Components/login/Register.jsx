@@ -59,6 +59,7 @@ const useStyles = makeStyles((theme) => ({
    	  height: theme.spacing(7),
 			fontSize:theme.spacing(3),
 			fontWeight:"bold",
+			color:"#ffffff"
 		},
 		appName:{
 			color:theme.palette.secondary.main,
@@ -83,12 +84,12 @@ const useStyles = makeStyles((theme) => ({
 		link:{			
 			textDecoration:"none"
 		},
-		addornment:{
-			color:theme.palette.primary.main
-		},
-		lineColor:{
-			color:theme.palette.alternate.main,
-		},
+		// addornment:{
+		// 	color:theme.palette.addornment.main
+		// },
+		// lineColor:{
+		// 	color:theme.palette.alternate.main,
+		// },
 		loginBtn:{
 			color:"#ffffff",
 			fontWeight:"bold",

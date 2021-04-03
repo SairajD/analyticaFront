@@ -51,11 +51,12 @@ const useStyles = makeStyles((theme) => ({
 		},
 		logoIcon:{
 			backgroundColor:theme.palette.secondary.main,
-			marginTop:theme.spacing(4),
+			marginTop:theme.spacing(6),
 			width: theme.spacing(7),
-   	  		height: theme.spacing(7),
+   	  height: theme.spacing(7),
 			fontSize:theme.spacing(3),
 			fontWeight:"bold",
+			color:"#ffffff",
 		},
 		appName:{
 			color:theme.palette.secondary.main,
@@ -89,12 +90,12 @@ const useStyles = makeStyles((theme) => ({
 			color:theme.palette.text.secondary,
 			marginTop:theme.spacing(2),
 		},
-		addornment:{
-			color:theme.palette.primary.main
-		},
-		lineColor:{
-			color:theme.palette.alternate.main,
-		}
+		// addornment:{
+		// 	color:theme.palette.primary.main
+		// },
+		// lineColor:{
+		// 	color:theme.palette.alternate.main,
+		// }
 }))
 
 function Login() {

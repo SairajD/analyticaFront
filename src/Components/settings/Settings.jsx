@@ -11,8 +11,8 @@ import { Link } from "react-router-dom";
 import Switch from '@material-ui/core/Switch';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import MuiPhoneNumber from "material-ui-phone-number";
-import {useDispatch} from 'react-redux';
-import {dashLoc} from '../reduxStore/actions/addTweets';
+import {useDispatch, useSelector} from 'react-redux';
+import {darkLight, dashLoc} from '../reduxStore/actions/addTweets';
 
 const drawerWidth = 240;
 
@@ -45,7 +45,11 @@ const useStyles = makeStyles((theme) => ({
 			marginTop:theme.spacing(0.5),
 			marginBottom:theme.spacing(0.5),
 			backgroundColor:theme.palette.alternate.main,
-			color:"#ffffff"
+			color:"#ffffff",
+			'&:hover':{
+				backgroundColor:theme.palette.alternate.main,
+				opacity:0.8,
+			}
 		},
 		'@global': {
 			'*::-webkit-scrollbar': {
@@ -68,7 +72,7 @@ function Settings() {
 		const [checkedTwitter, setCheckedTwitter] = useState(false);
 		const [checkedInstagram, setCheckedInstagram] = useState(false);
 		const [checkedNotifications, setCheckedNotifications] = useState(false);
-		const [checkedDarkLight, setCheckedDarkLight] = useState(false);
+		const checkedDarkLight = useSelector(state=>state.changeTheme);
 
 		const handleChangeTwitter = () => {
 			setCheckedTwitter((prev) => !prev);
@@ -83,7 +87,7 @@ function Settings() {
 		};
 		
 		const handleChangeDarkLight = () => {
-			setCheckedDarkLight((prev) => !prev);
+			dispatch(darkLight())
 		};
 
 		useEffect(() => {

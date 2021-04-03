@@ -5,6 +5,11 @@ import Login from './Components/login/Login';
 import Register from './Components/login/Register';
 import GetStartedCombine from './Components/gettingStarted/GetStartedCombine';
 import Dashboard from './Components/dashboard/Dashboard';
+import {ThemeProvider} from "@material-ui/core/styles";
+import {Theme, DarkTheme} from "./Components/theme/Theme";
+import {useSelector} from 'react-redux';
+
+
 
 
 const useStyles = makeStyles((theme) => ({
@@ -15,17 +20,20 @@ const useStyles = makeStyles((theme) => ({
 
 function App() {
   const classes = useStyles();
+  const checkedDarkLight = useSelector(state=>state.changeTheme);
   return (
-    <div className={classes.root}>
-      <Router>
-        <Switch>          
-          <Route path="/" exact component={GetStartedCombine}/>
-          <Route path="/Login" component={Login}/>
-          <Route path="/Register" component={Register}/>          
-          <Route path="/Dashboard" component={Dashboard}/>
-        </Switch>
-        </Router>
-    </div>
+      <ThemeProvider theme ={checkedDarkLight? DarkTheme : Theme}>
+        <div className={classes.root}>
+          <Router>
+            <Switch>          
+              <Route path="/" exact component={GetStartedCombine}/>
+              <Route path="/Login" component={Login}/>
+              <Route path="/Register" component={Register}/>          
+              <Route path="/Dashboard" component={Dashboard}/>
+            </Switch>
+            </Router>
+        </div>        
+      </ThemeProvider>
   );
 }
 

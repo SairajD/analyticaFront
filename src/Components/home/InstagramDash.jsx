@@ -70,6 +70,9 @@ const useStyles = makeStyles((theme) => ({
   socialSnippetIcon:{
     backgroundColor:theme.palette.primary.main,
   },
+  socialSnippetIconInner:{
+    color:"#ffffff"
+  }
   }));
 
   
@@ -278,7 +281,7 @@ const useStyles = makeStyles((theme) => ({
       
                   <div className={classes.socialSnippets} key={index}>
                       <Avatar className={classes.socialSnippetIcon}>
-                        <FacebookIcon />
+                        <FacebookIcon className={classes.socialSnippetIconInner}/>
                       </Avatar>
                       <div>
                         <Typography className={classes.timelineTitle} variant="h6" component="h1">
