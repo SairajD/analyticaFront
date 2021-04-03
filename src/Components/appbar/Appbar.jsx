@@ -13,13 +13,15 @@ import AccountCircle from "@material-ui/icons/AccountCircle";
 import MailIcon from "@material-ui/icons/Mail";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 import MoreIcon from "@material-ui/icons/MoreVert";
-import axios from "axios";
+import Axios from "axios";
 import {useDispatch, useSelector} from 'react-redux';
 import {addNegatives, addPositives, socialLoc} from '../reduxStore/actions/addTweets';
 import TwitterIcon from '@material-ui/icons/Twitter';
 import InstagramIcon from '@material-ui/icons/Instagram';
 import Avatar from '@material-ui/core/Avatar';
+import cookies from 'react-cookies'
 
+const url=' https://analytica-parsb-api.herokuapp.com'
 const useStyles = makeStyles((theme) => ({
   appBar: {
     width: `calc(100% - 240px)`,
@@ -115,8 +117,19 @@ const useStyles = makeStyles((theme) => ({
     color:"#ffffff"
   }
 }));
-
+//functions
+// 
 export default function PrimarySearchAppBar() {
+  (function() {
+    	let tokenValue= cookies.load('Token') ;
+    	if (tokenValue) {
+    		Axios.defaults.headers.common['Authorization'] = tokenValue;
+    	} else {
+    		Axios.defaults.headers.common['Authorization'] = null;
+      
+    	}
+      console.log(tokenValue)
+    })();
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -133,7 +146,7 @@ export default function PrimarySearchAppBar() {
 
   let globalId;
   const checkStatus = async () => {
-    let response = await axios.get(
+    let response = await Axios.get(
       `https://analytica-parsb-api.herokuapp.com/analytica/twitter/search/status?documentId=${globalId}`
     );
     console.log(response);
@@ -141,7 +154,7 @@ export default function PrimarySearchAppBar() {
     if (response.status == 200) {
       console.log("Done");
       clearTimeout(timerId);
-      let response = await axios.get(
+      let response = await Axios.get(
         `https://analytica-parsb-api.herokuapp.com/analytica/twitter/search/download?documentId=${globalId}`
       );
       let finalNegatives = [];
@@ -179,7 +192,7 @@ export default function PrimarySearchAppBar() {
     }
   };
   const onSearch = async (data) => {
-    const twitterAnalysis = await axios.post(
+    const twitterAnalysis = await Axios.post(
       "https://analytica-parsb-api.herokuapp.com/analytica/twitter/search",
       { search_query: data, user: "rau@gmail.com" }
     );
@@ -210,7 +223,24 @@ export default function PrimarySearchAppBar() {
     setAnchorEl(null);
     handleMobileMenuClose();
   };
+  const logoutClicked= async ()=>{
 
+  
+ 
+ const result=await Axios.post(url+'/Analytica/users/Logout')
+ if(result.status===200){
+  cookies.remove('Username')
+  cookies.remove('Token');
+  history.replace("/Login");window.location.reload(false);
+ }
+ else {
+   console.log('error')
+   //Comment:put here error page
+  // history.replace("/Login");window.location.reload(false);
+ }
+
+
+  }
   const handleMobileMenuOpen = (event) => {
     setMobileMoreAnchorEl(event.currentTarget);
   };
@@ -226,7 +256,7 @@ export default function PrimarySearchAppBar() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Logout</MenuItem>
+      <MenuItem onClick={logoutClicked}>Logout</MenuItem>
     </Menu>
   );
 

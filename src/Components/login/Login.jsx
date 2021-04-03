@@ -10,7 +10,17 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import LockIcon from '@material-ui/icons/Lock';
 import Button from '@material-ui/core/Button';
-import {Link} from 'react-router-dom';
+import TwitterIcon from '@material-ui/icons/Twitter';
+import InstagramIcon from '@material-ui/icons/Instagram';
+import LinkedInIcon from '@material-ui/icons/LinkedIn';
+import cookies from 'react-cookies'
+import {Link,useHistory} from 'react-router-dom';
+import Axios from 'axios';
+
+const url=' https://analytica-parsb-api.herokuapp.com'
+
+
+
 
 
 
@@ -97,9 +107,76 @@ const useStyles = makeStyles((theme) => ({
 		// 	color:theme.palette.alternate.main,
 		// }
 }))
+//functions
+
 
 function Login() {
+	(function() {
+		let tokenValue= cookies.load('Token') ;
+		if (tokenValue) {
+			Axios.defaults.headers.common['Authorization'] = tokenValue;
+		} else {
+			Axios.defaults.headers.common['Authorization'] = null;
+		
+		}
+	})();
+	const History=useHistory();
+	const loggedin=async ()=>{
+		let username=document.getElementById('user-name')
+		let password=document.getElementById('password')
+		let displayFault=document.getElementById('displayFault')
+		if(username.value==''||password.value==''){
+			displayFault.innerHTML="Empty Fields not Alllowed"
 
+			displayFault.style.color="red"
+			return;
+		}
+		try{
+			console.log(password.value+" "+username.value)
+			let response=await Axios.post(url+'/Analytica/users/Login',{
+			
+				Password:password.value,
+				Email:username.value
+			}
+		
+			 )
+			 const expires = new Date()
+			 expires.setDate(Date.now() + 1000 * 60 * 60 * 24 * 14)
+			 console.log(response.data.token)
+			 cookies.save('Token', 'Bearer '+response.data.token,   {
+				path: '/',
+				expires,
+			
+	
+				// secure: true,
+				// httpOnly: true
+			  })
+			  cookies.save('Username', response.data.Username,   {
+				path: '/',
+				expires,
+		
+			
+				// secure: true,
+				// httpOnly: true
+			  })
+		
+	
+		
+			History.push("./Dashboard");
+
+			
+
+		}
+		catch(e){
+			console.log(e.response.status)
+			if(e.response.status){
+				displayFault.innerHTML="Invalid Username or password"
+				displayFault.style.color="red"
+				return;
+			}
+
+		}
+	}
     const classes = useStyles();
 		const theme= useTheme();
 
@@ -286,9 +363,12 @@ function Login() {
 													InputLabelProps={{
 														className: classes.lineColor,
 													}}/>
-                        <Button className={classes.loginBtn} fullWidth variant="contained" color="secondary">
+
+                        <Button fullWidth className={classes.loginBtn} variant="contained" color="secondary" onClick={loggedin}>
 													Sign In
 												</Button>
+												<p id="displayFault"></p>
+ 
 												<Link to="/" className={classes.link}>
 													<Typography className={classes.forgotPass}>
 														Forgot Password?

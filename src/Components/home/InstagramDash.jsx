@@ -8,7 +8,6 @@ import Linkedin from "./linkedin.png"
 import Twitter from "./twitter.png"
 import DougnutChart from '../charts/doughnut/DougnutChart';
 import LineChart from '../charts/line/LineChart';
-import axios from 'axios'
 import { Grid, Typography } from '@material-ui/core';
 import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 import CommentIcon from '@material-ui/icons/Comment';
@@ -16,10 +15,17 @@ import Avatar from '@material-ui/core/Avatar';
 import Divider from '@material-ui/core/Divider';
 import FacebookIcon from '@material-ui/icons/Facebook';
 import Paper from '@material-ui/core/Paper';
+import  BarChart  from '../charts/bar/BarChart';
+import InstagramIcon from '@material-ui/icons/Instagram';
+import Axios from 'axios'
+import cookies from 'react-cookies'
+//constants
+
 const drawerWidth = 240;
-
+let usernameDisplay='gowithbang2'
 const documentID = '604866549c7f42544d67f493'
-
+const url='https://analytica-parsb-api.herokuapp.com'
+//
 const useStyles = makeStyles((theme) => ({
     dataSpace:{
       margin:theme.spacing(2),
@@ -80,122 +86,175 @@ const useStyles = makeStyles((theme) => ({
   export default function InstagramDash() {
     const classes = useStyles();
 
-
+    const [instaData, setInstaData] = useState({})
+    const [instaFeeds, setInstaFeeds] = useState([])
     
-    const [facebookData, setFacebookData] = useState({series:[],options:{labels:[],
-      dataLabels:{
-      enabled: false,
-  },
-  legend: {
-      show: true,
-      position: 'bottom',
-      horizontalAlign: 'center', 
-      floating: false,
-      fontSize: '12px',
-      fontWeight: 400,
-      inverseOrder: false,
-      offsetX: 0,
-      offsetY: 0,
-      markers: {
-          width: 12,
-          height: 12,
-          strokeWidth: 0,
-          strokeColor: '#fff',
-          radius: 24,
-      },
-      itemMargin: {
-          horizontal: 5,
-          vertical: 5
-      },
-      onItemClick: {
-          toggleDataSeries: true
-      },
-      onItemHover: {
-          highlightDataSeries: true
-      },
-  },
-  chart: {
-      animations: {
-          enabled: true,
-          easing: 'easeinout',
-          speed: 800,
-          animateGradually: {
-              enabled: true,
-              delay: 150
-          },
-          dynamicAnimation: {
-              enabled: true,
-              speed: 350
-          }
-      }
-  }}})
- 
-  const [lineData, setLineData] = useState({series:[{data:[]}],options:{xaxis:{categories:[]}}})
-  const [socialInfo, setSocialInfo] = useState([{caption:"", likes:0, comments:0, timestamp:0, thumbnail:""}])
-
-  // const facebookChart = () => {
-  //     let positive
-  //     let negative
-  //     axios
-  //         .get(`https://analytica-parsb-api.herokuapp.com/analytica/instagram/tags/${documentID}/download`)
-  //         .then(response => {
-
-  //             positive = parseInt(response.data.numberOfPositives)
-  //             negative = parseInt(response.data.numberOfNegatives)
-  //             setFacebookData({
-  //                 series:[positive, negative],
-  //                 options:{
-  //                     labels:["positive feedback", "negative feedback"]
-  //                 },
-                  
-  //             })
-  //             setLineData({
-  //                 series:[{data:[positive, negative]}],
-  //                 options:{xaxis:{categories:[positive, negative]}}
-  //             })
-                              
-  //         })
-  //         .catch(err => {
-  //             console.log(err)
-  //         })
-          
+  //   const [instaData, setInstaData] = useState({series:[],options:{labels:[],
+  //     dataLabels:{
+  //     enabled: false,
+  // },
+  // legend: {
+  //     show: true,
+  //     position: 'bottom',
+  //     horizontalAlign: 'center', 
+  //     floating: false,
+  //     fontSize: '12px',
+  //     fontWeight: 400,
+  //     inverseOrder: false,
+  //     offsetX: 0,
+  //     offsetY: 0,
+  //     markers: {
+  //         width: 12,
+  //         height: 12,
+  //         strokeWidth: 0,
+  //         strokeColor: '#fff',
+  //         radius: 24,
+  //     },
+  //     itemMargin: {
+  //         horizontal: 5,
+  //         vertical: 5
+  //     },
+  //     onItemClick: {
+  //         toggleDataSeries: true
+  //     },
+  //     onItemHover: {
+  //         highlightDataSeries: true
+  //     },
+  // },
+  // chart: {
+  //     animations: {
+  //         enabled: true,
+  //         easing: 'easeinout',
+  //         speed: 800,
+  //         animateGradually: {
+  //             enabled: true,
+  //             delay: 150
+  //         },
+  //         dynamicAnimation: {
+  //             enabled: true,
+  //             speed: 350
   //         }
-  
+  //     }
+  // }}})
+ 
+  const [instaLineData, setInstaLineData] = useState({series:[{data:[]}],options:{xaxis:{categories:[]}}})
+  const [socialInfo, setSocialInfo] = useState([{caption:"", likes:0, comments:0, timestamp:0, thumbnail:""}])
+//functions
 
+  const instaCharts = () => {
+    (function() {
+      let tokenValue= cookies.load('Token') ;
+      if (tokenValue) {
+        Axios.defaults.headers.common['Authorization'] = tokenValue;
+      } else {
+        Axios.defaults.headers.common['Authorization'] = null;
+      
+      }
+    })();
+      Axios
+          .post(url+`/analytica/analysis/profile/engagement/`+usernameDisplay)
+          .then(response => {
+                setInstaLineData({
+                  series:[{data:response.data.postLikes}],
+                  options:{
+                    xaxis:{
+                      categories:response.data.postdates
+                    }
+                  }
+                
+                })
+
+                setInstaData({
+                  "engagement": response.data.engagement,
+                  "likes": response.data.likes,
+                  "comments": response.data.comments,
+                  "posts": response.data.posts,
+                  "followers": response.data.followers,
+                  "postFrequency": response.data.postFrequency,
+                })
+              
+                              
+          })
+          .catch(err => {
+              console.log(err)
+          })
+          
+          }
+  
+const userFeeds= async ()=>{
+  const results=await Axios.get(url+'/analytica/instagram/personalprofile/getfeeds')
+  let feedArray=[];
+  console.log('userFeeds')
+   console.log( results.data.data.user.edge_web_feed_timeline.edges[0])
+  results.data.data.user.edge_web_feed_timeline.edges.forEach((el)=>{
+  
+    if(el.node.__typename=="GraphSidecar"||el.node.__typename=="GraphImage"||el.node.__typename=="GraphVideo")
+    {
+     
+      let obj={
+        text:el.node.edge_media_to_caption.edges[0].node.text,
+        commentsCount:el.node.edge_media_to_comment.count,
+        image:el.node.owner.profile_pic_url,
+        Username:el.node.owner.username,
+        likesCount:el.node.edge_media_preview_like.count
+      }
+      feedArray.push(obj)
+    }
+   
+  })
+  console.log(feedArray)
+    setInstaFeeds(feedArray)
+
+
+
+}
  
 
-  // useEffect(() => {
-      
-  //     facebookChart();
+  useEffect(() => {
+    console.log('here')
+    instaCharts();
+ 
                                                                            
-  // }, [])
+  }, [])
+  useEffect(() => {
+      
+    console.log('here')
 
-  // const socialData = () => {
+    userFeeds();
+                                                                           
+  }, [])
+  const socialData = () => {
   
-  //     axios
-  //         .get(`https://analytica-parsb-api.herokuapp.com/analytica/instagram/tags/${documentID}/download`)
-  //         .then(response => {
-  //             const negData = response.data.negatives;
-  //             setSocialInfo(negData);
-  //         })
-  //         .catch(err => {
-  //             console.log(err);
-  //         })
+      Axios
+          .get(`https://analytica-parsb-api.herokuapp.com/analytica/instagram/tags/${documentID}/download`)
+          .then(response => {
+              const negData = response.data.negatives;
+              setSocialInfo(negData);
+          })
+          .catch(err => {
+              console.log(err);
+          })
           
               
-  //         }
+          }
   
   
   
   
-  // useEffect(() => {
-      
-  //     socialData();
+  useEffect(() => {
+
+      socialData();
                                                                            
-  // }, [])
+  }, [])
 
   
-
+const EngagementData={
+  series:[{data:[0.047,0.059,instaData.engagement,0.05]}],options:{xaxis:{categories:["World","India","User","Optimal"]}}
+}
+const postFrequencyData={
+  series:[{data:[2,3,instaData.postFrequency,1]}],options:{xaxis:{categories:["World","India","User","Optimal"]}}
+}
+  
   
     return (
       <div className={classes.twitterRoot}>
@@ -204,36 +263,52 @@ const useStyles = makeStyles((theme) => ({
           <Grid item xs={8}>
             <Paper elevation={3} className={classes.dataSpace}>
             <Grid container>
-              <Grid item xs={3}>
+              <Grid item xs={2}>
                 <Typography align="center">
-                  Insta
+                Engagement
                 </Typography>
                 <Typography align="center">
-                  Likes
-                </Typography>
-              </Grid>
-              <Grid item xs={3}>
-                <Typography align="center">
-                  Likes
-                </Typography>
-                <Typography align="center">
-                  Likes
+                  {instaData.engagement}
                 </Typography>
               </Grid>
-              <Grid item xs={3}>
+              <Grid item xs={2}>
                 <Typography align="center">
                   Likes
                 </Typography>
                 <Typography align="center">
-                  Likes
+                {instaData.likes}
                 </Typography>
               </Grid>
-              <Grid item xs={3}>
+              <Grid item xs={2}>
                 <Typography align="center">
-                  Likes
+                  Comments
                 </Typography>
                 <Typography align="center">
-                  Likes
+                {instaData.comments}
+                </Typography>
+              </Grid>
+              <Grid item xs={2}>
+                <Typography align="center">
+                  Posts
+                </Typography>
+                <Typography align="center">
+                {instaData.posts}
+                </Typography>
+              </Grid>
+              <Grid item xs={2}>
+                <Typography align="center">
+                  Followers
+                </Typography>
+                <Typography align="center">
+                {instaData.followers}
+                </Typography>
+              </Grid>
+              <Grid item xs={2}>
+                <Typography align="center">
+                  Post Frequency
+                </Typography>
+                <Typography align="center">
+                {instaData.postFrequency}
                 </Typography>
               </Grid>
             </Grid>
@@ -242,17 +317,17 @@ const useStyles = makeStyles((theme) => ({
               <Grid item xs={6} align="center">
                 <Paper elevation={3} className={classes.dataSpace}>
                   <Typography variant="body1" color="textPrimary"> 
-                    Sentiment Analysis
+                    Likeability Analysis
                   </Typography>
-                  <DougnutChart data = {facebookData} width = "250" height = "300"/>
+                  <LineChart data = {instaLineData} width = "250" height = "300"/>
                 </Paper>
               </Grid>
               <Grid item xs={6} align="center">
                 <Paper elevation={3} className={classes.dataSpace}>
                   <Typography variant="body1" color="textPrimary"> 
-                    Sentiment Analysis
+                   Engagement Details
                   </Typography>
-                  <DougnutChart data = {facebookData} width = "250" height = "300"/>
+                  <BarChart data = {EngagementData} width = "250" height = "300"/>
                 </Paper>
               </Grid>
             </Grid>
@@ -260,9 +335,9 @@ const useStyles = makeStyles((theme) => ({
               <Grid item xs={6} align="center">
                 <Paper elevation={3} className={classes.dataSpace}>
                   <Typography variant="body1" color="textPrimary"> 
-                    Sentiment Analysis
+                   Frequency Details
                   </Typography>
-                  <DougnutChart data = {facebookData} width = "250" height = "300"/>
+                  <BarChart data = {postFrequencyData} width = "250" height = "300"/>
                 </Paper>
               </Grid>
               <Grid item xs={6} align="center">
@@ -270,28 +345,41 @@ const useStyles = makeStyles((theme) => ({
                   <Typography variant="body1" color="textPrimary"> 
                     Sentiment Analysis
                   </Typography>
-                  <DougnutChart data = {facebookData} width = "250" height = "300"/>
+                  <DougnutChart data = {instaLineData} width = "250" height = "300"/>
                 </Paper>
               </Grid>
             </Grid>
           </Grid>
           <Grid item xs={4}>
+          {/* let obj={
+        text:el.node.edge_media_to_caption.edges[0].node.text,
+        commentsCount:el.node.edge_media_to_comment.count,
+        image:el.node.owner.profile_pic_url,
+        Username:el.node.owner.username,
+        likesCount:el.node.edge_media_preview_like.count
+      } */}
             <Paper elevation={3} className={classes.feedSpace} >
-              {socialInfo.map((item, index) => (
-      
+              {instaFeeds.map((item, index) => (
+
                   <div className={classes.socialSnippets} key={index}>
                       <Avatar className={classes.socialSnippetIcon}>
+
+                        <InstagramIcon />
+
                         <FacebookIcon className={classes.socialSnippetIconInner}/>
+
                       </Avatar>
+                
                       <div>
                         <Typography className={classes.timelineTitle} variant="h6" component="h1">
                           {item.sentiment}
                         </Typography>
-                        <Typography className={classes.timelineContent}>{item.caption}</Typography>
+                        
+                        <Typography className={classes.timelineContent}>{item.text}</Typography>
                         <div className={classes.likeComment}>
-                            <Typography className={classes.likeComItem}>{item.likes}</Typography>
+                            <Typography className={classes.likeComItem}>{item.likesCount}</Typography>
                             <ThumbUpIcon color="primary"/>
-                            <Typography className={classes.likeComItem}>{item.comments}</Typography>
+                            <Typography className={classes.likeComItem}>{item.commentsCount}</Typography>
                             <CommentIcon color="primary"/>
                         </div>
                   <Divider/>
