@@ -24,8 +24,8 @@ import cookies from 'react-cookies'
 const drawerWidth = 240;
 let usernameDisplay='gowithbang2'
 const documentID = '604866549c7f42544d67f493'
-const url='https://analytica-parsb-api.herokuapp.com'
-//
+const url=''
+//https://analytica-parsb-api.herokuapp.com
 const useStyles = makeStyles((theme) => ({
     dataSpace:{
       margin:theme.spacing(2),

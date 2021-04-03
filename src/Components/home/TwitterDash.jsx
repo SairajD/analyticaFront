@@ -208,7 +208,7 @@ const userFeeds= async ()=>{
   }, [])
   useEffect(() => {
       
-    instaCharts();
+   
     userFeeds();
                                                                            
   }, [])
