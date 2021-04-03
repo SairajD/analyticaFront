@@ -39,27 +39,27 @@ const SidebarData = [
     {
         text:"Trend",
         icon:<WhatshotIcon/>,
-        path:"/Dashboard"
+        path:"/Dashboard/Trend"
     },
     {
         text:"Upload",
         icon:<BackupIcon/>,
-        path:"/Dashboard"
+        path:"/Dashboard/Upload"
     },
     {
         text:"History",
         icon:<HistoryIcon/>,
-        path:"/Dashboard"
+        path:"/Dashboard/History"
     },
     {
         text:"Followers",
         icon:<FaceIcon/>,
-        path:"/Dashboard"
+        path:"/DashboardFollowers"
     },
     {
         text:"Sponsors",
         icon:<MonetizationOnIcon/>,
-        path:"/Dashboard"
+        path:"/Dashboard/Sponsors"
     },
     {
         text:"Settings",
@@ -91,6 +91,9 @@ const useStyles = makeStyles((theme) => ({
   },
   userEmail: {
     marginTop: theme.spacing(4),
+    color:"#ffffff",
+    fontSize:theme.spacing(2),
+    fontWeight:"bold"
   },
   content: {
     flexGrow: 1,

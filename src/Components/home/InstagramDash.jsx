@@ -8,7 +8,6 @@ import Linkedin from "./linkedin.png"
 import Twitter from "./twitter.png"
 import DougnutChart from '../charts/doughnut/DougnutChart';
 import LineChart from '../charts/line/LineChart';
-
 import { Grid, Typography } from '@material-ui/core';
 import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 import CommentIcon from '@material-ui/icons/Comment';
@@ -18,7 +17,6 @@ import FacebookIcon from '@material-ui/icons/Facebook';
 import Paper from '@material-ui/core/Paper';
 import  BarChart  from '../charts/bar/BarChart';
 import InstagramIcon from '@material-ui/icons/Instagram';
-
 import Axios from 'axios'
 import cookies from 'react-cookies'
 //constants
@@ -76,9 +74,11 @@ const useStyles = makeStyles((theme) => ({
       display:"flex",
   },
   socialSnippetIcon:{
-      color: theme.palette.getContrastText(theme.palette.primary.main),
-      backgroundColor: theme.palette.primary.main
+    backgroundColor:theme.palette.primary.main,
   },
+  socialSnippetIconInner:{
+    color:"#ffffff"
+  }
   }));
 
   
@@ -363,7 +363,11 @@ const postFrequencyData={
 
                   <div className={classes.socialSnippets} key={index}>
                       <Avatar className={classes.socialSnippetIcon}>
+
                         <InstagramIcon />
+
+                        <FacebookIcon className={classes.socialSnippetIconInner}/>
+
                       </Avatar>
                 
                       <div>

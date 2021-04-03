@@ -8,6 +8,12 @@ import Dashboard from './Components/dashboard/Dashboard';
 import ProTectedRoute from './protectedRoute/protectedroute'
 import Axios from 'axios'
 import cookies from 'react-cookies'
+import {ThemeProvider} from "@material-ui/core/styles";
+import {Theme, DarkTheme} from "./Components/theme/Theme";
+import {useSelector} from 'react-redux';
+
+
+
 
 const url="https://analytica-parsb-api.herokuapp.com"
 
@@ -41,17 +47,22 @@ function App() {
 
   }
   const classes = useStyles();
+  const checkedDarkLight = useSelector(state=>state.changeTheme);
   return (
-    <div className={classes.root}>
-      <Router>
-        <Switch>          
-          <Route path="/" exact component={GetStartedCombine}/>
-          <Route path="/Login" component={Login}  />
-          <Route path="/Register" component={Register}  />          
-          <ProTectedRoute path="/Dashboard" component={Dashboard}  isAuthenticate={() => checkAuth} />
-        </Switch>
-        </Router>
-    </div>
+
+      <ThemeProvider theme ={checkedDarkLight? DarkTheme : Theme}>
+        <div className={classes.root}>
+          <Router>
+            <Switch>          
+              <Route path="/" exact component={GetStartedCombine}/>
+              <Route path="/Login" component={Login}/>
+              <Route path="/Register" component={Register}/>          
+              <ProTectedRoute path="/Dashboard" component={Dashboard}  isAuthenticate={() => checkAuth} />
+            </Switch>
+            </Router>
+        </div>        
+      </ThemeProvider>
+
   );
 }
 
