@@ -1,6 +1,6 @@
 import react from 'react'
 import {Route,Redirect} from 'react-router-dom'
-function protectedroute({ component: Component, isAuthenticated, ...rest }) {
+function ProtectedRoute({ component: Component, isAuthenticated, ...rest }) {
     console.log(isAuthenticated)
     return (
         <Route
@@ -12,4 +12,4 @@ function protectedroute({ component: Component, isAuthenticated, ...rest }) {
         />
     );
 }
-export default protectedroute;
+export default ProtectedRoute;

@@ -18,6 +18,7 @@ import Paper from '@material-ui/core/Paper';
 import  BarChart  from '../charts/bar/BarChart';
 import TwitterIcon from '@material-ui/icons/Twitter';
 import cookies from 'react-cookies'
+import Logo from '../logo/Logo';
 //constants
 
 const drawerWidth = 240;

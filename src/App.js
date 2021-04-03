@@ -5,7 +5,7 @@ import Login from './Components/login/Login';
 import Register from './Components/login/Register';
 import GetStartedCombine from './Components/gettingStarted/GetStartedCombine';
 import Dashboard from './Components/dashboard/Dashboard';
-import ProTectedRoute from './protectedRoute/protectedroute'
+import ProtectedRoute from './protectedRoute/protectedroute'
 import Axios from 'axios'
 import cookies from 'react-cookies'
 import {ThemeProvider} from "@material-ui/core/styles";
@@ -57,7 +57,7 @@ function App() {
               <Route path="/" exact component={GetStartedCombine}/>
               <Route path="/Login" component={Login}/>
               <Route path="/Register" component={Register}/>          
-              <ProTectedRoute path="/Dashboard" component={Dashboard}  isAuthenticate={() => checkAuth} />
+              <ProtectedRoute path="/Dashboard" component={Dashboard}  isAuthenticate={() => checkAuth} />
             </Switch>
             </Router>
         </div>        

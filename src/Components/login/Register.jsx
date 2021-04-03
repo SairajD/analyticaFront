@@ -18,6 +18,7 @@ import LinkedInIcon from '@material-ui/icons/LinkedIn';
 import {Link,useHistory} from 'react-router-dom';
 import Axios from 'axios'
 import cookies from 'react-cookies'
+import Logo from '../logo/Logo';
 
 const url=' https://analytica-parsb-api.herokuapp.com'
 const useStyles = makeStyles((theme) => ({
@@ -58,11 +59,9 @@ const useStyles = makeStyles((theme) => ({
 		logoIcon:{
 			backgroundColor:theme.palette.secondary.main,
 			marginTop:theme.spacing(4),
-			width: theme.spacing(7),
-   	  height: theme.spacing(7),
-			fontSize:theme.spacing(3),
-			fontWeight:"bold",
-			color:"#ffffff"
+			width: theme.spacing(8),
+   	  height: theme.spacing(8),
+			 paddingLeft:theme.spacing(0.9)
 		},
 		appName:{
 			color:theme.palette.secondary.main,
@@ -206,7 +205,7 @@ function Register() {
                 <Grid container>
                     <Grid item xs={6}  className={classes.formContainer}>
                         <Avatar className={classes.logoIcon}> 
-                            A
+													<Logo color="#ffffff" width="72" height="72"/>
                         </Avatar>
                         <Typography className={classes.appName}>
                             ANALYTICA
