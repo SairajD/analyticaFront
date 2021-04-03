@@ -20,6 +20,8 @@ import ProfilePic from "./prof-pic.jpg";
 import Typography from '@material-ui/core/Typography';
 import {useDispatch} from 'react-redux';
 import {dashLoc} from '../reduxStore/actions/addTweets';
+import cookies from 'react-cookies'
+
 
 const drawerWidth = 240;
 
@@ -120,7 +122,7 @@ export default function PermanentDrawerLeft() {
         <div className={classes.userInfo}>
           <Avatar alt="Profile Picture" src={ProfilePic} className={classes.profilePic}/>
           <Typography variant="body1" align="left" className={classes.userEmail} color="textSecondary">
-            user@email.com
+           {cookies.load('Username')}
           </Typography>
         </div>
         <List>

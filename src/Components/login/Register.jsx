@@ -15,8 +15,11 @@ import Button from '@material-ui/core/Button';
 import TwitterIcon from '@material-ui/icons/Twitter';
 import InstagramIcon from '@material-ui/icons/Instagram';
 import LinkedInIcon from '@material-ui/icons/LinkedIn';
-import {Link} from 'react-router-dom';
+import {Link,useHistory} from 'react-router-dom';
+import Axios from 'axios'
+import cookies from 'react-cookies'
 
+const url=' https://analytica-parsb-api.herokuapp.com'
 const useStyles = makeStyles((theme) => ({
     signUpRoot:{
         width:"100vw",
@@ -88,7 +91,101 @@ const useStyles = makeStyles((theme) => ({
 function Register() {
 
     const classes = useStyles();
+	const History=useHistory();
+	const loginClicked=async ()=>{
+		
+	
+		let username=document.getElementById('user-name')
+		let mainPass=document.getElementById('password')
+		let checkPass=document.getElementById('confirm-password')
+		let displayFault=document.getElementById('displayFault')
+		let EmailVlaue=document.getElementById('email')
 
+		if(username.value==''||mainPass.value==''||checkPass.value==''||EmailVlaue.value==''){
+			displayFault.innerHTML="Empty Fields not Alllowed"
+
+			displayFault.style.color="red"
+			return;
+		}
+		if(mainPass.value!==checkPass.value){
+		
+
+			displayFault.innerHTML="Password Don't Match"
+			displayFault.style.color="red"
+			mainPass.style.borderColor = "red";
+			checkPass.style.borderColor = "red";
+			return;
+		}
+		if(!EmailVlaue.value.includes('@')){
+		
+
+			displayFault.innerHTML="Please Provide Appropriate Email Id"
+			displayFault.style.color="red"
+			EmailVlaue.style.borderColor = "red";
+			
+			return;
+		}
+		if(mainPass.value.length<6){
+			displayFault.innerHTML="Password length must be greater than 5"
+			displayFault.style.color="red"
+			return;
+		}
+		let passw = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/;
+		if(!mainPass.value.match(passw)) {
+			displayFault.innerHTML="Password Must contain  at least one numeric digit, one uppercase and one lowercase letter"
+			displayFault.style.color="red"
+			return;
+	
+		}
+
+		try{
+			let response=await Axios.post(url+'/Analytica/users/Register',{
+				Username:username.value.trim(),
+				Password:mainPass.value.trim(),
+				Email:EmailVlaue.value.trim()
+			}
+		
+			 )
+			 const expires = new Date()
+			 expires.setDate(Date.now() + 1000 * 60 * 60 * 24 * 14)
+			 cookies.save('Token', 'Bearer '+response.data.token,   {
+				path: '/',
+				expires,
+			
+	
+				// secure: true,
+				// httpOnly: true
+			  })
+			  cookies.save('Username', response.data.Username,   {
+				path: '/',
+				expires,
+			
+			
+				// secure: true,
+				// httpOnly: true
+			  })
+		
+	
+			console.log(response.data)
+			History.push("./Dashboard");
+
+			
+
+		}
+		catch(e){
+			console.log(e.response.status)
+			if(e.response.status){
+				displayFault.innerHTML="User with Id Already exits"
+				displayFault.style.color="red"
+				return;
+			}
+
+		}
+
+
+
+
+	}
     return (
         <div className={classes.signUpRoot}>
             <CssBaseline/>
@@ -160,10 +257,11 @@ function Register() {
 															</InputAdornment>
 														),
 												}}/>
-												<Button fullWidth variant="contained" color="secondary">
+												<Button fullWidth variant="contained" color="secondary" onClick={loginClicked}>
 													Sign In
 												</Button>
-												<div className={classes.buttonGroup}>
+												<p id="displayFault"></p>
+												{/* <div className={classes.buttonGroup}>
 													<Avatar className={classes.socialButton}>
 														<FacebookIcon/>
 													</Avatar>
@@ -176,7 +274,7 @@ function Register() {
 													<Avatar className={classes.socialButton}>
 														<LinkedInIcon/>
 													</Avatar>										
-												</div>
+												</div> */}
                     </Grid>
 										<Grid item xs={6}>
 											<div className={classes.linkGroup}>
