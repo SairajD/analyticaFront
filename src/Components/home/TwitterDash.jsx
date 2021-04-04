@@ -216,7 +216,8 @@ const userFeeds= async ()=>{
                                                                            
   }, [])
   useEffect(() => {
-  
+      
+   
     userFeeds();
                                                                            
   }, [])

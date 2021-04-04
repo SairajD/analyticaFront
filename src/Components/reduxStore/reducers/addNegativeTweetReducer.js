@@ -7,5 +7,6 @@ const addNegativeTweetReducer = (state = [], action) => {
             return state;
     }
 }
+//
 
 export default addNegativeTweetReducer;

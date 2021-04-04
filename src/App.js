@@ -1,17 +1,19 @@
-import React from 'react';
+import {React,useState} from 'react';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
-import Login from './Components/login/Login';
-import Register from './Components/login/Register';
+import Login from './login/Login';
+import Register from './login/Register';
 import GetStartedCombine from './Components/gettingStarted/GetStartedCombine';
 import Dashboard from './Components/dashboard/Dashboard';
 import ProtectedRoute from './protectedRoute/protectedroute'
+import PublicRoute from './Components/publicRoute/PublicRoute'
+import LoadingPage from './Components/loadingPage/LoadingPage';
 import Axios from 'axios'
 import cookies from 'react-cookies'
 import {ThemeProvider} from "@material-ui/core/styles";
 import {Theme, DarkTheme} from "./Components/theme/Theme";
 import {useSelector} from 'react-redux';
-
+import {useHistory} from 'react-router-dom';
 
 
 
@@ -24,28 +26,11 @@ const useStyles = makeStyles((theme) => ({
 
 
 function App() {
+
+  const history = useHistory();
+  const [isloading,setisloading]=useState(true)
+  const [isLoggedin,setLoggedin]=useState(false)
   
-  (function() {
-    let tokenValue= cookies.load('Token') ;
-    if (tokenValue) {
-      Axios.defaults.headers.common['Authorization'] = tokenValue;
-    } else {
-      Axios.defaults.headers.common['Authorization'] = null;
-    
-    }
-  })();
-  const checkAuth=async ()=>{
-
-    const result=await Axios.get(url+'/Analytica/users/checkexists');
-    if(result.status===200){
-      return true;
-    }
-    else{
-      return false;
-    }
-
-
-  }
   const classes = useStyles();
   const checkedDarkLight = useSelector(state=>state.changeTheme);
   return (
@@ -54,10 +39,11 @@ function App() {
         <div className={classes.root}>
           <Router>
             <Switch>          
-              <Route path="/" exact component={GetStartedCombine}/>
-              <Route path="/Login" component={Login}/>
-              <Route path="/Register" component={Register}/> 
-              <ProtectedRoute path="/Dashboard" component={Dashboard}  isAuthenticate={() => checkAuth} />
+              <PublicRoute exact path="/" exact Component={GetStartedCombine}  location="/"/>
+              <PublicRoute path="/Login" Component={Login} location="/Login" />
+              <PublicRoute path="/Register" Component={Register}  location="/Register"/>   
+              <Route path="/loadingpage" component={LoadingPage}  />         
+              <ProTectedRoute path="/Dashboard" Component={Dashboard} location="/Dashboard"/>
             </Switch>
             </Router>
         </div>        

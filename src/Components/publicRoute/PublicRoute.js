@@ -2,11 +2,10 @@ import React, {useState, useEffect} from 'react';
 import {BrowserRouter as Router, Switch, Route,Redirect} from 'react-router-dom';
 import Axios from 'axios'
 import cookies from 'react-cookies'
-import LoadingPage from '../Components/loadingPage/LoadingPage'
-
+import LoadingPage from '../loadingPage/LoadingPage'
 const url='https://analytica-parsb-api.herokuapp.com'
 
-export const PrivateRoute = (props) => {
+export const PublicRoute = (props) => {
     (function() {
         let tokenValue= cookies.load('Token') ;
         if (tokenValue) {
@@ -16,8 +15,9 @@ export const PrivateRoute = (props) => {
         
         }
       })();
+      const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [loading, setLoading] = useState(true);
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
+ 
 
     const { Component: Component, ...rest } = props;
     const fetchData = async () => {
@@ -35,7 +35,7 @@ export const PrivateRoute = (props) => {
                 console.log('s3')
                 setIsAuthenticated(true)
                 setLoading(false)
-              
+                console.log('reidredcted')
             }
             else{
                 console.log('s4')
@@ -55,24 +55,28 @@ export const PrivateRoute = (props) => {
     return (
         <Route
             {...rest}
-            render={() =>
+            render={() =>(
                 isAuthenticated ? (
-                    <Component />
+                  
+                    <Redirect
+                    to={{
+                        pathname: "/Dashboard",
+                        state: { from: props.location },
+                    }}
+                />
+                   
                 ) : loading ? (
+                
                     <LoadingPage></LoadingPage>
                 ) : (
-                    <Redirect
-                        to={{
-                            pathname: "/login",
-                            state: { from: props.location },
-                        }}
-                    />
+                
+                    <Component />
                 )
+            )
             }
         />
     );
-
 };
 
 
-export default PrivateRoute
+export default PublicRoute
