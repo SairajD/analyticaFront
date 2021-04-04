@@ -1,12 +1,11 @@
 import {React,useState} from 'react';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
-
 import Login from './login/Login';
 import Register from './login/Register';
 import GetStartedCombine from './Components/gettingStarted/GetStartedCombine';
 import Dashboard from './Components/dashboard/Dashboard';
-import ProTectedRoute from './protectedRoute/protectedroute'
+import ProtectedRoute from './protectedRoute/protectedroute'
 import PublicRoute from './Components/publicRoute/PublicRoute'
 import LoadingPage from './Components/loadingPage/LoadingPage';
 import Axios from 'axios'
@@ -44,7 +43,7 @@ function App() {
               <PublicRoute path="/Login" Component={Login} location="/Login" />
               <PublicRoute path="/Register" Component={Register}  location="/Register"/>   
               <Route path="/loadingpage" component={LoadingPage}  />         
-              <ProTectedRoute path="/Dashboard" Component={Dashboard} location="/Dashboard"/>
+              <ProtectedRoute path="/Dashboard" Component={Dashboard} location="/Dashboard"/>
             </Switch>
             </Router>
         </div>        

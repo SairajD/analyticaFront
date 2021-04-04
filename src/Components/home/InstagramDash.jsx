@@ -30,10 +30,16 @@ const useStyles = makeStyles((theme) => ({
     dataSpace:{
       margin:theme.spacing(2),
       padding:theme.spacing(2),
+      height:"55vh"
+    },
+    textDataSpace:{
+      margin:theme.spacing(2),
+      padding:theme.spacing(2),
+      height:"15vh"
     },
     feedSpace:{
       margin:theme.spacing(2),
-      height:"120vh",
+      height:"135vh",
       overflowY:"scroll",
       padding: '6px 16px',
     },
@@ -78,6 +84,9 @@ const useStyles = makeStyles((theme) => ({
   },
   socialSnippetIconInner:{
     color:"#ffffff"
+  },
+  textData:{
+    marginTop:theme.spacing(2)
   }
   }));
 
@@ -212,7 +221,7 @@ const userFeeds= async ()=>{
 
   useEffect(() => {
     console.log('here')
-    instaCharts();
+    //instaCharts();
  
                                                                            
   }, [])
@@ -220,7 +229,7 @@ const userFeeds= async ()=>{
       
     console.log('here')
 
-    userFeeds();
+    //userFeeds();
                                                                            
   }, [])
   const socialData = () => {
@@ -243,7 +252,7 @@ const userFeeds= async ()=>{
   
   useEffect(() => {
 
-      socialData();
+     //socialData();
                                                                            
   }, [])
 
@@ -261,13 +270,13 @@ const postFrequencyData={
         <CssBaseline />  
         <Grid container>
           <Grid item xs={8}>
-            <Paper elevation={3} className={classes.dataSpace}>
+            <Paper elevation={3} className={classes.textDataSpace}>
             <Grid container>
               <Grid item xs={2}>
                 <Typography align="center">
                 Engagement
                 </Typography>
-                <Typography align="center">
+                <Typography align="center" className={classes.textData}>
                   {instaData.engagement}
                 </Typography>
               </Grid>
@@ -275,7 +284,7 @@ const postFrequencyData={
                 <Typography align="center">
                   Likes
                 </Typography>
-                <Typography align="center">
+                <Typography align="center" className={classes.textData}>
                 {instaData.likes}
                 </Typography>
               </Grid>
@@ -283,7 +292,7 @@ const postFrequencyData={
                 <Typography align="center">
                   Comments
                 </Typography>
-                <Typography align="center">
+                <Typography align="center" className={classes.textData}>
                 {instaData.comments}
                 </Typography>
               </Grid>
@@ -291,7 +300,7 @@ const postFrequencyData={
                 <Typography align="center">
                   Posts
                 </Typography>
-                <Typography align="center">
+                <Typography align="center" className={classes.textData}>
                 {instaData.posts}
                 </Typography>
               </Grid>
@@ -299,7 +308,7 @@ const postFrequencyData={
                 <Typography align="center">
                   Followers
                 </Typography>
-                <Typography align="center">
+                <Typography align="center" className={classes.textData}>
                 {instaData.followers}
                 </Typography>
               </Grid>
@@ -307,7 +316,7 @@ const postFrequencyData={
                 <Typography align="center">
                   Post Frequency
                 </Typography>
-                <Typography align="center">
+                <Typography align="center" className={classes.textData}>
                 {instaData.postFrequency}
                 </Typography>
               </Grid>
@@ -319,7 +328,7 @@ const postFrequencyData={
                   <Typography variant="body1" color="textPrimary"> 
                     Likeability Analysis
                   </Typography>
-                  <LineChart data = {instaLineData} width = "250" height = "300"/>
+                  <LineChart data = {instaLineData} width = "280" height = "300"/>
                 </Paper>
               </Grid>
               <Grid item xs={6} align="center">
@@ -327,7 +336,7 @@ const postFrequencyData={
                   <Typography variant="body1" color="textPrimary"> 
                    Engagement Details
                   </Typography>
-                  <BarChart data = {EngagementData} width = "250" height = "300"/>
+                  <BarChart data = {EngagementData} width = "280" height = "300"/>
                 </Paper>
               </Grid>
             </Grid>
@@ -337,7 +346,7 @@ const postFrequencyData={
                   <Typography variant="body1" color="textPrimary"> 
                    Frequency Details
                   </Typography>
-                  <BarChart data = {postFrequencyData} width = "250" height = "300"/>
+                  <BarChart data = {postFrequencyData} width = "280" height = "300"/>
                 </Paper>
               </Grid>
               <Grid item xs={6} align="center">
@@ -345,7 +354,7 @@ const postFrequencyData={
                   <Typography variant="body1" color="textPrimary"> 
                     Sentiment Analysis
                   </Typography>
-                  <DougnutChart data = {instaLineData} width = "250" height = "300"/>
+                  <DougnutChart data = {instaLineData} width = "280" height = "300"/>
                 </Paper>
               </Grid>
             </Grid>
@@ -364,9 +373,7 @@ const postFrequencyData={
                   <div className={classes.socialSnippets} key={index}>
                       <Avatar className={classes.socialSnippetIcon}>
 
-                        <InstagramIcon />
-
-                        <FacebookIcon className={classes.socialSnippetIconInner}/>
+                        <InstagramIcon className={classes.socialSnippetIconInner}/>
 
                       </Avatar>
                 

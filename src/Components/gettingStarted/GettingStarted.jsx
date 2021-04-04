@@ -7,6 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import {useHistory} from 'react-router-dom';
 import Radio from '@material-ui/core/Radio';
+import Logo from '../logo/Logo';
 
 const useStyles = makeStyles((theme) => ({
     topStyling:{
@@ -22,19 +23,20 @@ const useStyles = makeStyles((theme) => ({
 		logoIcon:{
 			backgroundColor:theme.palette.alternate.main,
 			marginTop:theme.spacing(2),
-			fontSize:theme.spacing(2),
 			marginLeft:theme.spacing(2),
-			fontWeight:"bold",
+			width:theme.spacing(6),
+			height:theme.spacing(6),			
+			paddingLeft:theme.spacing(0.7)
 		},
 		appName:{
 			color:theme.palette.alternate.main,
-			marginTop:theme.spacing(2),
+			marginTop:theme.spacing(3),
 			fontSize:theme.spacing(3),
 			fontWeight:"bold",
 			zIndex:1000
 		},
 		loginButton:{
-			marginTop:theme.spacing(2),
+			marginTop:theme.spacing(3),
 			color:"#ffffff"
 		},
 		svgVector:{
@@ -83,6 +85,9 @@ const useStyles = makeStyles((theme) => ({
 			marginLeft:theme.spacing(2),
 			marginRight:theme.spacing(2),
 			color:theme.palette.alternate.main
+		},
+		logoIconSvg:{
+			marginLeft:theme.spacing(2)
 		}
 }))
 
@@ -126,7 +131,7 @@ function GettingStarted() {
 					<Grid container className={classes.navGroup}>
 						<Grid item xs={1}>
 							<Avatar className={classes.logoIcon}> 
-								A
+								<Logo color="#ffffff" width="64" height="64"/>
 							</Avatar>
 						</Grid>
 						<Grid item xs={1}>

@@ -2,8 +2,8 @@ import React, {useState, useEffect} from 'react';
 import {BrowserRouter as Router, Switch, Route,Redirect} from 'react-router-dom';
 import Axios from 'axios'
 import cookies from 'react-cookies'
-
 import LoadingPage from '../Components/loadingPage/LoadingPage'
+
 const url='https://analytica-parsb-api.herokuapp.com'
 
 export const PrivateRoute = (props) => {
@@ -71,7 +71,9 @@ export const PrivateRoute = (props) => {
             }
         />
     );
+
 };
 
 
 export default PrivateRoute
+

@@ -10,18 +10,13 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import LockIcon from '@material-ui/icons/Lock';
 import Button from '@material-ui/core/Button';
-import TwitterIcon from '@material-ui/icons/Twitter';
-import InstagramIcon from '@material-ui/icons/Instagram';
-import LinkedInIcon from '@material-ui/icons/LinkedIn';
 import cookies from 'react-cookies'
 import {Link,useHistory} from 'react-router-dom';
 import Axios from 'axios';
+import Logo from '../logo/Logo';
+
 
 const url=' https://analytica-parsb-api.herokuapp.com'
-
-
-
-
 
 
 const useStyles = makeStyles((theme) => ({
@@ -62,11 +57,9 @@ const useStyles = makeStyles((theme) => ({
 		logoIcon:{
 			backgroundColor:theme.palette.secondary.main,
 			marginTop:theme.spacing(6),
-			width: theme.spacing(7),
-   	  height: theme.spacing(7),
-			fontSize:theme.spacing(3),
-			fontWeight:"bold",
-			color:"#ffffff",
+			width: theme.spacing(8),
+   	  height: theme.spacing(8),
+			paddingLeft:theme.spacing(0.9)
 		},
 		appName:{
 			color:theme.palette.secondary.main,
@@ -98,7 +91,6 @@ const useStyles = makeStyles((theme) => ({
 		},
 		forgotPass:{
 			color:theme.palette.text.secondary,
-			marginTop:theme.spacing(2),
 		},
 		// addornment:{
 		// 	color:theme.palette.primary.main
@@ -321,7 +313,7 @@ function Login() {
 										</Grid>
                     <Grid item xs={6}  className={classes.formContainer}>
                         <Avatar className={classes.logoIcon}> 
-                            A
+                            <Logo color="#ffffff" width="72" height="72"/>
                         </Avatar>
                         <Typography className={classes.appName}>
                             ANALYTICA

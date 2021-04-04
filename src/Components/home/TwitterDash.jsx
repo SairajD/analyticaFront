@@ -14,11 +14,11 @@ import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 import CommentIcon from '@material-ui/icons/Comment';
 import Avatar from '@material-ui/core/Avatar';
 import Divider from '@material-ui/core/Divider';
-import FacebookIcon from '@material-ui/icons/Facebook';
 import Paper from '@material-ui/core/Paper';
 import  BarChart  from '../charts/bar/BarChart';
 import TwitterIcon from '@material-ui/icons/Twitter';
 import cookies from 'react-cookies'
+import Logo from '../logo/Logo';
 //constants
 
 const drawerWidth = 240;
@@ -29,11 +29,17 @@ const url='https://analytica-parsb-api.herokuapp.com'
 const useStyles = makeStyles((theme) => ({
     dataSpace:{
       margin:theme.spacing(2),
+      padding:theme.spacing(2),      
+      height:"55vh"
+    },
+    textDataSpace:{
+      margin:theme.spacing(2),
       padding:theme.spacing(2),
+      height:"15vh"
     },
     feedSpace:{
       margin:theme.spacing(2),
-      height:"120vh",
+      height:"135vh",
       overflowY:"scroll",
       padding: '6px 16px',
     },
@@ -78,6 +84,9 @@ const useStyles = makeStyles((theme) => ({
   },  
   socialSnippetIconInner:{
     color:"#ffffff"
+  },
+  textData:{
+    marginTop:theme.spacing(2)
   }
   }));
 
@@ -185,17 +194,17 @@ const userFeeds= async ()=>{
   const results=await Axios.get(url+'/analytica/twitter/personal/feed')
   let feedArray=[];
   console.log( results.data.data.user.edge_web_feed_timeline.edges[0])
-  // results.data.data.user.edges.forEach((el)=>{
-  //     let obj={
-  //       text:el.node.edge_media_to_caption.edges[0].node.text,
-  //       commentsCount:el.node.edge_media_to_comment.count,
-  //       image:el.node.display_url,
-  //       likesCount:222
-  //     }
-  //     feedArray.push(obj)
-  // })
-  // console.log(feedArray)
-  //   settweetFeeds(feedArray)
+  results.data.data.user.edges.forEach((el)=>{
+      let obj={
+        text:el.node.edge_media_to_caption.edges[0].node.text,
+        commentsCount:el.node.edge_media_to_comment.count,
+        image:el.node.display_url,
+        likesCount:222
+      }
+      feedArray.push(obj)
+  })
+  console.log(feedArray)
+    settweetFeeds(feedArray)
 
 }
  
@@ -232,7 +241,7 @@ const userFeeds= async ()=>{
   
   useEffect(() => {
       
-      socialData();
+     socialData();
                                                                            
   }, [])
 
@@ -253,13 +262,13 @@ const postFrequencyData={
         <CssBaseline />  
         <Grid container>
           <Grid item xs={8}>
-            <Paper elevation={3} className={classes.dataSpace}>
+            <Paper elevation={3} className={classes.textDataSpace}>
             <Grid container>
               <Grid item xs={2}>
                 <Typography align="center">
                 Engagement
                 </Typography>
-                <Typography align="center">
+                <Typography align="center" className={classes.textData}>
                   {tweetData.engagement}
                 </Typography>
               </Grid>
@@ -267,7 +276,7 @@ const postFrequencyData={
                 <Typography align="center">
                   Likes
                 </Typography>
-                <Typography align="center">
+                <Typography align="center" className={classes.textData}>
                 {tweetData.likes}
                 </Typography>
               </Grid>
@@ -275,7 +284,7 @@ const postFrequencyData={
                 <Typography align="center">
                   Comments
                 </Typography>
-                <Typography align="center">
+                <Typography align="center" className={classes.textData}>
                 {tweetData.comments}
                 </Typography>
               </Grid>
@@ -283,7 +292,7 @@ const postFrequencyData={
                 <Typography align="center">
                   Posts
                 </Typography>
-                <Typography align="center">
+                <Typography align="center" className={classes.textData}>
                 {tweetData.posts}
                 </Typography>
               </Grid>
@@ -291,7 +300,7 @@ const postFrequencyData={
                 <Typography align="center">
                   Followers
                 </Typography>
-                <Typography align="center">
+                <Typography align="center" className={classes.textData}>
                 {tweetData.followers}
                 </Typography>
               </Grid>
@@ -299,7 +308,7 @@ const postFrequencyData={
                 <Typography align="center">
                   Post Frequency
                 </Typography>
-                <Typography align="center">
+                <Typography align="center" className={classes.textData}>
                 {tweetData.postFrequency}
                 </Typography>
               </Grid>
@@ -311,7 +320,7 @@ const postFrequencyData={
                   <Typography variant="body1" color="textPrimary"> 
                     Likeability Analysis
                   </Typography>
-                  <LineChart data = {tweetLineData} width = "250" height = "300"/>
+                  <LineChart data = {tweetLineData} width = "280" height = "300"/>
                 </Paper>
               </Grid>
               <Grid item xs={6} align="center">
@@ -319,7 +328,7 @@ const postFrequencyData={
                   <Typography variant="body1" color="textPrimary"> 
                    Engagement Details
                   </Typography>
-                  <BarChart data = {EngagementData} width = "150" height = "300"  columnWidth='70%'/>
+                  <BarChart data = {EngagementData} width = "280" height = "300"/>
                 </Paper>
               </Grid>
             </Grid>
@@ -329,7 +338,7 @@ const postFrequencyData={
                   <Typography variant="body1" color="textPrimary"> 
                    Frequency Details
                   </Typography>
-                  <BarChart data = {postFrequencyData} width = "250" height = "300"/>
+                  <BarChart data = {postFrequencyData} width = "280" height = "300"/>
                 </Paper>
               </Grid>
               <Grid item xs={6} align="center">
@@ -337,7 +346,7 @@ const postFrequencyData={
                   <Typography variant="body1" color="textPrimary"> 
                     Sentiment Analysis
                   </Typography>
-                  <DougnutChart data = {tweetLineData} width = "250" height = "300"/>
+                  <DougnutChart data = {tweetLineData} width = "280" height = "300"/>
                 </Paper>
               </Grid>
             </Grid>
@@ -349,9 +358,7 @@ const postFrequencyData={
                   <div className={classes.socialSnippets} key={index}>
                       <Avatar className={classes.socialSnippetIcon}>
 
-                        <TwitterIcon />
-
-                        <FacebookIcon className={classes.socialSnippetIconInner}/>
+                        <TwitterIcon className={classes.socialSnippetIconInner}/>
 
                       </Avatar>
                       <div>

@@ -1,21 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import SimpleCard from '../socialDataCards/SocialDataCards';
-import Facebook from "./facebook.png"
-import Instagram from "./instagram.png"
-import Linkedin from "./linkedin.png"
-import Twitter from "./twitter.png"
-import DougnutChart from '../charts/doughnut/DougnutChart';
-import LineChart from '../charts/line/LineChart';
-import axios from 'axios'
-import { Typography } from '@material-ui/core';
-import ThumbUpIcon from '@material-ui/icons/ThumbUp';
-import CommentIcon from '@material-ui/icons/Comment';
-import Avatar from '@material-ui/core/Avatar';
-import Divider from '@material-ui/core/Divider';
-import FacebookIcon from '@material-ui/icons/Facebook';
-import Paper from '@material-ui/core/Paper';
 import {useSelector} from 'react-redux';
 import TwitterDash from './TwitterDash';
 import InstagramDash from './InstagramDash';
@@ -144,117 +129,7 @@ const useStyles = makeStyles((theme) => ({
   export default function Home() {
     const classes = useStyles();
     const socialLoc = useSelector(state => state.changeSocial);
-    const [facebookData, setFacebookData] = useState({series:[],options:{labels:[],
-        dataLabels:{
-        enabled: false,
-    },
-    legend: {
-        show: true,
-        position: 'bottom',
-        horizontalAlign: 'center', 
-        floating: false,
-        fontSize: '12px',
-        fontWeight: 400,
-        inverseOrder: false,
-        offsetX: 0,
-        offsetY: 0,
-        markers: {
-            width: 12,
-            height: 12,
-            strokeWidth: 0,
-            strokeColor: '#fff',
-            radius: 24,
-        },
-        itemMargin: {
-            horizontal: 5,
-            vertical: 5
-        },
-        onItemClick: {
-            toggleDataSeries: true
-        },
-        onItemHover: {
-            highlightDataSeries: true
-        },
-    },
-    chart: {
-        animations: {
-            enabled: true,
-            easing: 'easeinout',
-            speed: 800,
-            animateGradually: {
-                enabled: true,
-                delay: 150
-            },
-            dynamicAnimation: {
-                enabled: true,
-                speed: 350
-            }
-        }
-    }}})
-   
-    const [lineData, setLineData] = useState({series:[{data:[]}],options:{xaxis:{categories:[]}}})
-    const [socialInfo, setSocialInfo] = useState([{caption:"", likes:0, comments:0, timestamp:0, thumbnail:""}])
-
-    // const facebookChart = () => {
-    //     let positive
-    //     let negative
-    //     axios
-    //         .get(`https://analytica-parsb-api.herokuapp.com/analytica/instagram/tags/${documentID}/download`)
-    //         .then(response => {
-
-    //             positive = parseInt(response.data.numberOfPositives)
-    //             negative = parseInt(response.data.numberOfNegatives)
-    //             setFacebookData({
-    //                 series:[positive, negative],
-    //                 options:{
-    //                     labels:["positive feedback", "negative feedback"]
-    //                 },
-                    
-    //             })
-    //             setLineData({
-    //                 series:[{data:[positive, negative]}],
-    //                 options:{xaxis:{categories:[positive, negative]}}
-    //             })
-                                
-    //         })
-    //         .catch(err => {
-    //             console.log(err)
-    //         })
-            
-    //         }
     
-
-   
-
-    // useEffect(() => {
-        
-    //     facebookChart();
-                                                                             
-    // }, [])
-
-    // const socialData = () => {
-    
-    //     axios
-    //         .get(`https://analytica-parsb-api.herokuapp.com/analytica/instagram/tags/${documentID}/download`)
-    //         .then(response => {
-    //             const negData = response.data.negatives;
-    //             setSocialInfo(negData);
-    //         })
-    //         .catch(err => {
-    //             console.log(err);
-    //         })
-            
-                
-    //         }
-    
-    
-    
-    
-    // useEffect(() => {
-        
-    //     socialData();
-                                                                             
-    // }, [])
 
     const socialDisplayData = ()=>{
         if(socialLoc==="Twitter")
