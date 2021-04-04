@@ -10,9 +10,6 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import LockIcon from '@material-ui/icons/Lock';
 import Button from '@material-ui/core/Button';
-import TwitterIcon from '@material-ui/icons/Twitter';
-import InstagramIcon from '@material-ui/icons/Instagram';
-import LinkedInIcon from '@material-ui/icons/LinkedIn';
 import cookies from 'react-cookies'
 import {Link,useHistory} from 'react-router-dom';
 import Axios from 'axios';
@@ -64,7 +61,7 @@ const useStyles = makeStyles((theme) => ({
 			backgroundColor:theme.palette.secondary.main,
 			marginTop:theme.spacing(6),
 			width: theme.spacing(8),
-   	  height: theme.spacing(8),
+   	  		height: theme.spacing(8),
 			paddingLeft:theme.spacing(0.9)
 		},
 		appName:{

@@ -56,7 +56,7 @@ function App() {
             <Switch>          
               <Route path="/" exact component={GetStartedCombine}/>
               <Route path="/Login" component={Login}/>
-              <Route path="/Register" component={Register}/>          
+              <Route path="/Register" component={Register}/> 
               <ProtectedRoute path="/Dashboard" component={Dashboard}  isAuthenticate={() => checkAuth} />
             </Switch>
             </Router>
