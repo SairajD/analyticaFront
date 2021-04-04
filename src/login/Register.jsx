@@ -12,13 +12,10 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import EmailIcon from '@material-ui/icons/Email';
 import LockIcon from '@material-ui/icons/Lock';
 import Button from '@material-ui/core/Button';
-import TwitterIcon from '@material-ui/icons/Twitter';
-import InstagramIcon from '@material-ui/icons/Instagram';
-import LinkedInIcon from '@material-ui/icons/LinkedIn';
 import {Link,useHistory} from 'react-router-dom';
 import Axios from 'axios'
 import cookies from 'react-cookies'
-import Logo from '../logo/Logo';
+import Logo from '../Components/logo/Logo';
 
 
 const url=' https://analytica-parsb-api.herokuapp.com'

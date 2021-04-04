@@ -8,12 +8,11 @@ import Dashboard from './Components/dashboard/Dashboard';
 import ProtectedRoute from './protectedRoute/protectedroute'
 import PublicRoute from './Components/publicRoute/PublicRoute'
 import LoadingPage from './Components/loadingPage/LoadingPage';
-import Axios from 'axios'
-import cookies from 'react-cookies'
 import {ThemeProvider} from "@material-ui/core/styles";
 import {Theme, DarkTheme} from "./Components/theme/Theme";
 import {useSelector} from 'react-redux';
 import {useHistory} from 'react-router-dom';
+import Loading from './Components/loading/Loading';
 
 
 
@@ -42,7 +41,7 @@ function App() {
               <PublicRoute exact path="/" exact Component={GetStartedCombine}  location="/"/>
               <PublicRoute path="/Login" Component={Login} location="/Login" />
               <PublicRoute path="/Register" Component={Register}  location="/Register"/>   
-              <Route path="/loadingpage" component={LoadingPage}  />         
+              <Route path="/Loading" component={Loading}  />         
               <ProtectedRoute path="/Dashboard" Component={Dashboard} location="/Dashboard"/>
             </Switch>
             </Router>

@@ -28,8 +28,7 @@ function Dashboard() {
           <Route path ="/Dashboard/Timeline"  component={CustomTimeline}/>
           <Route path ="/Dashboard/SearchDisplay"  component={SearchDataDisplay}/>
           <Route path ="/Dashboard/Settings"  component={Settings}/>            
-          <Route path ="/Dashboard/History"  component={History}/>          
-          <Route path='/Dashboard/Loading' component={Loading}/> 
+          <Route path ="/Dashboard/History"  component={History}/>  
         </Switch>
         </Router>
     </div>
