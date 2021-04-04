@@ -76,3 +76,4 @@ export const PrivateRoute = (props) => {
 
 
 export default PrivateRoute
+

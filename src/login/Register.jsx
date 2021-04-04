@@ -20,6 +20,7 @@ import Axios from 'axios'
 import cookies from 'react-cookies'
 import Logo from '../logo/Logo';
 
+
 const url=' https://analytica-parsb-api.herokuapp.com'
 const useStyles = makeStyles((theme) => ({
     signUpRoot:{
@@ -61,7 +62,7 @@ const useStyles = makeStyles((theme) => ({
 			marginTop:theme.spacing(4),
 			width: theme.spacing(8),
    	  height: theme.spacing(8),
-			 paddingLeft:theme.spacing(0.9)
+		  paddingLeft:theme.spacing(0.9)
 		},
 		appName:{
 			color:theme.palette.secondary.main,

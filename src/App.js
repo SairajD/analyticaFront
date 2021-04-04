@@ -43,7 +43,7 @@ function App() {
               <PublicRoute path="/Login" Component={Login} location="/Login" />
               <PublicRoute path="/Register" Component={Register}  location="/Register"/>   
               <Route path="/loadingpage" component={LoadingPage}  />         
-              <ProTectedRoute path="/Dashboard" Component={Dashboard} location="/Dashboard"/>
+              <ProtectedRoute path="/Dashboard" Component={Dashboard} location="/Dashboard"/>
             </Switch>
             </Router>
         </div>        

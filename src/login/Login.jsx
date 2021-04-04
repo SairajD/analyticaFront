@@ -15,11 +15,8 @@ import {Link,useHistory} from 'react-router-dom';
 import Axios from 'axios';
 import Logo from '../logo/Logo';
 
+
 const url=' https://analytica-parsb-api.herokuapp.com'
-
-
-
-
 
 
 const useStyles = makeStyles((theme) => ({
@@ -61,7 +58,7 @@ const useStyles = makeStyles((theme) => ({
 			backgroundColor:theme.palette.secondary.main,
 			marginTop:theme.spacing(6),
 			width: theme.spacing(8),
-   	  		height: theme.spacing(8),
+   	  height: theme.spacing(8),
 			paddingLeft:theme.spacing(0.9)
 		},
 		appName:{
