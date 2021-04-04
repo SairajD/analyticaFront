@@ -25,14 +25,17 @@ const useStyles = makeStyles((theme) => ({
 		},
 		logoIcon:{
 			backgroundColor:theme.palette.secondary.main,
-			width: theme.spacing(8),
-   	  height: theme.spacing(8),
-			paddingLeft:theme.spacing(0.9)
+			width: theme.spacing(9),
+   	  		height: theme.spacing(9),
+			paddingLeft:theme.spacing(0.9),
+			position:"absolute",
+			transform:"translateY(-100px)",
 		},
 		logoSocialIcon:{
 			backgroundColor:theme.palette.secondary.main,
-			marginLeft:theme.spacing(1),
-			marginRight:theme.spacing(1),
+			marginTop:theme.spacing(4),
+			marginLeft:theme.spacing(0.5),
+			marginRight:theme.spacing(0.5),
 			animation:"$bounce 0.5s cubic-bezier(.19,.57,.3,.98) infinite alternate",
 			"&:nth-child(2)":{
 				animationDelay: "0.1s",
@@ -46,7 +49,7 @@ const useStyles = makeStyles((theme) => ({
 		},
 		'@keyframes bounce':{
 			"0%":{transform:"translateY(0)"},
-			"100%":{transform:"translateY(-100px)"}
+			"100%":{transform:"translateY(-50px)"}
 		},
 }));
 
@@ -69,9 +72,9 @@ function Loading() {
 						<Avatar className={classes.logoSocialIcon}> 
 							<LinkedInIcon/>
 						</Avatar>						
-						{/* <Avatar className={classes.logoIcon}> 
-							<Logo color="#ffffff" width="72" height="72"/>
-						</Avatar> */}
+						<Avatar className={classes.logoIcon}> 
+							<Logo color="#ffffff" width="80" height="80"/>
+						</Avatar>
 					</div>
         </div>
     )
