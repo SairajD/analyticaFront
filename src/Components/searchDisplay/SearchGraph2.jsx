@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Paper from '@material-ui/core/Paper';
 import DougnutChart from '../charts/doughnut/DougnutChart';
 import LineChart from '../charts/line/LineChart';
@@ -28,14 +28,14 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-function SearchGraph() {
+function SearchGraph({ displayData }) {
 
 	const classes = useStyles();
 	const dashLoc = useSelector(state => state.changeDash);
 
 	const [facebookData, setFacebookData] = useState({
 		series: [], options: {
-			labels: [],
+			labels: ["Positives", "Negatives", "Neutral"],
 			dataLabels: {
 				enabled: false,
 			},
@@ -84,7 +84,26 @@ function SearchGraph() {
 			}
 		}
 	})
+	useEffect(() => {
+		if (displayData.Positive.length == 0 && displayData.Negative.length == 0 && displayData.Neutral.length) {
+			return
+		}
+		console.log("chechOut" + displayData.Positive.length)
+		setFacebookData({
+			series: [displayData.Positive.length, displayData.Negative.length, displayData.Neutral.length],
+			options: {
+				labels: ["Positives", "Negatives", "Neutral"],
+				dataLabels: {
+					enabled: true,
+				},
+			}
+		})
+
+
+	}, [displayData])
+
 	const graphDisplay = () => {
+
 		if (dashLoc === "History") {
 			return (
 				<Grid container>
@@ -96,14 +115,14 @@ function SearchGraph() {
 							<DougnutChart data={facebookData} width="250" height="300" />
 						</Paper>
 					</Grid>
-					<Grid item xs={5} align="center">
+					{/* <Grid item xs={5} align="center">
 						<Paper elevation={3} className={classes.dataSpace}>
 							<Typography variant="body1" color="textPrimary">
 								Sentiment Analysis
 						</Typography>
 							<DougnutChart data={facebookData} width="250" height="300" />
 						</Paper>
-					</Grid>
+					</Grid> */}
 					<Grid item xs={2} align="center" className={classes.profileChanges}>
 						<Button variant="contained" fullWidth color="Secondary" className={classes.profileBtn}>
 							Show More
