@@ -33,7 +33,8 @@ function SearchGraph({ displayData }) {
 	const classes = useStyles();
 	const dashLoc = useSelector(state => state.changeDash);
 
-	const [facebookData, setFacebookData] = useState({
+	const [facebookData, setFacebookData] = useState([{
+		Querry: "",
 		series: [], options: {
 			labels: ["Positives", "Negatives", "Neutral"],
 			dataLabels: {
@@ -83,13 +84,14 @@ function SearchGraph({ displayData }) {
 				}
 			}
 		}
-	})
+	}])
 	useEffect(() => {
 		if (displayData.Positive.length == 0 && displayData.Negative.length == 0 && displayData.Neutral.length) {
-			return
+			return null
 		}
 		console.log("chechOut" + displayData.Positive.length)
-		setFacebookData({
+		setFacebookData([...facebookData, {
+			Querry: displayData.Querry,
 			series: [displayData.Positive.length, displayData.Negative.length, displayData.Neutral.length],
 			options: {
 				labels: ["Positives", "Negatives", "Neutral"],
@@ -97,22 +99,22 @@ function SearchGraph({ displayData }) {
 					enabled: true,
 				},
 			}
-		})
+		}])
 
 
 	}, [displayData])
 
-	const graphDisplay = () => {
+	const graphDisplay = (element, index) => {
 
 		if (dashLoc === "History") {
 			return (
-				<Grid container>
+				<Grid container >
 					<Grid item xs={5} align="center">
 						<Paper elevation={3} className={classes.dataSpace}>
 							<Typography variant="body1" color="textPrimary">
-								Sentiment Analysis
-						</Typography>
-							<DougnutChart data={facebookData} width="250" height="300" />
+								{element.Querry}
+							</Typography>
+							<DougnutChart data={element} width="250" height="300" />
 						</Paper>
 					</Grid>
 					{/* <Grid item xs={5} align="center">
@@ -157,7 +159,13 @@ function SearchGraph({ displayData }) {
 	return (
 		<div>
 			<CssBaseline />
-			{graphDisplay()}
+			{
+				facebookData.map((el, index) => {
+
+					return graphDisplay(el, index)
+				})
+			}
+
 		</div>
 	)
 }

@@ -96,6 +96,8 @@ function History() {
           })
 
           setInStaData([...instaData, {
+            Querry: eachElement.Querry,
+            CreatedAt: eachElement.Time,
             Positive: eachElement.Positives,
             Negative: eachElement.Negatives,
             Neutral: eachElement.Neutral,

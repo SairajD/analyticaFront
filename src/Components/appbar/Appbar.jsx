@@ -14,14 +14,14 @@ import MailIcon from "@material-ui/icons/Mail";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 import MoreIcon from "@material-ui/icons/MoreVert";
 import Axios from "axios";
-import {useDispatch, useSelector} from 'react-redux';
-import {addNegatives, addPositives, socialLoc} from '../reduxStore/actions/addTweets';
+import { useDispatch, useSelector } from 'react-redux';
+import { addNegatives, addPositives, socialLoc } from '../reduxStore/actions/addTweets';
 import TwitterIcon from '@material-ui/icons/Twitter';
 import InstagramIcon from '@material-ui/icons/Instagram';
 import Avatar from '@material-ui/core/Avatar';
 import cookies from 'react-cookies'
 
-const url=' https://analytica-parsb-api.herokuapp.com'
+const url = ' https://analytica-parsb-api.herokuapp.com'
 const useStyles = makeStyles((theme) => ({
   appBar: {
     width: `calc(100% - 240px)`,
@@ -75,7 +75,7 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up("md")]: {
       width: "20ch",
     },
-    color:"#ffffff",
+    color: "#ffffff",
   },
   sectionDesktop: {
     display: "none",
@@ -93,51 +93,51 @@ const useStyles = makeStyles((theme) => ({
     textDecoration: "none",
     color: "#ffffff",
   },
-  socialButton:{
-    backgroundColor:theme.palette.alternate.main,
-    marginLeft:theme.spacing(1.5),
-    marginRight:theme.spacing(1.5),
-    color:"#ffffff"
+  socialButton: {
+    backgroundColor: theme.palette.alternate.main,
+    marginLeft: theme.spacing(1.5),
+    marginRight: theme.spacing(1.5),
+    color: "#ffffff"
   },
-  socialIcon:{
-    display:"flex"
+  socialIcon: {
+    display: "flex"
   },
-  customBadge:{
-    backgroundColor:theme.palette.secondary.main
+  customBadge: {
+    backgroundColor: theme.palette.secondary.main
   },
-  badgeContent:{
-    color:"#ffffff"
+  badgeContent: {
+    color: "#ffffff"
   },
-  iconBtn:{
-    padding:0,
-    marginLeft:theme.spacing(1),
-    marginRight:theme.spacing(1),
+  iconBtn: {
+    padding: 0,
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1),
   },
-  searchIconColor:{
-    color:"#ffffff"
+  searchIconColor: {
+    color: "#ffffff"
   }
 }));
 //functions
 // 
 export default function PrimarySearchAppBar() {
-  (function() {
-    	let tokenValue= cookies.load('Token') ;
-    	if (tokenValue) {
-    		Axios.defaults.headers.common['Authorization'] = tokenValue;
-    	} else {
-    		Axios.defaults.headers.common['Authorization'] = null;
-      
-    	}
-      console.log(tokenValue)
-    })();
+  (function () {
+    let tokenValue = cookies.load('Token');
+    if (tokenValue) {
+      Axios.defaults.headers.common['Authorization'] = tokenValue;
+    } else {
+      Axios.defaults.headers.common['Authorization'] = null;
+
+    }
+    console.log(tokenValue)
+  })();
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
   const [id, setId] = useState("");
   const [timerId, setTimerId] = useState("");
-   
+
   const dashLoc = useSelector(state => state.changeDash);
-  
+
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
@@ -182,7 +182,7 @@ export default function PrimarySearchAppBar() {
 
         finalPositives.push(temppos);
       });
-      
+
       dispatch(addNegatives(finalNegatives));
       dispatch(addPositives(finalPositives));
 
@@ -208,8 +208,8 @@ export default function PrimarySearchAppBar() {
     if (e.key === "Enter") {
       onSearch(e.target.value);
       history.push('/Dashboard/SearchDisplay');
-  }
-};
+    }
+  };
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -223,21 +223,21 @@ export default function PrimarySearchAppBar() {
     setAnchorEl(null);
     handleMobileMenuClose();
   };
-  const logoutClicked= async ()=>{
+  const logoutClicked = async () => {
 
-  
- 
- const result=await Axios.post(url+'/Analytica/users/Logout')
- if(result.status===200){
-  cookies.remove('Username')
-  cookies.remove('Token');
-  history.replace("/Login");window.location.reload(false);
- }
- else {
-   console.log('error')
-   //Comment:put here error page
-  // history.replace("/Login");window.location.reload(false);
- }
+
+
+    const result = await Axios.post(url + '/Analytica/users/Logout')
+    if (result.status === 200) {
+      cookies.remove('Username')
+      cookies.remove('Token');
+      history.replace("/Login"); window.location.reload(false);
+    }
+    else {
+      console.log('error')
+      //Comment:put here error page
+      // history.replace("/Login");window.location.reload(false);
+    }
 
 
   }
@@ -260,16 +260,15 @@ export default function PrimarySearchAppBar() {
     </Menu>
   );
 
-  const socialBtnDisplay=()=>{
-    if(dashLoc==="Home")
-    {
-      return(
+  const socialBtnDisplay = () => {
+    if (dashLoc === "Home") {
+      return (
         <div className={classes.socialIcon}>
-          <Avatar className={classes.socialButton} onClick={()=>dispatch(socialLoc("Twitter"))}>
-            <TwitterIcon/>
+          <Avatar className={classes.socialButton} onClick={() => dispatch(socialLoc("Twitter"))}>
+            <TwitterIcon />
           </Avatar>
-          <Avatar className={classes.socialButton} onClick={()=>dispatch(socialLoc("Instagram"))}>
-            <InstagramIcon/>
+          <Avatar className={classes.socialButton} onClick={() => dispatch(socialLoc("Instagram"))}>
+            <InstagramIcon />
           </Avatar>
         </div>
       )
@@ -298,7 +297,7 @@ export default function PrimarySearchAppBar() {
       </MenuItem>
       <MenuItem>
         <IconButton aria-label="notifications" >
-          <Badge badgeContent={12} classes={{ badge: classes.customBadge }} className={classes.badgeContent}> 
+          <Badge badgeContent={12} classes={{ badge: classes.customBadge }} className={classes.badgeContent}>
             <Avatar className={classes.socialButton}>
               <NotificationsIcon />
             </Avatar>
@@ -324,11 +323,11 @@ export default function PrimarySearchAppBar() {
       <AppBar position="fixed" className={classes.appBar}>
         <Toolbar>
           <div className={classes.search}>
-            
-              <div className={classes.searchIcon}>
-                <SearchIcon className={classes.searchIconColor}/>
-              </div>
-            
+
+            <div className={classes.searchIcon}>
+              <SearchIcon className={classes.searchIconColor} />
+            </div>
+
             <InputBase
               placeholder="Search…"
               onKeyDown={onInputChange}
@@ -354,7 +353,7 @@ export default function PrimarySearchAppBar() {
             <IconButton aria-label="notifications" className={classes.iconBtn}>
               <Badge badgeContent={11} classes={{ badge: classes.customBadge }} className={classes.badgeContent}>
                 <Avatar className={classes.socialButton}>
-                  <NotificationsIcon/>
+                  <NotificationsIcon />
                 </Avatar>
               </Badge>
             </IconButton>
