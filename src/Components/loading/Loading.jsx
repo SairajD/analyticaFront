@@ -1,4 +1,4 @@
-import React from 'react';
+import {React, useEffect} from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Logo from '../logo/Logo';
@@ -55,6 +55,11 @@ const useStyles = makeStyles((theme) => ({
 
 function Loading() {
 	const classes = useStyles();
+
+	useEffect(()=>{
+    
+    },[])
+	
     return (
         <div className={classes.loadingRoot}>
 					<CssBaseline />

@@ -13,13 +13,16 @@ import Button from '@material-ui/core/Button';
 import cookies from 'react-cookies'
 import { Link, useHistory } from 'react-router-dom';
 import Axios from 'axios';
+
 // import Logo from '../Components/logo/Logo';
+
 
 
 const url = ' https://analytica-parsb-api.herokuapp.com'
 
 
 const useStyles = makeStyles((theme) => ({
+
 	signInRoot: {
 		width: "100vw",
 		height: "100vh",
@@ -98,6 +101,7 @@ const useStyles = makeStyles((theme) => ({
 	// lineColor:{
 	// 	color:theme.palette.alternate.main,
 	// }
+
 }))
 //functions
 
