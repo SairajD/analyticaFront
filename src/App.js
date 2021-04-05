@@ -12,8 +12,6 @@ import {ThemeProvider} from "@material-ui/core/styles";
 import {Theme, DarkTheme} from "./Components/theme/Theme";
 import {useSelector} from 'react-redux';
 import {useHistory} from 'react-router-dom';
-import Loading from './Components/loading/Loading';
-
 
 
 const url="https://analytica-parsb-api.herokuapp.com"
@@ -41,7 +39,7 @@ function App() {
               <PublicRoute exact path="/" exact Component={GetStartedCombine}  location="/"/>
               <PublicRoute path="/Login" Component={Login} location="/Login" />
               <PublicRoute path="/Register" Component={Register}  location="/Register"/>   
-              <Route path="/Loading" component={Loading}  />         
+              <Route path="/Loading" component={LoadingPage}  />         
               <ProtectedRoute path="/Dashboard" Component={Dashboard} location="/Dashboard"/>
             </Switch>
             </Router>

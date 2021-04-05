@@ -54,7 +54,7 @@ const SidebarData = [
     {
         text:"Followers",
         icon:<FaceIcon/>,
-        path:"/DashboardFollowers"
+        path:"/Dashboard/Followers"
     },
     {
         text:"Sponsors",
