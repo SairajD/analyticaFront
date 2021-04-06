@@ -87,7 +87,7 @@ function Settings() {
 			setCheckedTwitter((prev) => !prev);
 			if(!checkedTwitter)
 			{
-				//twitterLogin();
+				twitterLogin();
 			}
 		};
 
@@ -154,6 +154,7 @@ function Settings() {
 			expires.setDate(Date.now() + 1000 * 60 * 60 * 24 * 14)
 			Axios.post(url+"/analytica/twitter/login")
 			.then(res=>{
+				console.log("hi yo"+res)
 				cookies.save('OAuthRequestToken', res.data.OAuthRequestToken, {
 					path: '/',
 					expires,
@@ -162,7 +163,8 @@ function Settings() {
 					// secure: true,
 					// httpOnly: true
 				})
-
+				
+				window.location.href = res.data.redirectUri;
 			})
 		}
 

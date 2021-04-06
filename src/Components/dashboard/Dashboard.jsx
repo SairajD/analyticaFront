@@ -31,7 +31,7 @@ function Dashboard() {
           <Route path ="/Dashboard/Settings"  component={Settings}/>            
           <Route path ="/Dashboard/History"  component={History}/>            
           <Route path ="/Dashboard/Followers"  component={Followers}/>       
-          <Route path ="/Dashboard/load"  component={LoadingPageDash}/>
+          <Route path ="/Dashboard/load"  component={LoadingPageDash}/>   
         </Switch>
         </Router>
     </div>
