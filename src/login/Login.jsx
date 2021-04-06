@@ -175,6 +175,7 @@ function Login() {
 			console.log(e.response.status)
 			if (e.response.status) {
 				displayFault.innerHTML = "Invalid Username or password"
+				password.value=""
 				displayFault.style.color = "red"
 				return;
 			}

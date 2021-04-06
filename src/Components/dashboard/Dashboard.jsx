@@ -9,6 +9,7 @@ import SearchDataDisplay from '../searchDisplay/SearchDisplay';
 import Settings from '../settings/Settings';
 import History from '../history/History';
 import Followers from '../followers/Followers';
+import LoadingPageDash from '../loadingPage/LoadingPageDash';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -29,7 +30,8 @@ function Dashboard() {
           <Route path ="/Dashboard/SearchDisplay"  component={SearchDataDisplay}/>
           <Route path ="/Dashboard/Settings"  component={Settings}/>            
           <Route path ="/Dashboard/History"  component={History}/>            
-          <Route path ="/Dashboard/Followers"  component={Followers}/>
+          <Route path ="/Dashboard/Followers"  component={Followers}/>       
+          <Route path ="/Dashboard/load"  component={LoadingPageDash}/>
         </Switch>
         </Router>
     </div>
