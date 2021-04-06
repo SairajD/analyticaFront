@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
 		margin: theme.spacing(2),
 		padding: theme.spacing(2),
 		width:"32vw",
-		height:"50vh"
+		height:"60vh"
 	},
 	profileBtn: {
 		fontSize: theme.spacing(2),
@@ -26,6 +26,18 @@ const useStyles = makeStyles((theme) => ({
 	profileChanges: {
 		paddingLeft: theme.spacing(4),
 		paddingRight: theme.spacing(4),
+	},
+	historyDataSpace:{
+		margin: theme.spacing(2),
+		padding: theme.spacing(2),
+		width:"32vw",
+		height:"50vh"
+	},
+	dataText:{
+		fontSize:theme.spacing(2),
+		fontWeight:"bold",
+		marginTop:theme.spacing(1.5),		
+		marginBottom:theme.spacing(1.5)
 	}
 }));
 
@@ -91,18 +103,18 @@ function SearchGraph(props) {
 			return (
 				<Grid container>
 					<Grid item xs={5} align="center">
-						<Paper elevation={3} className={classes.dataSpace}>
-							<Typography variant="body1" color="textPrimary">
+						<Paper elevation={3} className={classes.historyDataSpace} >
+							<Typography variant="body1" color="textPrimary" className={classes.dataText}>
 								{props.Querry}
 							</Typography>
 							<DougnutChart data={props.data} width="350" height="350" />
 						</Paper>
 					</Grid>
 					<Grid item xs={5} align="center">
-						<Paper elevation={3} className={classes.dataSpace}>
-							<Typography variant="body1" color="textPrimary">
+						<Paper elevation={3} className={classes.historyDataSpace}>
+							<Typography variant="body1" color="textPrimary" className={classes.dataText}>
 								{props.Querry}
-						</Typography>
+							</Typography>
 							<DougnutChart data={props.data} width="350" height="350" />
 						</Paper>
 					</Grid>
@@ -118,18 +130,18 @@ function SearchGraph(props) {
 			return (<Grid container>
 				<Grid item xs={6} align="center">
 					<Paper elevation={3} className={classes.dataSpace}>
-						<Typography variant="body1" color="textPrimary">
-							Sentiment Analysis
-								</Typography>
-						<DougnutChart data={facebookData} width="250" height="300" />
+						<Typography variant="body1" color="textPrimary" className={classes.dataText}>
+							Twitter Sentiment Analysis
+						</Typography>
+						<DougnutChart data={props.dataTweet} width="300" height="350" />
 					</Paper>
 				</Grid>
 				<Grid item xs={6} align="center">
 					<Paper elevation={3} className={classes.dataSpace}>
-						<Typography variant="body1" color="textPrimary">
-							Sentiment Analysis
-								</Typography>
-						<DougnutChart data={facebookData} width="250" height="300" />
+						<Typography variant="body1" color="textPrimary" className={classes.dataText}>
+							Instagram Sentiment Analysis
+						</Typography>
+						<DougnutChart data={props.dataInsta} width="300" height="350" />
 					</Paper>
 				</Grid>
 			</Grid>)

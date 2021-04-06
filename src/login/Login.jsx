@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Avatar from '@material-ui/core/Avatar';
@@ -13,6 +13,8 @@ import Button from '@material-ui/core/Button';
 import cookies from 'react-cookies'
 import { Link, useHistory } from 'react-router-dom';
 import Axios from 'axios';
+import VisibilityIcon from '@material-ui/icons/Visibility';
+import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 
 // import Logo from '../Components/logo/Logo';
 
@@ -95,6 +97,9 @@ const useStyles = makeStyles((theme) => ({
 	forgotPass: {
 		color: theme.palette.text.secondary,
 	},
+	addornmentVis:{
+		cursor:"pointer"
+	}
 	// addornment:{
 	// 	color:theme.palette.primary.main
 	// },
@@ -106,7 +111,8 @@ const useStyles = makeStyles((theme) => ({
 //functions
 
 
-function Login() {
+function Login() {	
+
 	(function () {
 		let tokenValue = cookies.load('Token');
 		if (tokenValue) {
@@ -116,6 +122,8 @@ function Login() {
 
 		}
 	})();
+
+	const [visibility, setVisibility] = useState(false);
 	const History = useHistory();
 	const loggedin = async () => {
 		let username = document.getElementById('user-name')
@@ -172,9 +180,15 @@ function Login() {
 			}
 
 		}
+
+		displayFault.style.display="none";
 	}
 	const classes = useStyles();
 	const theme = useTheme();
+
+	const passVisibility=()=>{
+		setVisibility(prev=>!prev);
+	}
 
 	return (
 		<div className={classes.signInRoot}>
@@ -345,13 +359,18 @@ function Login() {
 							required
 							fullWidth
 							id="password"
-							type="password"
+							type={visibility?"text":"password"}
 							label="Password"
 							placeholder="Password"
 							InputProps={{
 								startAdornment: (
 									<InputAdornment position="start">
 										<LockIcon className={classes.addornment} />
+									</InputAdornment>
+								),
+								endAdornment: (
+									<InputAdornment position="end">
+										{visibility?<VisibilityIcon className={classes.addornmentVis} onClick={passVisibility}/>:<VisibilityOffIcon className={classes.addornmentVis} onClick={passVisibility}/>}
 									</InputAdornment>
 								),
 								className: classes.lineColor,

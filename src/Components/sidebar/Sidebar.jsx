@@ -37,11 +37,6 @@ const SidebarData = [
         path:"/Dashboard/Timeline"
     },
     {
-        text:"Trend",
-        icon:<WhatshotIcon/>,
-        path:"/Dashboard/Trend"
-    },
-    {
         text:"Upload",
         icon:<BackupIcon/>,
         path:"/Dashboard/Upload"
@@ -55,11 +50,6 @@ const SidebarData = [
         text:"Followers",
         icon:<FaceIcon/>,
         path:"/Dashboard/Followers"
-    },
-    {
-        text:"Sponsors",
-        icon:<MonetizationOnIcon/>,
-        path:"/Dashboard/Sponsors"
     },
     {
         text:"Settings",

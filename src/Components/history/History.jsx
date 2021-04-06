@@ -136,7 +136,7 @@ function History() {
 
   useEffect(() => {
 
-    //getInstadata();
+    getInstadata();
     console.log(instaData)
 
   }, [])

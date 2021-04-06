@@ -15,13 +15,14 @@ import NotificationsIcon from "@material-ui/icons/Notifications";
 import MoreIcon from "@material-ui/icons/MoreVert";
 import Axios from "axios";
 import { useDispatch, useSelector } from 'react-redux';
-import { addNegatives, addPositives, socialLoc } from '../reduxStore/actions/addTweets';
+import { addNegatives, addPositives, socialLoc, removeNegatives, removePositives, addInstaNegatives, addInstaPositives, removeInstaPositives, removeInstaNegatives } from '../reduxStore/actions/addTweets';
 import TwitterIcon from '@material-ui/icons/Twitter';
 import InstagramIcon from '@material-ui/icons/Instagram';
 import Avatar from '@material-ui/core/Avatar';
-import cookies from 'react-cookies'
+import cookies from 'react-cookies';
+import Logo from '../logo/Logo';
 
-const url = ' https://analytica-parsb-api.herokuapp.com'
+const url = 'https://analytica-parsb-api.herokuapp.com'
 const useStyles = makeStyles((theme) => ({
   appBar: {
     width: `calc(100% - 240px)`,
@@ -115,7 +116,13 @@ const useStyles = makeStyles((theme) => ({
   },
   searchIconColor: {
     color: "#ffffff"
-  }
+  },
+  logoIcon:{
+    backgroundColor:theme.palette.alternate.main,
+    width:theme.spacing(6),
+    height:theme.spacing(6),			
+    paddingLeft:theme.spacing(0.7)
+  },
 }));
 //functions
 // 
@@ -133,8 +140,8 @@ export default function PrimarySearchAppBar() {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
-  const [id, setId] = useState("");
   const [timerId, setTimerId] = useState("");
+  const [instaTimerId, setInstaTimerId] = useState("");
 
   const dashLoc = useSelector(state => state.changeDash);
 
@@ -145,17 +152,78 @@ export default function PrimarySearchAppBar() {
   const history = useHistory();
 
   let globalId;
+  let globaInstalId;
+
+  const onInstaSearch = (data) => {
+    Axios.post(url+'/analytica/instagram/search/'+data)
+    .then((res)=>{
+      globaInstalId = res.data.documentId;
+      let tID = setTimeout(checkInstaStatus, 5000);
+      setInstaTimerId(tID);
+    })
+    .catch(e=>{
+      console.log("Error : " +e)
+    })
+  }
+
+  const checkInstaStatus = async () => {
+    let response = await Axios.get(
+      url+`/analytica/instagram/tags/${globaInstalId}/status`
+    );
+    console.log("hi my boi"+response);
+    if (response.status == 200) {
+      console.log("Done");
+      clearTimeout(instaTimerId);
+      let response = await Axios.get(
+        url+`/analytica/instagram/tags/${globaInstalId}/download`
+      );
+      let finalNegatives = [];
+      let finalPositives = [];
+      response.data.negatives.forEach((l) => {
+        let tempneg = {
+          caption: l.caption,
+          likes: l.likeCount,
+          comments: l.commentCount,
+          timestamp: l.timeStamp,
+          thumbnail: "",
+          sMedia: "InstagramIcon"
+        };
+
+        finalNegatives.push(tempneg);
+      });
+
+      response.data.positives.forEach((l) => {
+        let temppos = {
+          caption: l.caption,
+          likes: l.likeCount,
+          comments: l.commentCount,
+          timestamp: l.timeStamp,
+          thumbnail: "",
+          sMedia: "InstagramIcon"
+        };
+
+        finalPositives.push(temppos);
+      });
+
+      dispatch(addInstaNegatives(finalNegatives));
+      dispatch(addInstaPositives(finalPositives));
+
+    } else if (response.status == 204) {
+      const timer = setTimeout(checkInstaStatus, 5000);
+      setInstaTimerId(timer);
+    }
+  };
+
   const checkStatus = async () => {
     let response = await Axios.get(
-      `https://analytica-parsb-api.herokuapp.com/analytica/twitter/search/status?documentId=${globalId}`
+      url+`/analytica/twitter/search/status/${globalId}`
     );
     console.log(response);
-    console.log(id);
     if (response.status == 200) {
       console.log("Done");
       clearTimeout(timerId);
       let response = await Axios.get(
-        `https://analytica-parsb-api.herokuapp.com/analytica/twitter/search/download?documentId=${globalId}`
+        url+`/analytica/twitter/search/download/${globalId}`
       );
       let finalNegatives = [];
       let finalPositives = [];
@@ -166,6 +234,7 @@ export default function PrimarySearchAppBar() {
           comments: 0,
           timestamp: l.created_at,
           thumbnail: "",
+          sMedia: "TwitterIcon"
         };
 
         finalNegatives.push(tempneg);
@@ -178,6 +247,7 @@ export default function PrimarySearchAppBar() {
           comments: 0,
           timestamp: l.created_at,
           thumbnail: "",
+          sMedia: "TwitterIcon"
         };
 
         finalPositives.push(temppos);
@@ -193,7 +263,7 @@ export default function PrimarySearchAppBar() {
   };
   const onSearch = async (data) => {
     const twitterAnalysis = await Axios.post(
-      "https://analytica-parsb-api.herokuapp.com/analytica/twitter/search",
+      url+"/analytica/twitter/search",
       { search_query: data, user: "rau@gmail.com" }
     );
 
@@ -206,7 +276,12 @@ export default function PrimarySearchAppBar() {
 
   const onInputChange = (e) => {
     if (e.key === "Enter") {
+      dispatch(removeNegatives());
+      dispatch(removePositives());
+      dispatch(removeInstaPositives());
+      dispatch(removeInstaNegatives());
       onSearch(e.target.value);
+      onInstaSearch(e.target.value);
       history.push('/Dashboard/SearchDisplay');
     }
   };
@@ -322,6 +397,9 @@ export default function PrimarySearchAppBar() {
     <div className={classes.grow}>
       <AppBar position="fixed" className={classes.appBar}>
         <Toolbar>
+              <Avatar className={classes.logoIcon} onClick={()=>{history.push("/Dashboard")}}> 
+								<Logo color="#ffffff" width="64" height="64"/>
+							</Avatar>
           <div className={classes.search}>
 
             <div className={classes.searchIcon}>

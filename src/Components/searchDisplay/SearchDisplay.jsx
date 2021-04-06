@@ -51,6 +51,26 @@ export default function SearchDataDisplay() {
   const classes = useStyles();
   const socialInfoNegatives = useSelector(state => state.negativeTweets);  
   const socialInfoPositives = useSelector(state => state.positiveTweets);
+  const socialInstaInfoNegatives = useSelector(state => state.negativeInsta);  
+  const socialInstaInfoPositives = useSelector(state => state.positiveInsta);
+  const chartTweetData={
+    options:{
+      labels:["Positive", "Negative"],
+      legend:{
+        position:"bottom"
+      }
+    },
+    series:[socialInfoPositives.length, socialInfoNegatives.length]
+  }
+  const chartInstaData={
+    options:{
+      labels:["Positive", "Negative"],
+      legend:{
+        position:"bottom"
+      }
+    },
+    series:[socialInstaInfoPositives.length, socialInstaInfoNegatives.length]
+  }
 
   useEffect(() => {
     
@@ -63,15 +83,23 @@ export default function SearchDataDisplay() {
     <CssBaseline />
     <div className={classes.timelineToolbar}/>
     
-    <SearchGraph/>
+    <SearchGraph  dataTweet={chartTweetData} dataInsta={chartInstaData}/>
     {socialInfoNegatives.map((item, index) => (
       <SearchComponent key={index} sentiment={item.sentiment} caption={item.caption} likes={item.likes} comments={item.comments}/>
 
       ))}
 
-{socialInfoPositives.map((item, index) => (
+    {socialInfoPositives.map((item, index) => (
       <SearchComponent key={index} sentiment={item.sentiment} caption={item.caption} likes={item.likes} comments={item.comments}/>
-  ))}
+    ))}
+    {socialInstaInfoNegatives.map((item, index) => (
+      <SearchComponent key={index} sentiment={item.sentiment} caption={item.caption} likes={item.likes} comments={item.comments}/>
+
+      ))}
+
+    {socialInstaInfoPositives.map((item, index) => (
+      <SearchComponent key={index} sentiment={item.sentiment} caption={item.caption} likes={item.likes} comments={item.comments}/>
+    ))}
     
     </div>
   );

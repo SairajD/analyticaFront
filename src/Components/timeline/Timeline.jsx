@@ -19,10 +19,12 @@ import CommentIcon from '@material-ui/icons/Comment';
 import axios from 'axios';
 import {useDispatch} from 'react-redux';
 import {dashLoc} from '../reduxStore/actions/addTweets';
+import Axios from 'axios'
+import cookies from 'react-cookies'
 
 const drawerWidth = 240;
 
-const documentID = '604865dc9c7f42544d67f492'
+const url = ' https://analytica-parsb-api.herokuapp.com'
 
 const useStyles = makeStyles((theme) => ({
   timelineRoot: {
@@ -60,33 +62,45 @@ const useStyles = makeStyles((theme) => ({
 
 export default function CustomTimeline() {
 
+  (function () {
+    let tokenValue = cookies.load('Token');
+    if (tokenValue) {
+      Axios.defaults.headers.common['Authorization'] = tokenValue;
+    } else {
+      Axios.defaults.headers.common['Authorization'] = null;
+
+    }
+    console.log(tokenValue)
+  })();
+
   const dispatch = useDispatch();
   const classes = useStyles();
-  const [socialInfoNegatives, setSocialInfoNegatives] = useState([{caption:"", likes:0, comments:0, timestamp:0, thumbnail:""}])
+  const [timelineData, setTimelineData] = useState([{caption:"", likeCount:0, commentCount:0, timeStamp:0, sMedia:""}])
   
-//   const socialData = () => {
+  const socialData = () => {
     
-//     axios
-//         .get(`https://analytica-parsb-api.herokuapp.com/analytica/instagram/tags/${documentID}/download`)
-//         .then(response => {
-//             const negData = response.data.negatives;
-//             setSocialInfoNegatives(negData);
-//         })
-//         .catch(err => {
-//             console.log(err);
-//         })
+    axios
+        .get(url+`/Analytica/commonPosts/getPosts`)
+        .then(response => {
+            const data= response.data;
+            setTimelineData(data);
+            console.log(response.data)
+        })
+        .catch(err => {
+            console.log(err);
+        })
         
             
-//         }
+}
 
 
 
 
-// useEffect(() => {
+useEffect(() => {
     
-//     socialData();
+    socialData();
                                                                          
-// }, [])
+}, [])
 
 useEffect(() => {
     
@@ -94,7 +108,18 @@ useEffect(() => {
                                                                          
 }, [])
 
-console.log(socialInfoNegatives)
+const getIcon= (data)=>{
+ 
+    if(data==="Instagram")
+    {      
+      return <InstagramIcon className={classes.timelineBtn}/>
+    }
+    if(data==="twitter")
+    {
+      return <TwitterIcon className={classes.timelineBtn}/>
+    }
+}
+
 
   return (
     <div className={classes.timelineRoot}>
@@ -102,29 +127,26 @@ console.log(socialInfoNegatives)
     <div className={classes.timelineToolbar}/>
     
     <Timeline align="alternate">
-    {socialInfoNegatives.map((item, index) => (
+    {timelineData.map((item, index) => (
       <TimelineItem key={index}>
         <TimelineOppositeContent>
           <Typography variant="body2" color="textSecondary">
-            {new Intl.DateTimeFormat('en-US', {year: 'numeric', month: '2-digit',day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit'}).format(item.timestamp)}
+            {new Intl.DateTimeFormat('en-US', {year: 'numeric', month: '2-digit',day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit'}).format(item.timeStamp)}
           </Typography>
         </TimelineOppositeContent>
         <TimelineSeparator>
           <TimelineDot color="primary">
-            <FacebookIcon className={classes.timelineBtn}/>
+            {getIcon(item.sMedia)}
           </TimelineDot>
           <TimelineConnector />
         </TimelineSeparator>
         <TimelineContent className={classes.timelineContent}>
           <Paper elevation={3} className={classes.paper}>
-            <Typography className={classes.timelineTitle} variant="h6" component="h1">
-              {item.sentiment}
-            </Typography>
             <Typography >{item.caption}</Typography>
             <div className={classes.likeComment}>
-                <Typography className={classes.likeComItem}>{item.likes}</Typography>
+                <Typography className={classes.likeComItem}>{item.likeCount}</Typography>
                 <ThumbUpIcon color="primary"/>
-                <Typography className={classes.likeComItem}>{item.comments}</Typography>
+                <Typography className={classes.likeComItem}>{item.commentCount}</Typography>
                 <CommentIcon color="primary"/>
             </div>
           </Paper>
