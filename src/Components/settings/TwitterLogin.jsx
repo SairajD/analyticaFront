@@ -9,19 +9,20 @@ import LinkedInIcon from '@material-ui/icons/LinkedIn';
 import FacebookIcon from '@material-ui/icons/Facebook';
 import cookies from 'react-cookies';
 import Axios from "axios";
-import {useLocation} from "react-router-dom";
+import {useLocation, useHistory} from "react-router-dom";
 
 const drawerWidth = 240;
 const url = ' https://analytica-parsb-api.herokuapp.com'
 
 const useStyles = makeStyles((theme) => ({
     loadingRoot: {
-        width: `100%`,
+        width: `calc(100% - ${drawerWidth})`,
+		marginLeft: drawerWidth
     },
     loadingToolbar: theme.mixins.toolbar,
     preLoader: {
         width: "100%",
-        height: "100vh",
+        height: "90vh",
         display: "flex",
         justifyContent: "center",
         alignItems: "center"
@@ -70,6 +71,7 @@ function TwitterLogin() {
 	  })();
 
     const classes = useStyles();
+    const history = useHistory();
 
     function useQuery() {
         return new URLSearchParams(useLocation().search);
@@ -78,7 +80,7 @@ function TwitterLogin() {
       let query = useQuery();
 
     useEffect(() => {
-        console.log(query)
+        console.log(query.get("oauth_token"))
 
         if (query.get("oauth_token") === cookies.load('OAuthRequestToken'))
         {
@@ -95,18 +97,7 @@ function TwitterLogin() {
                   .get(url+`/analytica/twitter/login/verify`)
                   .then((response) => {
                     console.log(response.data);
-                    // const user = {
-                    //   username: response.data.user_details.screen_name,
-                    //   userid: response.data.user_details.id_str,
-                    //   name: response.data.user_details.name,
-                    //   statuses_count: response.data.user_details.statuses_count,
-                    //   like_count: response.data.user_details.favourites_count,
-                    //   followers_count: response.data.user_details.followers_count,
-                    //   friends_count: response.data.user_details.friends_count,
-                    //   created_at: response.data.user_details.created_at,
-                    // };
-                    // this.$store.state.user = user;
-                    this.$router.replace({ path: "/Dashboard" });
+                    history.push("/Dashboard/Settings");
                   });
               });
           }
@@ -116,6 +107,7 @@ function TwitterLogin() {
     return (
         <div className={classes.loadingRoot}>
             <CssBaseline />
+            <div className={classes.loadingToolbar}/>
             <div className={classes.preLoader}>
                 <Avatar className={classes.logoSocialIcon}>
                     <FacebookIcon />

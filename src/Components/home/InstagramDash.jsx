@@ -17,10 +17,9 @@ import FacebookIcon from '@material-ui/icons/Facebook';
 import Paper from '@material-ui/core/Paper';
 import  BarChart  from '../charts/bar/BarChart';
 import InstagramIcon from '@material-ui/icons/Instagram';
-import Axios from 'axios'
-import cookies from 'react-cookies'
+import Axios from 'axios';
+import cookies from 'react-cookies';
 import Character from '../charts/character/Character';
-import ProPic from '../sidebar/prof-pic.jpg';
 //constants
 
 const drawerWidth = 240;
@@ -108,8 +107,6 @@ const useStyles = makeStyles((theme) => ({
 
     const [instaData, setInstaData] = useState({})
     const [instaFeeds, setInstaFeeds] = useState([])
-    const [characterData, setCharacterData] = useState([])
-    const [userData, setUserData] = useState({})
     
   //   const [instaData, setInstaData] = useState({series:[],options:{labels:[],
   //     dataLabels:{
@@ -163,35 +160,39 @@ const useStyles = makeStyles((theme) => ({
   const [socialInfo, setSocialInfo] = useState([{caption:"", likes:0, comments:0, timestamp:0, thumbnail:""}])
 //functions
 
-const similarCharacters = () => {
-  let charArr=[];
-  let userObj={};
-  Axios
-          .get(url+"/analytica/analysis/profile/getsimilarcharacters/jeffbezos" )
-          .then(response => {
-            console.log(response.data)
-            userObj = {
-              userName:"Jeff Bezos",
-              profilePic:response.data.profilePic
-            }
-            response.data.chainedData.forEach(el=>{
-              charArr.push({
-                userName:el.full_name,
-                profilePic:el.profile_pic_url
-              })
-            })                                  
-          })
-          .catch(err => {
-              console.log(err)
-          })
-          setUserData(userObj)
-          setCharacterData(charArr)
-}
+// const similarCharacters = () => {
+//   let charArr=[];
+//   let userObj={};
+//   Axios
+//           .get(url+"/analytica/analysis/profile/getsimilarcharacters/jeffbezos" )
+//           .then(response => {
+//             console.log(response.data)
+//             userObj = {
+//               userName:"Jeff Bezos",
+//               profilePic:response.data.profilePic
+//             }
+//             charArr.push(userObj)
+//             response.data.chainedData.forEach(el=>{
+//               charArr.push({
+//                 userName:el.full_name,
+//                 profilePic:el.profile_pic_url
+//               })
+//             })                                  
+//           })
+//           .catch(err => {
+//               console.log(err)
+//           })
 
-useEffect(() => {
-  similarCharacters();
+//           setUserData(charArr)
+          
+//           dispatch(addUser(userObj));
+//           dispatch(addCharacter(charArr));
+// }
 
-}, [])
+// useEffect(() => {
+//   similarCharacters();
+
+// }, [])
 
   const instaCharts = () => {
     
@@ -389,7 +390,7 @@ const postFrequencyData={
                   <Typography variant="body1" color="textPrimary"> 
                     Character Matching
                   </Typography>
-                  <Character userData={userData} charData={characterData}/>
+                  <Character/>
                 </Paper>
               </Grid>
             </Grid>

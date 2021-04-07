@@ -7,6 +7,24 @@ export const addNegatives = (obj) => {
     }
 }
 
+export const addCharacter = (obj) => {
+    return {
+        type: "addCharacter",
+        payload: {
+            data: obj
+        }
+    }
+}
+
+export const addUser = (obj) => {
+    return {
+        type: "addUser",
+        payload: {
+            data: obj
+        }
+    }
+}
+
 export const addPositives = (obj) => {
     return {
         type: "addPositives",

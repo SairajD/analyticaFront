@@ -157,17 +157,21 @@ function Settings() {
 			expires.setDate(Date.now() + 1000 * 60 * 60 * 24 * 14)
 			Axios.post(url+"/analytica/twitter/login")
 			.then(res=>{
-				console.log("hi yo"+res)
-				cookies.save('OAuthRequestToken', res.data.OAuthRequestToken, {
+				console.log(res.data)
+				cookies.save('OAuthRequestToken', res.data.oauthRequestToken, {
 					path: '/',
 					expires,
 	
 					// secure: true,
 					// httpOnly: true
 				})
+
+				if (typeof window !== 'undefined') {
+					window.location.href = res.data.redirectUri;
+		 		}
 				
-				browserHistory.replace(res.data.redirectUri)
 			})
+		
 		}
 
     return (

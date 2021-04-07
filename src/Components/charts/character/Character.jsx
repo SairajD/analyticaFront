@@ -1,6 +1,15 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Avatar } from '@material-ui/core';
+import {useSelector} from 'react-redux';
+import Axios from 'axios';
+import cookies from 'react-cookies';
+
+
+const drawerWidth = 240;
+let usernameDisplay='gowithbang2'
+const documentID = '604866549c7f42544d67f493'
+const url='https://analytica-parsb-api.herokuapp.com'
 
 const useStyles = makeStyles((theme) => ({
     characterContainer:{
@@ -40,21 +49,69 @@ const useStyles = makeStyles((theme) => ({
     }
   }));
 
-function Character(props) {
-    const classes = useStyles();
+function Character() {
+    (function() {
+        let tokenValue= cookies.load('Token') ;
+        if (tokenValue) {
+          Axios.defaults.headers.common['Authorization'] = tokenValue;
+        } else {
+          Axios.defaults.headers.common['Authorization'] = null;
+        
+        }
+      })();
 
-    const avatarDisp = (data) => {
-        data.map((it, idx)=>{
-            return(
-                    <Avatar key={idx} src={it.profilePic} alt={it.userName} className={classes.userMatch}/>
-            )
-        })
-    }
+    const classes = useStyles();
+    const [userData, setUserData] = useState({userName:"", profilePic:""})
+    const [charData, setCharData] = useState([])
+
+    const similarCharacters = () => {
+        let charArr=[];
+        let userObjt={};
+
+        Axios
+                .get(url+"/analytica/analysis/profile/getsimilarcharacters/jeffbezos" )
+                .then(response => {
+                  console.log(response.data);
+                  userObjt = {
+                    userName:"Jeff Bezos",
+                    profilePic:response.data.profilePic
+                  };
+                  response.data.chainedData.forEach(el=>{
+                    charArr.push({
+                      userName:el.full_name,
+                      profilePic:el.profile_pic_url
+                    })
+                  })                                  
+                })
+                .catch(err => {
+                    console.log(err)
+                })
+                console.log("yeah baby")
+                console.log(userObjt)
+                console.log(charArr)
+                setUserData(userObjt)
+                setCharData(charArr)
+      }
+      
+      useEffect(() => {
+        similarCharacters();
+      
+      }, [])
+
+    // const userCharData=(data)=>{
+    //     data.forEach(el=>{
+    //         profilePic.push(require(el.profilePic))
+    //         userName.push(el.userName)
+    //     })
+    // }
+
 
     return (
-        <div className={classes.characterContainer}>
-            <Avatar src={props.userData.profilePic} alt={props.userData.userName} className={classes.userName}/>
-            {avatarDisp(props.charData)}
+        <div className={classes.characterContainer}>            
+            {/* <Avatar src={userData.profilePic} alt={userData.userName} className={classes.userName}/> */}
+            {charData.map((it, idx)=>{
+                return <Avatar key={idx} src={it.profilePic} alt={it.userName} className={classes.userMatch}/>
+        })}
         </div>
     )
 }
