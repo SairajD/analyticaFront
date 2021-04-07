@@ -365,7 +365,7 @@ function Login() {
 												</Button>
 						<p id="displayFault"></p>
 
-						<Link to="/" className={classes.link}>
+						<Link to="/forgotPassword/emailConfirmation" className={classes.link}>
 							<Typography className={classes.forgotPass}>
 								Forgot Password?
 													</Typography>
