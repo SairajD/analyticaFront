@@ -26,8 +26,7 @@ import ProPic from '../sidebar/prof-pic.jpg';
 const drawerWidth = 240;
 let usernameDisplay='gowithbang2'
 const documentID = '604866549c7f42544d67f493'
-const url=''
-//https://analytica-parsb-api.herokuapp.com
+const url='https://analytica-parsb-api.herokuapp.com'
 const useStyles = makeStyles((theme) => ({
     dataSpace:{
       margin:theme.spacing(2),
@@ -95,16 +94,22 @@ const useStyles = makeStyles((theme) => ({
   
 
   export default function InstagramDash() {
+
+    (function() {
+      let tokenValue= cookies.load('Token') ;
+      if (tokenValue) {
+        Axios.defaults.headers.common['Authorization'] = tokenValue;
+      } else {
+        Axios.defaults.headers.common['Authorization'] = null;
+      
+      }
+    })();
     const classes = useStyles();
 
     const [instaData, setInstaData] = useState({})
     const [instaFeeds, setInstaFeeds] = useState([])
-    const [characterData, setCharacterData] = useState({
-      user:ProPic,
-      userName:"Sai",
-      userMatch:ProPic,
-      userMatchName:"PrathameshnRaunak"
-    })
+    const [characterData, setCharacterData] = useState([])
+    const [userData, setUserData] = useState({})
     
   //   const [instaData, setInstaData] = useState({series:[],options:{labels:[],
   //     dataLabels:{
@@ -158,16 +163,38 @@ const useStyles = makeStyles((theme) => ({
   const [socialInfo, setSocialInfo] = useState([{caption:"", likes:0, comments:0, timestamp:0, thumbnail:""}])
 //functions
 
+const similarCharacters = () => {
+  let charArr=[];
+  let userObj={};
+  Axios
+          .get(url+"/analytica/analysis/profile/getsimilarcharacters/jeffbezos" )
+          .then(response => {
+            console.log(response.data)
+            userObj = {
+              userName:"Jeff Bezos",
+              profilePic:response.data.profilePic
+            }
+            response.data.chainedData.forEach(el=>{
+              charArr.push({
+                userName:el.full_name,
+                profilePic:el.profile_pic_url
+              })
+            })                                  
+          })
+          .catch(err => {
+              console.log(err)
+          })
+          setUserData(userObj)
+          setCharacterData(charArr)
+}
+
+useEffect(() => {
+  similarCharacters();
+
+}, [])
+
   const instaCharts = () => {
-    (function() {
-      let tokenValue= cookies.load('Token') ;
-      if (tokenValue) {
-        Axios.defaults.headers.common['Authorization'] = tokenValue;
-      } else {
-        Axios.defaults.headers.common['Authorization'] = null;
-      
-      }
-    })();
+    
       Axios
           .post(url+`/analytica/analysis/profile/engagement/`+usernameDisplay)
           .then(response => {
@@ -362,7 +389,7 @@ const postFrequencyData={
                   <Typography variant="body1" color="textPrimary"> 
                     Character Matching
                   </Typography>
-                  <Character data={characterData}/>
+                  <Character userData={userData} charData={characterData}/>
                 </Paper>
               </Grid>
             </Grid>

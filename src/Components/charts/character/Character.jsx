@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Avatar } from '@material-ui/core';
 
@@ -42,14 +42,19 @@ const useStyles = makeStyles((theme) => ({
 
 function Character(props) {
     const classes = useStyles();
+
+    const avatarDisp = (data) => {
+        data.map((it, idx)=>{
+            return(
+                    <Avatar key={idx} src={it.profilePic} alt={it.userName} className={classes.userMatch}/>
+            )
+        })
+    }
+
     return (
         <div className={classes.characterContainer}>
-            <Avatar src={props.data.user} alt={props.data.userName} className={classes.userProfile}/>
-            <Avatar src={props.data.userMatch} alt={props.data.userMatchName} className={classes.userMatch}/>
-            <Avatar src={props.data.userMatch} alt={props.data.userMatchName} className={classes.userMatch}/>
-            <Avatar src={props.data.userMatch} alt={props.data.userMatchName} className={classes.userMatch}/>
-            <Avatar src={props.data.userMatch} alt={props.data.userMatchName} className={classes.userMatch}/>
-            <Avatar src={props.data.userMatch} alt={props.data.userMatchName} className={classes.userMatch}/>
+            <Avatar src={props.userData.profilePic} alt={props.userData.userName} className={classes.userName}/>
+            {avatarDisp(props.charData)}
         </div>
     )
 }

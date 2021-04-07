@@ -10,7 +10,8 @@ import {useDispatch, useSelector} from 'react-redux';
 import {darkLight, dashLoc} from '../reduxStore/actions/addTweets';
 import cookies from 'react-cookies';
 import Axios from "axios";
-import {useHistory} from "react-router-dom";
+import {useHistory, Redirect} from "react-router-dom";
+import {browserHistory} from "react-router";
 
 const drawerWidth = 240;
 //const url = ' https://analytica-parsb-api.herokuapp.com'
@@ -161,12 +162,11 @@ function Settings() {
 					path: '/',
 					expires,
 	
-	
 					// secure: true,
 					// httpOnly: true
 				})
 				
-				history.push(res.data.redirectUri);
+				browserHistory.replace(res.data.redirectUri)
 			})
 		}
 

@@ -52,8 +52,6 @@ function History() {
   //   CreatedAt: '',
   //   Querry: ''
   // }
-  const socialInfoNegatives = useSelector(state => state.negativeTweets);
-  const socialInfoPositives = useSelector(state => state.positiveTweets);
   const dispatch = useDispatch();
   const classes = useStyles();
 
@@ -210,12 +208,12 @@ function History() {
       <CssBaseline />
       <div className={classes.historyToolbar} />
       {
-        tweetData.map((el, index) => {
+        instaData.map((el, index) => {
           return <SearchGraph
             key={index}
             Querry={el.Querry}
-            dataTweet={el.data}
-            dataInsta={instaData[index].data}
+            dataTweet={tweetData[index].data}
+            dataInsta={el.data}
           />
         })
       }

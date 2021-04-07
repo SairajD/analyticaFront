@@ -86,6 +86,7 @@ function Followers(){
           <div className={classes.followersToolbar} />
              <Grid container>
                {followersData.map((el, index)=>{
+                 console.log(el.profilePic)
                  return(
                   <Grid item xs={3} key={index} align="center">
                   <Paper elevation={3} className={classes.followerContainer}>
