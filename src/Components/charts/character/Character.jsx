@@ -72,10 +72,9 @@ function Character() {
                 .get(url+"/analytica/analysis/profile/getsimilarcharacters/jeffbezos" )
                 .then(response => {
                   console.log(response.data);
-                  userObjt = {
-                    userName:"Jeff Bezos",
-                    profilePic:response.data.profilePic
-                  };
+                  userObjt.userName="Jeff Bezos";
+                  userObjt.profilePic=response.data.profilePic;
+                  
                   response.data.chainedData.forEach(el=>{
                     charArr.push({
                       userName:el.full_name,
@@ -108,7 +107,7 @@ function Character() {
 
     return (
         <div className={classes.characterContainer}>            
-            {/* <Avatar src={userData.profilePic} alt={userData.userName} className={classes.userName}/> */}
+            <Avatar src={userData.profilePic} alt={userData.userName} className={classes.userProfile}/> 
             {charData.map((it, idx)=>{
                 return <Avatar key={idx} src={it.profilePic} alt={it.userName} className={classes.userMatch}/>
         })}

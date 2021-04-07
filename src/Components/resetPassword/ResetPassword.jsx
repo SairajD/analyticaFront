@@ -19,7 +19,7 @@ import LinkedInIcon from '@material-ui/icons/LinkedIn';
 import { Link, useHistory } from 'react-router-dom';
 import Axios from 'axios'
 import cookies from 'react-cookies'
-// import Logo from '../Components/logo/Logo';
+import Logo from '../logo/Logo';
 
 
 const url = 'https://analytica-parsb-api.herokuapp.com'
@@ -50,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
         marginTop: theme.spacing(2)
     },
     infoField: {
-        marginTop: theme.spacing(1),
+        marginTop: theme.spacing(3),
         marginBottom: theme.spacing(1),
     },
     socialButton: {
@@ -60,7 +60,7 @@ const useStyles = makeStyles((theme) => ({
     },
     logoIcon: {
         backgroundColor: theme.palette.secondary.main,
-        marginTop: theme.spacing(4),
+        marginTop: theme.spacing(8),
         width: theme.spacing(8),
         height: theme.spacing(8),
         paddingLeft: theme.spacing(0.9)
@@ -98,8 +98,11 @@ const useStyles = makeStyles((theme) => ({
         color: "#ffffff",
         fontWeight: "bold",
         fontSize: theme.spacing(2),
-        marginTop: theme.spacing(2)
+        marginTop: theme.spacing(4)
     },
+    svgVector:{
+        marginTop:theme.spacing(8)
+    }
 }))
 
 function Register() {
@@ -182,7 +185,7 @@ function Register() {
                 <Grid container>
                     <Grid item xs={6} className={classes.formContainer}>
                         <Avatar className={classes.logoIcon}>
-                            {/* <Logo color="#ffffff" width="72" height="72" /> */}
+                            <Logo color="#ffffff" width="72" height="72" />
                         </Avatar>
                         <Typography className={classes.appName}>
                             ANALYTICA
@@ -237,7 +240,7 @@ function Register() {
 
                     </Grid>
                     <Grid item xs={6}>
-                        <div className={classes.linkGroup}>
+                        {/* <div className={classes.linkGroup}>
                             <Typography>
                                 Already a Member?
 												</Typography>
@@ -246,8 +249,8 @@ function Register() {
                                     Sign In...
 													</Typography>
                             </Link>
-                        </div>
-                        <svg width="35vw" viewBox="0 0 443 318" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        </div> */}
+                        <svg className={classes.svgVector} width="35vw" viewBox="0 0 443 318" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <g clip-path="url(#clip0)">
                                 <path d="M443 191.305C443 246.867 409.997 266.268 369.285 266.268C328.573 266.268 295.569 246.867 295.569 191.305C295.569 135.743 369.285 65.0586 369.285 65.0586C369.285 65.0586 443 135.743 443 191.305Z" fill="#F69999" />
                                 <path d="M366.6 257.768L367.354 211.268L398.774 153.74L367.473 203.973L367.812 183.064L389.466 141.444L367.902 177.531V177.532L368.512 139.926L391.7 106.791L368.608 134.013L368.989 65.0586L366.593 156.342L366.79 152.576L343.215 116.461L366.412 159.805L364.215 201.803L364.15 200.688L336.972 162.682L364.067 204.626L363.793 209.879L363.743 209.958L363.766 210.389L358.193 316.942H365.639L366.532 261.905L393.561 220.064L366.6 257.768Z" fill="#3F3D56" />

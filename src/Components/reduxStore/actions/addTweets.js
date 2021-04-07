@@ -7,18 +7,9 @@ export const addNegatives = (obj) => {
     }
 }
 
-export const addCharacter = (obj) => {
+export const addNeutrals = (obj) => {
     return {
-        type: "addCharacter",
-        payload: {
-            data: obj
-        }
-    }
-}
-
-export const addUser = (obj) => {
-    return {
-        type: "addUser",
+        type: "addNeutrals",
         payload: {
             data: obj
         }
@@ -43,6 +34,15 @@ export const addInstaNegatives = (obj) => {
     }
 }
 
+export const addInstaNeutrals = (obj) => {
+    return {
+        type: "addInstaNeutrals",
+        payload: {
+            data: obj
+        }
+    }
+}
+
 export const addInstaPositives = (obj) => {
     return {
         type: "addInstaPositives",
@@ -58,6 +58,12 @@ export const removeNegatives = () => {
     }
 }
 
+export const removeNeutrals = () => {
+    return {
+        type: "removeNeutrals",
+    }
+}
+
 export const removePositives = () => {
     return {
         type: "removePositives",
@@ -67,6 +73,12 @@ export const removePositives = () => {
 export const removeInstaNegatives = () => {
     return {
         type: "removeInstaNegatives",
+    }
+}
+
+export const removeInstaNeutrals = () => {
+    return {
+        type: "removeInstaNeutrals",
     }
 }
 

@@ -20,7 +20,7 @@ import Axios from 'axios';
 import cookies from 'react-cookies';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
-// import Logo from '../Components/logo/Logo';
+import Logo from '../Components/logo/Logo';
 
 
 const url = ' https://analytica-parsb-api.herokuapp.com'
@@ -224,7 +224,7 @@ function Register() {
 				<Grid container>
 					<Grid item xs={6} className={classes.formContainer}>
 						<Avatar className={classes.logoIcon}>
-							{/* <Logo color="#ffffff" width="72" height="72" /> */}
+							<Logo color="#ffffff" width="72" height="72" />
 						</Avatar>
 						<Typography className={classes.appName}>
 							ANALYTICA

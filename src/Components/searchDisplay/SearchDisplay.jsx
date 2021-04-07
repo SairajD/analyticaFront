@@ -43,7 +43,19 @@ const useStyles = makeStyles((theme) => ({
       marginTop:theme.spacing(2),
       marginBottom:theme.spacing(2),      
       marginLeft: theme.spacing(2),
-  }
+  },
+  '@global': {
+    '*::-webkit-scrollbar': {
+      width: '0.4em'
+    },
+    '*::-webkit-scrollbar-track': {
+      '-webkit-box-shadow': 'inset 0 0 6px rgba(0,0,0,0.00)'
+    },
+    '*::-webkit-scrollbar-thumb': {
+      backgroundColor: 'rgba(0,0,0,.1)',
+      outline: '1px solid slategrey'
+    }
+  },
 }));
 
 export default function SearchDataDisplay() {
@@ -51,25 +63,27 @@ export default function SearchDataDisplay() {
   const classes = useStyles();
   const socialInfoNegatives = useSelector(state => state.negativeTweets);  
   const socialInfoPositives = useSelector(state => state.positiveTweets);
+  const socialInfoNeutrals = useSelector(state => state.neutralTweets);
   const socialInstaInfoNegatives = useSelector(state => state.negativeInsta);  
-  const socialInstaInfoPositives = useSelector(state => state.positiveInsta);
+  const socialInstaInfoPositives = useSelector(state => state.positiveInsta); 
+  const socialInstaInfoNeutrals = useSelector(state => state.neutralInsta);
   const chartTweetData={
     options:{
-      labels:["Positive", "Negative"],
+      labels:["Positive", "Negative", "Neutral"],
       legend:{
         position:"bottom"
       }
     },
-    series:[socialInfoPositives.length, socialInfoNegatives.length]
+    series:[socialInfoPositives.length, socialInfoNegatives.length, socialInfoNeutrals.length]
   }
   const chartInstaData={
     options:{
-      labels:["Positive", "Negative"],
+      labels:["Positive", "Negative", "Neutral"],
       legend:{
         position:"bottom"
       }
     },
-    series:[socialInstaInfoPositives.length, socialInstaInfoNegatives.length]
+    series:[socialInstaInfoPositives.length, socialInstaInfoNegatives.length, socialInstaInfoNeutrals.length]
   }
 
   useEffect(() => {
@@ -92,12 +106,21 @@ export default function SearchDataDisplay() {
     {socialInfoPositives.map((item, index) => (
       <SearchComponent key={index} sentiment={item.sentiment} caption={item.caption} likes={item.likes} comments={item.comments}/>
     ))}
+
+    {socialInfoNeutrals.map((item, index) => (
+      <SearchComponent key={index} sentiment={item.sentiment} caption={item.caption} likes={item.likes} comments={item.comments}/>
+    ))}
+    
     {socialInstaInfoNegatives.map((item, index) => (
       <SearchComponent key={index} sentiment={item.sentiment} caption={item.caption} likes={item.likes} comments={item.comments}/>
 
       ))}
 
     {socialInstaInfoPositives.map((item, index) => (
+      <SearchComponent key={index} sentiment={item.sentiment} caption={item.caption} likes={item.likes} comments={item.comments}/>
+    ))}
+
+    {socialInstaInfoNeutrals.map((item, index) => (
       <SearchComponent key={index} sentiment={item.sentiment} caption={item.caption} likes={item.likes} comments={item.comments}/>
     ))}
     

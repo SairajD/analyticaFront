@@ -15,8 +15,7 @@ import { Link, useHistory } from 'react-router-dom';
 import Axios from 'axios';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
-
-// import Logo from '../Components/logo/Logo';
+import Logo from '../Components/logo/Logo';
 
 
 
@@ -200,11 +199,11 @@ function Login() {
 						<div className={classes.linkGroup}>
 							<Typography>
 								Not a part of the Analytica Family?
-												</Typography>
+							</Typography>
 							<Link to="/Register" className={classes.link}>
 								<Typography className={classes.linkText}>
 									Join Now
-													</Typography>
+								</Typography>
 							</Link>
 						</div>
 						<svg width="30vw" viewBox="0 0 446 377" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -332,7 +331,7 @@ function Login() {
 					</Grid>
 					<Grid item xs={6} className={classes.formContainer}>
 						<Avatar className={classes.logoIcon}>
-							{/* <Logo color="#ffffff" width="72" height="72" /> */}
+							<Logo color="#ffffff" width="72" height="72" />
 						</Avatar>
 						<Typography className={classes.appName}>
 							ANALYTICA

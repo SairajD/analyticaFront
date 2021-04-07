@@ -7,6 +7,8 @@ import { Grid, Typography, Button } from '@material-ui/core';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { makeStyles } from '@material-ui/core/styles';
 import { useSelector } from 'react-redux';
+import Collapse from '@material-ui/core/Collapse';
+import { Divider } from '@material-ui/core';
 
 
 
@@ -21,7 +23,8 @@ const useStyles = makeStyles((theme) => ({
 		fontSize: theme.spacing(2),
 		paddingTop: theme.spacing(1),
 		paddingBottom: theme.spacing(1),
-		marginTop: theme.spacing(23),
+		margin: theme.spacing(2),
+		height:"60vh"
 	},
 	profileChanges: {
 		paddingLeft: theme.spacing(4),
@@ -48,7 +51,24 @@ const useStyles = makeStyles((theme) => ({
 		fontWeight:"bold",
 		marginTop:theme.spacing(1.5),		
 		marginBottom:theme.spacing(1.5)
-	}
+	},
+	historyPostSpace:{		
+		margin: theme.spacing(2),
+		padding: theme.spacing(2),
+	},
+	timelineCommentTitle:{
+        fontWeight:"bold",
+        fontSize:theme.spacing(2.5),
+        marginLeft: theme.spacing(2),
+        marginTop:theme.spacing(2),
+    },
+	timelineContent:{
+        width : 1000,
+        marginBottom: theme.spacing(2),
+        marginLeft: theme.spacing(2),
+        flexWrap: 'wrap',
+        wordWrap: 'break-word',
+    },
 }));
 
 
@@ -108,6 +128,13 @@ function SearchGraph(props) {
 			}
 		}
 	})
+
+    // const [commentOpen, setCommentOpen] = useState(false);
+  
+    // const handleClick = () => {
+    //   setCommentOpen(!commentOpen);
+    // };
+
 	const graphDisplay = () => {
 		if (dashLoc === "History") {
 			return (
@@ -136,10 +163,23 @@ function SearchGraph(props) {
 						</Paper>
 					</Grid>
 					<Grid item xs={2} align="center" className={classes.profileChanges}>
-						<Button variant="contained" fullWidth color="secondary" className={classes.profileBtn}>
+						<Button variant="contained" fullWidth color="secondary" className={classes.profileBtn} >
 							Show More
 						</Button>
 					</Grid>
+					{/* <Grid item xs={12} align="center" className={classes.postChanges}>
+						<Paper elevation={3} className={classes.historyPostSpace} id="post-space">
+							<Collapse in={commentOpen} timeout="auto" unmountOnExit>
+								<Typography className={classes.timelineCommentTitle}>Posts</Typography>
+								{
+									props.dataInsta.Negative.map((el, i)=>{
+										return(<React.Fragment><Typography className={classes.timelineContent}>hi</Typography>       
+												<Divider/></React.Fragment> )
+									})
+								}								  
+							</Collapse>
+						</Paper>
+					</Grid> */}
 				</Grid>
 			)
 		}

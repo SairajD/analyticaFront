@@ -13,8 +13,7 @@ import Button from '@material-ui/core/Button';
 import cookies from 'react-cookies'
 import { Link, useHistory } from 'react-router-dom';
 import Axios from 'axios';
-
-// import Logo from '../Components/logo/Logo';
+import Logo from '../logo/Logo';
 
 
 
@@ -49,7 +48,7 @@ const useStyles = makeStyles((theme) => ({
         marginTop: theme.spacing(4)
     },
     infoField: {
-        marginTop: theme.spacing(2),
+        marginTop: theme.spacing(6),
         marginBottom: theme.spacing(3),
     },
     socialButton: {
@@ -59,7 +58,7 @@ const useStyles = makeStyles((theme) => ({
     },
     logoIcon: {
         backgroundColor: theme.palette.secondary.main,
-        marginTop: theme.spacing(6),
+        marginTop: theme.spacing(9),
         width: theme.spacing(8),
         height: theme.spacing(8),
         paddingLeft: theme.spacing(0.9)
@@ -90,11 +89,15 @@ const useStyles = makeStyles((theme) => ({
     loginBtn: {
         color: "#ffffff",
         fontWeight: "bold",
-        fontSize: theme.spacing(2)
+        fontSize: theme.spacing(2),
+        marginTop:theme.spacing(3)
     },
     forgotPass: {
         color: theme.palette.text.secondary,
-    },
+    },    
+    svgVector:{
+        marginTop:theme.spacing(8)
+    }
     // addornment:{
     // 	color:theme.palette.primary.main
     // },
@@ -178,7 +181,7 @@ function ConfirmationEmail() {
 													</Typography>
 							</Link>
 						</div> */}
-                        <svg width="30vw" viewBox="0 0 446 377" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <svg className={classes.svgVector} width="30vw" viewBox="0 0 446 377" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <g clip-path="url(#clip0)">
                                 <path opacity="0.2" d="M151.651 14.453C165.897 1.77246 188.248 -0.813312 208.598 0.197935C272.509 3.36917 330.206 34.2033 380.092 69.078C398.16 81.7009 415.944 95.3084 427.67 112.695C451.539 148.088 444.46 197.121 411.248 226.278C399.958 236.195 386.266 243.802 372.192 250.544C347.2 262.519 320.238 272.152 291.859 274.893C271.634 276.845 251.161 275.257 231.055 272.534C174.876 264.918 119.731 248.082 73.4975 219.279C53.2235 206.643 34.1168 190.938 25.7641 170.491C17.4113 150.044 22.8259 124.187 43.5259 112.065C52.0873 107.062 62.3219 104.8 72.3435 102.68C87.0918 99.5751 102.08 96.4704 115.395 90.128C129.153 83.5726 145.424 70.8876 142.703 56.3709C139.778 40.8031 137.448 27.1202 151.651 14.453Z" fill="#F69999" />
                                 <path d="M235.028 377.003C351.544 377.003 446 362.497 446 344.603C446 326.709 351.544 312.203 235.028 312.203C118.511 312.203 24.0553 326.709 24.0553 344.603C24.0553 362.497 118.511 377.003 235.028 377.003Z" fill="#F69999" />
@@ -303,7 +306,7 @@ function ConfirmationEmail() {
                     </Grid>
                     <Grid item xs={6} className={classes.formContainer}>
                         <Avatar className={classes.logoIcon}>
-                            {/* <Logo color="#ffffff" width="72" height="72" /> */}
+                            <Logo color="#ffffff" width="72" height="72" />
                         </Avatar>
                         <Typography className={classes.appName}>
                             ANALYTICA

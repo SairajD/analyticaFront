@@ -15,7 +15,7 @@ import NotificationsIcon from "@material-ui/icons/Notifications";
 import MoreIcon from "@material-ui/icons/MoreVert";
 import Axios from "axios";
 import { useDispatch, useSelector } from 'react-redux';
-import { addNegatives, addPositives, socialLoc, removeNegatives, removePositives, addInstaNegatives, addInstaPositives, removeInstaPositives, removeInstaNegatives } from '../reduxStore/actions/addTweets';
+import { addNegatives, addPositives, socialLoc, removeNegatives, removePositives, addInstaNegatives, addInstaPositives, removeInstaPositives, removeInstaNegatives, addNeutrals, removeNeutrals, removeInstaNeutrals, addInstaNeutrals } from '../reduxStore/actions/addTweets';
 import TwitterIcon from '@material-ui/icons/Twitter';
 import InstagramIcon from '@material-ui/icons/Instagram';
 import Avatar from '@material-ui/core/Avatar';
@@ -170,15 +170,17 @@ export default function PrimarySearchAppBar() {
     let response = await Axios.get(
       url+`/analytica/instagram/tags/${globaInstalId}/status`
     );
-    console.log("hi my boi"+response);
     if (response.status == 200) {
       console.log("Done");
       clearTimeout(instaTimerId);
       let response = await Axios.get(
         url+`/analytica/instagram/tags/${globaInstalId}/download`
       );
+      console.log("instagram download")
+      console.log(response.data)
       let finalNegatives = [];
       let finalPositives = [];
+      let finalNeutrals = [];
       response.data.negatives.forEach((l) => {
         let tempneg = {
           caption: l.caption,
@@ -190,6 +192,19 @@ export default function PrimarySearchAppBar() {
         };
 
         finalNegatives.push(tempneg);
+      });
+
+      response.data.neutrals.forEach((l) => {
+        let tempneu = {
+          caption: l.caption,
+          likes: l.likeCount,
+          comments: l.commentCount,
+          timestamp: l.timeStamp,
+          thumbnail: "",
+          sMedia: "InstagramIcon"
+        };
+
+        finalNeutrals.push(tempneu);
       });
 
       response.data.positives.forEach((l) => {
@@ -207,6 +222,7 @@ export default function PrimarySearchAppBar() {
 
       dispatch(addInstaNegatives(finalNegatives));
       dispatch(addInstaPositives(finalPositives));
+      dispatch(addInstaNeutrals(finalNeutrals));
 
     } else if (response.status == 204) {
       const timer = setTimeout(checkInstaStatus, 5000);
@@ -218,15 +234,18 @@ export default function PrimarySearchAppBar() {
     let response = await Axios.get(
       url+`/analytica/twitter/search/status/${globalId}`
     );
-    console.log(response);
     if (response.status == 200) {
-      console.log("Done");
       clearTimeout(timerId);
       let response = await Axios.get(
         url+`/analytica/twitter/search/download/${globalId}`
       );
+
+
+      console.log("twitter download")
+      console.log(response.data)
       let finalNegatives = [];
       let finalPositives = [];
+      let finalNeutrals = [];
       response.data.negatives.forEach((l) => {
         let tempneg = {
           caption: l.full_text,
@@ -238,6 +257,19 @@ export default function PrimarySearchAppBar() {
         };
 
         finalNegatives.push(tempneg);
+      });
+
+      response.data.neutrals.forEach((l) => {
+        let tempneu = {
+          caption: l.caption,
+          likes: l.likeCount,
+          comments: l.commentCount,
+          timestamp: l.timeStamp,
+          thumbnail: "",
+          sMedia: "InstagramIcon"
+        };
+
+        finalNeutrals.push(tempneu);
       });
 
       response.data.positives.forEach((l) => {
@@ -255,6 +287,7 @@ export default function PrimarySearchAppBar() {
 
       dispatch(addNegatives(finalNegatives));
       dispatch(addPositives(finalPositives));
+      dispatch(addNeutrals(finalNeutrals));
 
     } else if (response.status == 204) {
       const timer = setTimeout(checkStatus, 5000);
@@ -270,16 +303,16 @@ export default function PrimarySearchAppBar() {
     globalId = twitterAnalysis.data.documentId;
     let tID = setTimeout(checkStatus, 5000);
     setTimerId(tID);
-
-    console.log(twitterAnalysis.data);
   };
 
   const onInputChange = (e) => {
     if (e.key === "Enter") {
       dispatch(removeNegatives());
       dispatch(removePositives());
+      dispatch(removeNeutrals());
       dispatch(removeInstaPositives());
       dispatch(removeInstaNegatives());
+      dispatch(removeInstaNeutrals());
       onSearch(e.target.value);
       onInstaSearch(e.target.value);
       history.push('/Dashboard/SearchDisplay');

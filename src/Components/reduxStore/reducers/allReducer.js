@@ -6,8 +6,8 @@ import addPositiveInstaReducer from './addPositiveInstaReducer';
 import changeDashReducer from './changeDashReducer';
 import changeSocialReducer from './changeSocialReducer';
 import changeThemeReducer from './changeThemeReducer';
-import addCharacterReducer from './addCharacterReducer';
-import addUserReducer from './addUserReducer';
+import addNeutralInstaReducer from './addNeutralInstaReducer';
+import addNeutralTweetReducer from './addNeutralTweetReducer';
 
 
 const allReducer = combineReducers({
@@ -18,7 +18,7 @@ const allReducer = combineReducers({
     changeDash: changeDashReducer,
     changeSocial: changeSocialReducer,
     changeTheme: changeThemeReducer,
-    addCharacter: addCharacterReducer,
-    addUser: addUserReducer,
+    neutralTweets: addNeutralTweetReducer,
+    neutralInsta: addNeutralInstaReducer,
 });
 export default allReducer;

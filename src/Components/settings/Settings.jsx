@@ -14,8 +14,7 @@ import {useHistory, Redirect} from "react-router-dom";
 import {browserHistory} from "react-router";
 
 const drawerWidth = 240;
-//const url = ' https://analytica-parsb-api.herokuapp.com'
-const url="http://localhost:3000"
+const url = ' https://analytica-parsb-api.herokuapp.com'
 const useStyles = makeStyles((theme) => ({
 		settingsRoot: {
 			width: `calc(100% - ${drawerWidth})`,

@@ -210,12 +210,12 @@ const useStyles = makeStyles((theme) => ({
                 })
 
                 setInstaData({
-                  "engagement": response.data.engagement,
+                  "engagement": Number((response.data.engagement).toFixed(3)),
                   "likes": response.data.likes,
                   "comments": response.data.comments,
                   "posts": response.data.posts,
                   "followers": response.data.followers,
-                  "postFrequency": response.data.postFrequency,
+                  "postFrequency": Number((response.data.postFrequency).toFixed(4)),
                 })
               
                               
@@ -257,7 +257,7 @@ const userFeeds= async ()=>{
 
   useEffect(() => {
     console.log('here')
-    //instaCharts();
+    instaCharts();
  
                                                                            
   }, [])
@@ -265,7 +265,7 @@ const userFeeds= async ()=>{
       
     console.log('here')
 
-    //userFeeds();
+    userFeeds();
                                                                            
   }, [])
   const socialData = () => {
@@ -288,7 +288,7 @@ const userFeeds= async ()=>{
   
   useEffect(() => {
 
-     //socialData();
+     socialData();
                                                                            
   }, [])
 

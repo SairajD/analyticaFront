@@ -45,13 +45,7 @@ function History() {
   })();
   const [tweetData, setTweetData] = useState([]);
   const [instaData, setInStaData] = useState([]);
-  // {
-  //   Positive: [],
-  //   Negative: [],
-  //   Neutral: [],
-  //   CreatedAt: '',
-  //   Querry: ''
-  // }
+
   const dispatch = useDispatch();
   const classes = useStyles();
 
@@ -105,12 +99,12 @@ function History() {
           Neutral: eachElement.Neutral,
           data:{
             options:{
-              labels:["Positive", "Negative"],
+              labels:["Positive", "Negative", "Neutral"],
               legend:{
                 position:"bottom"
               }
             },
-            series:[eachElement.Positives.length, eachElement.Negatives.length],
+            series:[eachElement.Positives.length, eachElement.Negatives.length, eachElement.Neutral.length],
             
           }
         })
@@ -175,12 +169,12 @@ function History() {
           Neutral: eachElement.Neutral,
           data:{
             options:{
-              labels:["Positive", "Negative"],
+              labels:["Positive", "Negative", "Neutral"],
               legend:{
                 position:"bottom"
               }
             },
-            series:[eachElement.Positives.length, eachElement.Negatives.length],
+            series:[eachElement.Positives.length, eachElement.Negatives.length, eachElement.Neutral.length],
             
           }
         })
@@ -209,12 +203,15 @@ function History() {
       <div className={classes.historyToolbar} />
       {
         instaData.map((el, index) => {
-          return <SearchGraph
+          if(typeof tweetData[index] !== undefined)
+          {
+            console.log(tweetData[index])
+            return <SearchGraph
             key={index}
             Querry={el.Querry}
             dataTweet={tweetData[index].data}
             dataInsta={el.data}
-          />
+          />}
         })
       }
 

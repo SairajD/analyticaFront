@@ -25,7 +25,6 @@ const drawerWidth = 240;
 let usernameDisplay='gowithbang2'
 const documentID = '604866549c7f42544d67f493'
 const url='https://analytica-parsb-api.herokuapp.com'
-//https://analytica-parsb-api.herokuapp.com
 const useStyles = makeStyles((theme) => ({
     dataSpace:{
       margin:theme.spacing(2),
@@ -147,6 +146,7 @@ const useStyles = makeStyles((theme) => ({
   // }}})
  
   const [tweetLineData, settweetLineData] = useState({series:[{data:[]}],options:{xaxis:{categories:[]}}})
+  const [tweetLineCommentData, settweetLineCommentData] = useState({series:[{data:[]}],options:{xaxis:{categories:[]}}})
   const [socialInfo, setSocialInfo] = useState([{caption:"", likes:0, comments:0, timestamp:0, thumbnail:""}])
 //functions
 
@@ -163,8 +163,19 @@ const useStyles = makeStyles((theme) => ({
       Axios
           .get(url+'/analytica/twitter/analysis')
           .then(response => {
+            console.log(response.data)
                 settweetLineData({
                   series:[{data:response.data.postLikes}],
+                  options:{
+                    xaxis:{
+                      categories:response.data.postdates
+                    }
+                  }
+                
+                })
+
+                settweetLineCommentData({
+                  series:[{data:response.data.postComments}],
                   options:{
                     xaxis:{
                       categories:response.data.postdates
@@ -193,13 +204,12 @@ const useStyles = makeStyles((theme) => ({
 const userFeeds= async ()=>{
   const results=await Axios.get(url+'/analytica/twitter/personal/feed')
   let feedArray=[];
-  console.log( results.data.data.user.edge_web_feed_timeline.edges[0])
-  results.data.data.user.edges.forEach((el)=>{
+  console.log( results.data)
+  results.data.forEach((el)=>{
       let obj={
-        text:el.node.edge_media_to_caption.edges[0].node.text,
-        commentsCount:el.node.edge_media_to_comment.count,
-        image:el.node.display_url,
-        likesCount:222
+        text:el.full_text,
+        commentsCount:el.retweet_count,
+        likesCount:el.favorite_count
       }
       feedArray.push(obj)
   })
@@ -211,49 +221,52 @@ const userFeeds= async ()=>{
 
   useEffect(() => {
       
-    //instaCharts();
+    instaCharts();
  
                                                                            
   }, [])
+
   useEffect(() => {
       
    
-    //userFeeds();
-                                                                           
-  }, [])
-  const socialData = () => {
-  
-      Axios
-          .get(`https://analytica-parsb-api.herokuapp.com/analytica/instagram/tags/${documentID}/download`)
-          .then(response => {
-              const negData = response.data.negatives;
-              setSocialInfo(negData);
-          })
-          .catch(err => {
-              console.log(err);
-          })
-          
-              
-          }
-  
-  
-  
-  
-  useEffect(() => {
-      
-     //socialData();
+    userFeeds();
                                                                            
   }, [])
 
+  // const socialData = () => {
+  
+  //     Axios
+  //         .get(`https://analytica-parsb-api.herokuapp.com/analytica/instagram/tags/${documentID}/download`)
+  //         .then(response => {
+  //             console.log(response.data)
+  //             const negData = response.data.negatives;
+  //             setSocialInfo(negData);
+  //         })
+  //         .catch(err => {
+  //             console.log(err);
+  //         })
+          
+              
+  //         }
+  
+  
+  
+  
+  // useEffect(() => {
+      
+  //    socialData();
+                                                                           
+  // }, [])
+
   
 const EngagementData={
-  series:[{data:[0.047,0.059,tweetData.engagement,0.05]}],options:{xaxis:{categories:["World","India","User","Optimal"]},
+  series:[{data:[0.047,0.059,tweetData.engagement,0.05]}],options:{xaxis:{categories:["World","India","User","Optimal"],yaxis:{forceNiceScale:true}},
 
 },
 
 }
 const postFrequencyData={
-  series:[{data:[2,3,tweetData.postFrequency,1]}],options:{xaxis:{categories:["World","India","User","Optimal"]}}
+  series:[{data:[2,3,tweetData.postFrequency,1]}],options:{xaxis:{categories:["World","India","User","Optimal"]},yaxis:{forceNiceScale:true}}
 }
   
   
@@ -344,9 +357,9 @@ const postFrequencyData={
               <Grid item xs={6} align="center">
                 <Paper elevation={3} className={classes.dataSpace}>
                   <Typography variant="body1" color="textPrimary"> 
-                    Sentiment Analysis
+                    Comment Frequency
                   </Typography>
-                  <DougnutChart data = {tweetLineData} width = "280" height = "300"/>
+                  <LineChart data = {tweetLineCommentData} width = "280" height = "300"/>
                 </Paper>
               </Grid>
             </Grid>
