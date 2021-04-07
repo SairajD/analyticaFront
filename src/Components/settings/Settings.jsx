@@ -1,21 +1,21 @@
 import React, {useState, useEffect} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
-import ThumbUpIcon from '@material-ui/icons/ThumbUp';
-import CommentIcon from '@material-ui/icons/Comment';
-import Collapse from '@material-ui/core/Collapse';
 import { Button, CssBaseline, Divider, Grid } from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
-import { Link } from "react-router-dom";
 import Switch from '@material-ui/core/Switch';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import MuiPhoneNumber from "material-ui-phone-number";
 import {useDispatch, useSelector} from 'react-redux';
 import {darkLight, dashLoc} from '../reduxStore/actions/addTweets';
+import cookies from 'react-cookies';
+import Axios from "axios";
+import {useHistory, Redirect} from "react-router-dom";
+import {browserHistory} from "react-router";
 
 const drawerWidth = 240;
-
+//const url = ' https://analytica-parsb-api.herokuapp.com'
+const url="http://localhost:3000"
 const useStyles = makeStyles((theme) => ({
 		settingsRoot: {
 			width: `calc(100% - ${drawerWidth})`,
@@ -62,12 +62,24 @@ const useStyles = makeStyles((theme) => ({
 				backgroundColor: 'rgba(0,0,0,.1)',
 				outline: '1px solid slategrey'
 			}
-		}
+		},
   }));
 
 function Settings() {
 
+	(function () {
+		let tokenValue = cookies.load('Token');
+		if (tokenValue) {
+		  Axios.defaults.headers.common['Authorization'] = tokenValue;
+		} else {
+		  Axios.defaults.headers.common['Authorization'] = null;
+	
+		}
+		console.log(tokenValue)
+	  })();
+
 	const dispatch = useDispatch();
+	const history = useHistory();
     const classes = useStyles();
 		const [checkedTwitter, setCheckedTwitter] = useState(false);
 		const [checkedInstagram, setCheckedInstagram] = useState(false);
@@ -76,6 +88,10 @@ function Settings() {
 
 		const handleChangeTwitter = () => {
 			setCheckedTwitter((prev) => !prev);
+			if(!checkedTwitter)
+			{
+				twitterLogin();
+			}
 		};
 
 		const handleChangeInstagram = () => {
@@ -94,7 +110,65 @@ function Settings() {
     
 			dispatch(dashLoc("Settings"));
 																				   
-		  }, [])
+		}, [])
+
+		const changePassword = () => {
+
+			let currentPass = document.getElementById('current-password')
+			let newPass = document.getElementById('new-password')
+			let checkPass = document.getElementById('confirm-password')
+			let displayFault = document.getElementById('displayFault')
+
+			if (currentPass.value == '' || newPass.value == '' || checkPass.value == '' ) {
+				displayFault.innerHTML = "Empty Fields not Alllowed"
+	
+				displayFault.style.color = "red"
+				return;
+			}
+			if (newPass.value !== checkPass.value) {
+	
+	
+				displayFault.innerHTML = "Password Don't Match"
+				displayFault.style.color = "red"
+				newPass.style.borderColor = "red";
+				checkPass.style.borderColor = "red";
+				return;
+			}
+			if (newPass.value.length < 6) {
+				displayFault.innerHTML = "Password length must be greater than 5"
+				displayFault.style.color = "red"
+				return;
+			}
+			let passw = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/;
+			if (!newPass.value.match(passw)) {
+				displayFault.innerHTML = "Password Must contain  at least one numeric digit, one uppercase and one lowercase letter"
+				displayFault.style.color = "red"
+				return;
+	
+			}
+
+			displayFault.style.display="none";
+
+			Axios.post(url+"/Analytica/users/changePassword", {currentPassword:currentPass.value, Password:newPass.value})
+		}
+
+		const twitterLogin = () =>{
+			const expires = new Date()
+			expires.setDate(Date.now() + 1000 * 60 * 60 * 24 * 14)
+			Axios.post(url+"/analytica/twitter/login")
+			.then(res=>{
+				console.log("hi yo"+res)
+				cookies.save('OAuthRequestToken', res.data.OAuthRequestToken, {
+					path: '/',
+					expires,
+	
+					// secure: true,
+					// httpOnly: true
+				})
+				
+				browserHistory.replace(res.data.redirectUri)
+			})
+		}
 
     return (
         <div className={classes.settingsRoot}>
@@ -199,9 +273,10 @@ function Settings() {
 										variant="outlined"
 									/>
 								</Grid>
+								<Grid item xs={12}><p id="displayFault"></p></Grid>
 								<Grid item xs={4}></Grid>
 								<Grid item xs={4} align="center" className={classes.profileChanges}>
-									<Button variant="contained" fullWidth color="Secondary" className={classes.profileBtn}>
+									<Button variant="contained" fullWidth color="Secondary" className={classes.profileBtn} onClick={changePassword}>
 										Change Password 
 									</Button>
 								</Grid>
@@ -259,7 +334,7 @@ function Settings() {
 									</Button>
 								</Grid>								
 						</Grid>
-          </div>     
+          </div> 
 					<div className={classes.settingsToolbar}/>           
         </div>
     )

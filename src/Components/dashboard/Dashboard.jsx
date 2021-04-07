@@ -8,7 +8,9 @@ import CustomTimeline from '../timeline/Timeline';
 import SearchDataDisplay from '../searchDisplay/SearchDisplay';
 import Settings from '../settings/Settings';
 import History from '../history/History';
-import Loading from '../loading/Loading';
+import Followers from '../followers/Followers';
+import LoadingPageDash from '../loadingPage/LoadingPageDash';
+import TwitterLogin from '../settings/TwitterLogin';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -28,7 +30,10 @@ function Dashboard() {
           <Route path ="/Dashboard/Timeline"  component={CustomTimeline}/>
           <Route path ="/Dashboard/SearchDisplay"  component={SearchDataDisplay}/>
           <Route path ="/Dashboard/Settings"  component={Settings}/>            
-          <Route path ="/Dashboard/History"  component={History}/>  
+          <Route path ="/Dashboard/History"  component={History}/>            
+          <Route path ="/Dashboard/Followers"  component={Followers}/>       
+          <Route path ="/Dashboard/load"  component={LoadingPageDash}/>                            
+          <Route path ="/Dashboard/twitter/login-next"  component={TwitterLogin}/> 
         </Switch>
         </Router>
     </div>

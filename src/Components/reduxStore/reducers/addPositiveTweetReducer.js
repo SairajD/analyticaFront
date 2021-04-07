@@ -1,8 +1,9 @@
 const addPositiveTweetReducer = (state = [], action) => {
     switch(action.type){
         case "addPositives":
-            return action.payload.data;
-        
+            return [...state, ...action.payload.data];
+        case "removePositives":
+            return [];
         default:
             return state;
     }

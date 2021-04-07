@@ -37,11 +37,6 @@ const SidebarData = [
         path:"/Dashboard/Timeline"
     },
     {
-        text:"Trend",
-        icon:<WhatshotIcon/>,
-        path:"/Dashboard/Trend"
-    },
-    {
         text:"Upload",
         icon:<BackupIcon/>,
         path:"/Dashboard/Upload"
@@ -54,12 +49,7 @@ const SidebarData = [
     {
         text:"Followers",
         icon:<FaceIcon/>,
-        path:"/DashboardFollowers"
-    },
-    {
-        text:"Sponsors",
-        icon:<MonetizationOnIcon/>,
-        path:"/Dashboard/Sponsors"
+        path:"/Dashboard/Followers"
     },
     {
         text:"Settings",
@@ -92,7 +82,7 @@ const useStyles = makeStyles((theme) => ({
   userEmail: {
     marginTop: theme.spacing(4),
     color:"#ffffff",
-    fontSize:theme.spacing(2),
+    fontSize:"1em",
     fontWeight:"bold"
   },
   content: {

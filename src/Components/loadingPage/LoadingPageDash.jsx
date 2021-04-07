@@ -12,12 +12,13 @@ const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
     loadingRoot: {
-        width: `100%`,
+        width: `calc(100% - ${drawerWidth})`,
+        marginLeft: drawerWidth
     },
     loadingToolbar: theme.mixins.toolbar,
     preLoader: {
         width: "100%",
-        height: "100vh",
+        height: "90vh",
         display: "flex",
         justifyContent: "center",
         alignItems: "center"
@@ -52,7 +53,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-function LoadingPage() {
+function LoadingPageDash() {
     const classes = useStyles();
 
     useEffect(() => {
@@ -62,6 +63,7 @@ function LoadingPage() {
     return (
         <div className={classes.loadingRoot}>
             <CssBaseline />
+            <div className={classes.loadingToolbar}/>
             <div className={classes.preLoader}>
                 <Avatar className={classes.logoSocialIcon}>
                     <FacebookIcon />
@@ -83,4 +85,4 @@ function LoadingPage() {
     )
 }
 
-export default LoadingPage
+export default LoadingPageDash

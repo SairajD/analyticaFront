@@ -14,21 +14,45 @@ const useStyles = makeStyles((theme) => ({
 	dataSpace: {
 		margin: theme.spacing(2),
 		padding: theme.spacing(2),
+		width:"32vw",
+		height:"60vh"
 	},
 	profileBtn: {
 		fontSize: theme.spacing(2),
 		paddingTop: theme.spacing(1),
 		paddingBottom: theme.spacing(1),
-		marginTop: theme.spacing(20),
+		marginTop: theme.spacing(23),
 	},
 	profileChanges: {
 		paddingLeft: theme.spacing(4),
 		paddingRight: theme.spacing(4),
+	},
+	historyDataSpace:{
+		margin: theme.spacing(2),
+		padding: theme.spacing(2),
+		width:"32vw",
+		height:"60vh"
+	},
+	historyTitleSpace:{
+		margin: theme.spacing(2),
+		padding: theme.spacing(1),
+	},
+	dataText:{
+		fontSize:theme.spacing(2),
+		fontWeight:"bold",
+		marginTop:theme.spacing(1.5),		
+		marginBottom:theme.spacing(1.5)
+	},
+	dataTitle:{
+		fontSize:theme.spacing(3),
+		fontWeight:"bold",
+		marginTop:theme.spacing(1.5),		
+		marginBottom:theme.spacing(1.5)
 	}
 }));
 
 
-function SearchGraph() {
+function SearchGraph(props) {
 
 	const classes = useStyles();
 	const dashLoc = useSelector(state => state.changeDash);
@@ -88,26 +112,33 @@ function SearchGraph() {
 		if (dashLoc === "History") {
 			return (
 				<Grid container>
-					<Grid item xs={5} align="center">
-						<Paper elevation={3} className={classes.dataSpace}>
-							<Typography variant="body1" color="textPrimary">
-								Sentiment Analysis
-						</Typography>
-							<DougnutChart data={facebookData} width="250" height="300" />
+					<Grid item xs={12} align="center">
+						<Paper elevation={3} className={classes.historyTitleSpace} >
+							<Typography variant="body1" color="textPrimary" className={classes.dataTitle}>
+								{props.Querry}
+							</Typography>
 						</Paper>
 					</Grid>
 					<Grid item xs={5} align="center">
-						<Paper elevation={3} className={classes.dataSpace}>
-							<Typography variant="body1" color="textPrimary">
-								Sentiment Analysis
-						</Typography>
-							<DougnutChart data={facebookData} width="250" height="300" />
+						<Paper elevation={3} className={classes.historyDataSpace} >
+							<Typography variant="body1" color="textPrimary" className={classes.dataText}>
+								Twitter Sentiment Analysis
+							</Typography>
+							<DougnutChart data={props.dataTweet} width="300" height="350" />
+						</Paper>
+					</Grid>
+					<Grid item xs={5} align="center">
+						<Paper elevation={3} className={classes.historyDataSpace}>
+							<Typography variant="body1" color="textPrimary" className={classes.dataText}>
+								Instagram Sentiment Analysis
+							</Typography>
+							<DougnutChart data={props.dataInsta} width="300" height="350" />
 						</Paper>
 					</Grid>
 					<Grid item xs={2} align="center" className={classes.profileChanges}>
-						<Button variant="contained" fullWidth color="Secondary" className={classes.profileBtn}>
+						<Button variant="contained" fullWidth color="secondary" className={classes.profileBtn}>
 							Show More
-					</Button>
+						</Button>
 					</Grid>
 				</Grid>
 			)
@@ -116,18 +147,18 @@ function SearchGraph() {
 			return (<Grid container>
 				<Grid item xs={6} align="center">
 					<Paper elevation={3} className={classes.dataSpace}>
-						<Typography variant="body1" color="textPrimary">
-							Sentiment Analysis
-								</Typography>
-						<DougnutChart data={facebookData} width="250" height="300" />
+						<Typography variant="body1" color="textPrimary" className={classes.dataText}>
+							Twitter Sentiment Analysis
+						</Typography>
+						<DougnutChart data={props.dataTweet} width="300" height="350" />
 					</Paper>
 				</Grid>
 				<Grid item xs={6} align="center">
 					<Paper elevation={3} className={classes.dataSpace}>
-						<Typography variant="body1" color="textPrimary">
-							Sentiment Analysis
-								</Typography>
-						<DougnutChart data={facebookData} width="250" height="300" />
+						<Typography variant="body1" color="textPrimary" className={classes.dataText}>
+							Instagram Sentiment Analysis
+						</Typography>
+						<DougnutChart data={props.dataInsta} width="300" height="350" />
 					</Paper>
 				</Grid>
 			</Grid>)

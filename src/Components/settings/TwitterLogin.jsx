@@ -7,8 +7,12 @@ import TwitterIcon from '@material-ui/icons/Twitter';
 import InstagramIcon from '@material-ui/icons/Instagram';
 import LinkedInIcon from '@material-ui/icons/LinkedIn';
 import FacebookIcon from '@material-ui/icons/Facebook';
+import cookies from 'react-cookies';
+import Axios from "axios";
+import {useLocation} from "react-router-dom";
 
 const drawerWidth = 240;
+const url = ' https://analytica-parsb-api.herokuapp.com'
 
 const useStyles = makeStyles((theme) => ({
     loadingRoot: {
@@ -52,10 +56,60 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-function LoadingPage() {
+function TwitterLogin() {
+
+    (function () {
+		let tokenValue = cookies.load('Token');
+		if (tokenValue) {
+		  Axios.defaults.headers.common['Authorization'] = tokenValue;
+		} else {
+		  Axios.defaults.headers.common['Authorization'] = null;
+	
+		}
+		console.log(tokenValue)
+	  })();
+
     const classes = useStyles();
 
+    function useQuery() {
+        return new URLSearchParams(useLocation().search);
+      }
+
+      let query = useQuery();
+
     useEffect(() => {
+        console.log(query)
+
+        if (query.get("oauth_token") === cookies.load('OAuthRequestToken'))
+        {
+            Axios
+              .post(
+                url+`/analytica/twitter/login/callback`,
+                {
+                  oauth_token: cookies.load('OAuthRequestToken'),
+                  oauth_verifier: query.get("oauth_verifier"),
+                },
+              )
+              .then(() => {
+                Axios
+                  .get(url+`/analytica/twitter/login/verify`)
+                  .then((response) => {
+                    console.log(response.data);
+                    // const user = {
+                    //   username: response.data.user_details.screen_name,
+                    //   userid: response.data.user_details.id_str,
+                    //   name: response.data.user_details.name,
+                    //   statuses_count: response.data.user_details.statuses_count,
+                    //   like_count: response.data.user_details.favourites_count,
+                    //   followers_count: response.data.user_details.followers_count,
+                    //   friends_count: response.data.user_details.friends_count,
+                    //   created_at: response.data.user_details.created_at,
+                    // };
+                    // this.$store.state.user = user;
+                    this.$router.replace({ path: "/Dashboard" });
+                  });
+              });
+          }
 
     }, [])
 
@@ -83,4 +137,4 @@ function LoadingPage() {
     )
 }
 
-export default LoadingPage
+export default TwitterLogin

@@ -211,14 +211,14 @@ const userFeeds= async ()=>{
 
   useEffect(() => {
       
-    instaCharts();
+    //instaCharts();
  
                                                                            
   }, [])
   useEffect(() => {
       
    
-    userFeeds();
+    //userFeeds();
                                                                            
   }, [])
   const socialData = () => {
@@ -241,7 +241,7 @@ const userFeeds= async ()=>{
   
   useEffect(() => {
       
-     socialData();
+     //socialData();
                                                                            
   }, [])
 

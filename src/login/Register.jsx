@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Avatar from '@material-ui/core/Avatar';
@@ -12,13 +12,14 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import EmailIcon from '@material-ui/icons/Email';
 import LockIcon from '@material-ui/icons/Lock';
 import Button from '@material-ui/core/Button';
-
 import TwitterIcon from '@material-ui/icons/Twitter';
 import InstagramIcon from '@material-ui/icons/Instagram';
 import LinkedInIcon from '@material-ui/icons/LinkedIn';
 import { Link, useHistory } from 'react-router-dom';
-import Axios from 'axios'
-import cookies from 'react-cookies'
+import Axios from 'axios';
+import cookies from 'react-cookies';
+import VisibilityIcon from '@material-ui/icons/Visibility';
+import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 // import Logo from '../Components/logo/Logo';
 
 
@@ -99,13 +100,27 @@ const useStyles = makeStyles((theme) => ({
 		fontWeight: "bold",
 		fontSize: theme.spacing(2),
 		marginTop: theme.spacing(2)
-	},
+	},	
+	addornmentVis:{
+		cursor:"pointer"
+	}
 }))
 
 function Register() {
 
+	const [visibility, setVisibility] = useState(false)
+	const [visibility2, setVisibility2] = useState(false)
 	const classes = useStyles();
 	const History = useHistory();
+
+	const passVisibility=()=>{
+		setVisibility(prev=>!prev);
+	}
+
+	const passVisibility2=()=>{
+		setVisibility2(prev=>!prev);
+	}
+
 	const loginClicked = async () => {
 
 
@@ -152,6 +167,8 @@ function Register() {
 
 		}
 
+		
+
 		try {
 			let response = await Axios.post(url + '/Analytica/users/Register', {
 				Username: username.value.trim(),
@@ -197,7 +214,7 @@ function Register() {
 		}
 
 
-
+		displayFault.style.display="none";
 
 	}
 	return (
@@ -211,7 +228,7 @@ function Register() {
 						</Avatar>
 						<Typography className={classes.appName}>
 							ANALYTICA
-                        </Typography>
+            </Typography>
 						<TextField
 							className={classes.infoField}
 							fullWidth
@@ -254,13 +271,18 @@ function Register() {
 							required
 							fullWidth
 							id="password"
-							type="password"
+							type={visibility?"text":"password"}
 							label="Password"
 							placeholder="Password"
 							InputProps={{
 								startAdornment: (
 									<InputAdornment position="start">
 										<LockIcon className={classes.addornment} />
+									</InputAdornment>
+								),
+								endAdornment: (
+									<InputAdornment position="end">
+										{visibility?<VisibilityIcon className={classes.addornmentVis} onClick={passVisibility}/>:<VisibilityOffIcon className={classes.addornmentVis} onClick={passVisibility}/>}
 									</InputAdornment>
 								),
 								className: classes.lineColor,
@@ -273,13 +295,18 @@ function Register() {
 							required
 							fullWidth
 							id="confirm-password"
-							type="password"
+							type={visibility2?"text":"password"}
 							label="Confirm Password"
 							placeholder="Confirm Password"
 							InputProps={{
 								startAdornment: (
 									<InputAdornment position="start">
 										<LockIcon className={classes.addornment} />
+									</InputAdornment>
+								),								
+								endAdornment: (
+									<InputAdornment position="end">
+										{visibility2?<VisibilityIcon className={classes.addornmentVis} onClick={passVisibility2}/>:<VisibilityOffIcon className={classes.addornmentVis} onClick={passVisibility2}/>}
 									</InputAdornment>
 								),
 								className: classes.lineColor,
