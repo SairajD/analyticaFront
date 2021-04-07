@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
 		fontSize: theme.spacing(2),
 		paddingTop: theme.spacing(1),
 		paddingBottom: theme.spacing(1),
-		marginTop: theme.spacing(20),
+		marginTop: theme.spacing(23),
 	},
 	profileChanges: {
 		paddingLeft: theme.spacing(4),
@@ -31,10 +31,20 @@ const useStyles = makeStyles((theme) => ({
 		margin: theme.spacing(2),
 		padding: theme.spacing(2),
 		width:"32vw",
-		height:"50vh"
+		height:"60vh"
+	},
+	historyTitleSpace:{
+		margin: theme.spacing(2),
+		padding: theme.spacing(1),
 	},
 	dataText:{
 		fontSize:theme.spacing(2),
+		fontWeight:"bold",
+		marginTop:theme.spacing(1.5),		
+		marginBottom:theme.spacing(1.5)
+	},
+	dataTitle:{
+		fontSize:theme.spacing(3),
 		fontWeight:"bold",
 		marginTop:theme.spacing(1.5),		
 		marginBottom:theme.spacing(1.5)
@@ -102,20 +112,27 @@ function SearchGraph(props) {
 		if (dashLoc === "History") {
 			return (
 				<Grid container>
+					<Grid item xs={12} align="center">
+						<Paper elevation={3} className={classes.historyTitleSpace} >
+							<Typography variant="body1" color="textPrimary" className={classes.dataTitle}>
+								{props.Querry}
+							</Typography>
+						</Paper>
+					</Grid>
 					<Grid item xs={5} align="center">
 						<Paper elevation={3} className={classes.historyDataSpace} >
 							<Typography variant="body1" color="textPrimary" className={classes.dataText}>
-								{props.Querry}
+								Twitter Sentiment Analysis
 							</Typography>
-							<DougnutChart data={props.data} width="350" height="350" />
+							<DougnutChart data={props.dataTweet} width="300" height="350" />
 						</Paper>
 					</Grid>
 					<Grid item xs={5} align="center">
 						<Paper elevation={3} className={classes.historyDataSpace}>
 							<Typography variant="body1" color="textPrimary" className={classes.dataText}>
-								{props.Querry}
+								Instagram Sentiment Analysis
 							</Typography>
-							<DougnutChart data={props.data} width="350" height="350" />
+							<DougnutChart data={props.dataInsta} width="300" height="350" />
 						</Paper>
 					</Grid>
 					<Grid item xs={2} align="center" className={classes.profileChanges}>

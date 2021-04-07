@@ -19,6 +19,8 @@ import  BarChart  from '../charts/bar/BarChart';
 import InstagramIcon from '@material-ui/icons/Instagram';
 import Axios from 'axios'
 import cookies from 'react-cookies'
+import Character from '../charts/character/Character';
+import ProPic from '../sidebar/prof-pic.jpg';
 //constants
 
 const drawerWidth = 240;
@@ -97,6 +99,12 @@ const useStyles = makeStyles((theme) => ({
 
     const [instaData, setInstaData] = useState({})
     const [instaFeeds, setInstaFeeds] = useState([])
+    const [characterData, setCharacterData] = useState({
+      user:ProPic,
+      userName:"Sai",
+      userMatch:ProPic,
+      userMatchName:"PrathameshnRaunak"
+    })
     
   //   const [instaData, setInstaData] = useState({series:[],options:{labels:[],
   //     dataLabels:{
@@ -352,9 +360,9 @@ const postFrequencyData={
               <Grid item xs={6} align="center">
                 <Paper elevation={3} className={classes.dataSpace}>
                   <Typography variant="body1" color="textPrimary"> 
-                    Sentiment Analysis
+                    Character Matching
                   </Typography>
-                  <DougnutChart data = {instaLineData} width = "280" height = "300"/>
+                  <Character data={characterData}/>
                 </Paper>
               </Grid>
             </Grid>

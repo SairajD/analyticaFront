@@ -9,6 +9,7 @@ import LinkedInIcon from '@material-ui/icons/LinkedIn';
 import FacebookIcon from '@material-ui/icons/Facebook';
 import cookies from 'react-cookies';
 import Axios from "axios";
+import {useLocation} from "react-router-dom";
 
 const drawerWidth = 240;
 const url = ' https://analytica-parsb-api.herokuapp.com'
@@ -70,16 +71,23 @@ function TwitterLogin() {
 
     const classes = useStyles();
 
-    useEffect(() => {
+    function useQuery() {
+        return new URLSearchParams(useLocation().search);
+      }
 
-        if (this.$route.query.oauth_token === cookies.load('OAuthRequestToken'))
+      let query = useQuery();
+
+    useEffect(() => {
+        console.log(query)
+
+        if (query.get("oauth_token") === cookies.load('OAuthRequestToken'))
         {
             Axios
               .post(
                 url+`/analytica/twitter/login/callback`,
                 {
                   oauth_token: cookies.load('OAuthRequestToken'),
-                  oauth_verifier: this.$route.query.oauth_verifier,
+                  oauth_verifier: query.get("oauth_verifier"),
                 },
               )
               .then(() => {

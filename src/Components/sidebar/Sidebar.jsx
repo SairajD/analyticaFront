@@ -82,7 +82,7 @@ const useStyles = makeStyles((theme) => ({
   userEmail: {
     marginTop: theme.spacing(4),
     color:"#ffffff",
-    fontSize:theme.spacing(2),
+    fontSize:"1em",
     fontWeight:"bold"
   },
   content: {

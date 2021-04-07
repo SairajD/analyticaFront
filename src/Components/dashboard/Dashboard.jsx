@@ -10,6 +10,7 @@ import Settings from '../settings/Settings';
 import History from '../history/History';
 import Followers from '../followers/Followers';
 import LoadingPageDash from '../loadingPage/LoadingPageDash';
+import TwitterLogin from '../settings/TwitterLogin';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -31,7 +32,8 @@ function Dashboard() {
           <Route path ="/Dashboard/Settings"  component={Settings}/>            
           <Route path ="/Dashboard/History"  component={History}/>            
           <Route path ="/Dashboard/Followers"  component={Followers}/>       
-          <Route path ="/Dashboard/load"  component={LoadingPageDash}/>   
+          <Route path ="/Dashboard/load"  component={LoadingPageDash}/>                            
+          <Route path ="/Dashboard/twitter/login-next"  component={TwitterLogin}/> 
         </Switch>
         </Router>
     </div>

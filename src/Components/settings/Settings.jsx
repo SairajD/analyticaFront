@@ -10,10 +10,11 @@ import {useDispatch, useSelector} from 'react-redux';
 import {darkLight, dashLoc} from '../reduxStore/actions/addTweets';
 import cookies from 'react-cookies';
 import Axios from "axios";
+import {useHistory} from "react-router-dom";
 
 const drawerWidth = 240;
-const url = ' https://analytica-parsb-api.herokuapp.com'
-
+//const url = ' https://analytica-parsb-api.herokuapp.com'
+const url="http://localhost:3000"
 const useStyles = makeStyles((theme) => ({
 		settingsRoot: {
 			width: `calc(100% - ${drawerWidth})`,
@@ -77,6 +78,7 @@ function Settings() {
 	  })();
 
 	const dispatch = useDispatch();
+	const history = useHistory();
     const classes = useStyles();
 		const [checkedTwitter, setCheckedTwitter] = useState(false);
 		const [checkedInstagram, setCheckedInstagram] = useState(false);
@@ -164,7 +166,7 @@ function Settings() {
 					// httpOnly: true
 				})
 				
-				window.location.href = res.data.redirectUri;
+				history.push(res.data.redirectUri);
 			})
 		}
 

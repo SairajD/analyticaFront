@@ -12,7 +12,6 @@ import {ThemeProvider} from "@material-ui/core/styles";
 import {Theme, DarkTheme} from "./Components/theme/Theme";
 import {useSelector} from 'react-redux';
 import {useHistory} from 'react-router-dom';
-import TwitterLogin from './Components/settings/TwitterLogin';
 
 
 const url="https://analytica-parsb-api.herokuapp.com"
@@ -41,8 +40,7 @@ function App() {
               <PublicRoute path="/Login" Component={Login} location="/Login" />
               <PublicRoute path="/Register" Component={Register}  location="/Register"/>   
               <Route path="/Loading" component={LoadingPage}  />         
-              <ProtectedRoute path="/Dashboard" Component={Dashboard} location="/Dashboard"/>                           
-              <Route path ="/twitter/login-next"  component={TwitterLogin}/>
+              <ProtectedRoute path="/Dashboard" Component={Dashboard} location="/Dashboard"/> 
             </Switch>
             </Router>
         </div>        

@@ -43,7 +43,7 @@ function History() {
     }
     console.log(tokenValue)
   })();
-  const [TweetData, setTweetData] = useState({});
+  const [tweetData, setTweetData] = useState([]);
   const [instaData, setInStaData] = useState([]);
   // {
   //   Positive: [],
@@ -62,12 +62,74 @@ function History() {
     dispatch(dashLoc("History"));
 
   }, [])
+
+  const getTweeterDownload = async () => {
+
+    try {
+      var resultsArr2 = [];
+      const result = await Axios.get(url + '/analytica/twitter/search/history')
+      console.log("Twitter history "+result)
+      result.data.forEach((el) => {
+
+        
+        var eachElement = {
+          Querry: el.query,
+          Positives: [],
+          Negatives: [],
+          Neutral: [],
+          Time: el.updatedAt
+        }
+
+        el.results.forEach((al) => {
+
+          let eachCaptionResult = {
+            Caption: al.caption,
+            Sentiment: al.sentiment
+          }
+          if (al.sentiment === "Positive") {
+            eachElement.Positives.push(eachCaptionResult)
+          }
+          else if (al.sentiment === "Negative") {
+            eachElement.Negatives.push(eachCaptionResult)
+
+          }
+          else {
+            eachElement.Neutral.push(eachCaptionResult)
+
+          }
+        })
+
+        resultsArr2.push({
+          Querry: eachElement.Querry,
+          CreatedAt: eachElement.Time,
+          Positive: eachElement.Positives,
+          Negative: eachElement.Negatives,
+          Neutral: eachElement.Neutral,
+          data:{
+            options:{
+              labels:["Positive", "Negative"],
+              legend:{
+                position:"bottom"
+              }
+            },
+            series:[eachElement.Positives.length, eachElement.Negatives.length],
+            
+          }
+        })
+        
+      })
+      console.log("hi2")
+      console.log(resultsArr2)
+      setTweetData(resultsArr2)
+    }
+    catch (e) {
+      console.log("error occured here : " + e)
+    }
+  }
+
   useEffect(() => {
 
-    const getTweeterDownload = async () => {
-
-
-    }
+    
     getTweeterDownload();
 
   }, [])
@@ -115,7 +177,10 @@ function History() {
           Neutral: eachElement.Neutral,
           data:{
             options:{
-              labels:["Positive", "Negative"]
+              labels:["Positive", "Negative"],
+              legend:{
+                position:"bottom"
+              }
             },
             series:[eachElement.Positives.length, eachElement.Negatives.length],
             
@@ -145,11 +210,12 @@ function History() {
       <CssBaseline />
       <div className={classes.historyToolbar} />
       {
-        instaData.map((el, index) => {
+        tweetData.map((el, index) => {
           return <SearchGraph
             key={index}
             Querry={el.Querry}
-            data={el.data}
+            dataTweet={el.data}
+            dataInsta={instaData[index].data}
           />
         })
       }
