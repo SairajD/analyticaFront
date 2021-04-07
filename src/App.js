@@ -12,8 +12,6 @@ import {ThemeProvider} from "@material-ui/core/styles";
 import {Theme, DarkTheme} from "./Components/theme/Theme";
 import {useSelector} from 'react-redux';
 import {useHistory} from 'react-router-dom';
-
-import Loading from './Components/loading/Loading';
 import ConfirmEmail from './Components/resetPassword/ConfirmationEmail'
 import ResetPassword from './Components/resetPassword/ResetPassword'
 
@@ -43,7 +41,7 @@ function App() {
               <PublicRoute path="/Login" Component={Login} location="/Login" />
               <PublicRoute path="/Register" Component={Register}  location="/Register"/>   
 
-              <Route path="/Loading" component={Loading}  />         
+              <Route path="/Loading" component={LoadingPage}  />         
               <Route path="/forgotPassword/emailConfirmation" component={ConfirmEmail}  /> 
               <Route path="/forgotPassword/ResetPassword" component={ResetPassword}  /> 
               <ProtectedRoute path="/Dashboard" Component={Dashboard} location="/Dashboard"/>
