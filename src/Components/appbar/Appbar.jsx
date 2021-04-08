@@ -188,7 +188,8 @@ export default function PrimarySearchAppBar() {
           comments: l.commentCount,
           timestamp: l.timeStamp,
           thumbnail: "",
-          sMedia: "InstagramIcon"
+          sMedia: "InstagramIcon",
+          sentiment:l.sentiment
         };
 
         finalNegatives.push(tempneg);
@@ -201,7 +202,8 @@ export default function PrimarySearchAppBar() {
           comments: l.commentCount,
           timestamp: l.timeStamp,
           thumbnail: "",
-          sMedia: "InstagramIcon"
+          sMedia: "InstagramIcon",
+          sentiment:l.sentiment
         };
 
         finalNeutrals.push(tempneu);
@@ -214,7 +216,8 @@ export default function PrimarySearchAppBar() {
           comments: l.commentCount,
           timestamp: l.timeStamp,
           thumbnail: "",
-          sMedia: "InstagramIcon"
+          sMedia: "InstagramIcon",
+          sentiment:l.sentiment
         };
 
         finalPositives.push(temppos);
@@ -253,7 +256,8 @@ export default function PrimarySearchAppBar() {
           comments: 0,
           timestamp: l.created_at,
           thumbnail: "",
-          sMedia: "TwitterIcon"
+          sMedia: "TwitterIcon",
+          sentiment:l.sentiment
         };
 
         finalNegatives.push(tempneg);
@@ -261,12 +265,13 @@ export default function PrimarySearchAppBar() {
 
       response.data.neutrals.forEach((l) => {
         let tempneu = {
-          caption: l.caption,
-          likes: l.likeCount,
-          comments: l.commentCount,
-          timestamp: l.timeStamp,
+          caption: l.full_text,
+          likes: l.favorite_count,
+          comments: 0,
+          timestamp: l.created_at,
           thumbnail: "",
-          sMedia: "InstagramIcon"
+          sMedia: "TwitterIcon",
+          sentiment:l.sentiment
         };
 
         finalNeutrals.push(tempneu);
@@ -279,7 +284,8 @@ export default function PrimarySearchAppBar() {
           comments: 0,
           timestamp: l.created_at,
           thumbnail: "",
-          sMedia: "TwitterIcon"
+          sMedia: "TwitterIcon",
+          sentiment:l.sentiment
         };
 
         finalPositives.push(temppos);
@@ -343,8 +349,9 @@ export default function PrimarySearchAppBar() {
     }
     else {
       console.log('error')
-      //Comment:put here error page
-      // history.replace("/Login");window.location.reload(false);
+      cookies.remove('Username')
+      cookies.remove('Token');
+      history.replace("/Login"); window.location.reload(false);
     }
 
 

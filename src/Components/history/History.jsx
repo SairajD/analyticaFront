@@ -60,7 +60,8 @@ function History() {
     try {
       var resultsArr2 = [];
       const result = await Axios.get(url + '/analytica/twitter/search/history')
-      console.log("Twitter history "+result)
+      console.log("twitter result")
+      console.log(result)
       result.data.forEach((el) => {
 
         
@@ -191,29 +192,29 @@ function History() {
 
   }
 
+
+  
   useEffect(() => {
 
     getInstadata();
     console.log(instaData)
 
   }, [])
+
   return (
     <div className={classes.historyRoot}>
       <CssBaseline />
       <div className={classes.historyToolbar} />
-      {
-        instaData.map((el, index) => {
-          if(typeof tweetData[index] !== undefined)
-          {
-            console.log(tweetData[index])
-            return <SearchGraph
-            key={index}
-            Querry={el.Querry}
-            dataTweet={tweetData[index].data}
-            dataInsta={el.data}
+      {instaData.map((el, index) => {
+
+          console.log(tweetData[index])
+          return <SearchGraph
+          key={index}
+          Querry={el.Querry}
+          dataTweet={el.data}
+          dataInsta={el.data}
           />}
-        })
-      }
+)}
 
 
     </div>

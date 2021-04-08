@@ -20,7 +20,8 @@ import ProfilePic from "./prof-pic.jpg";
 import Typography from '@material-ui/core/Typography';
 import {useDispatch} from 'react-redux';
 import {dashLoc} from '../reduxStore/actions/addTweets';
-import cookies from 'react-cookies'
+import cookies from 'react-cookies';
+import Logo from '../logo/Logo';
 
 
 const drawerWidth = 240;
@@ -93,7 +94,13 @@ const useStyles = makeStyles((theme) => ({
   linkStyle:{
     textDecoration: "none",
     color: theme.palette.text.primary
-  }
+  },
+  logoIcon:{
+    backgroundColor:theme.palette.secondary.main,
+    width:theme.spacing(6),
+    height:theme.spacing(6),			
+    paddingLeft:theme.spacing(0.7)
+  },
 }));
 
 export default function PermanentDrawerLeft() {
@@ -112,8 +119,9 @@ export default function PermanentDrawerLeft() {
         }}
         anchor="left"
       >
-        <div className={classes.userInfo}>
-          <Avatar alt="Profile Picture" src={ProfilePic} className={classes.profilePic}/>
+        <div className={classes.userInfo}> 
+						<Logo color="#ffffff" width="80" height="80"/>
+				
           <Typography variant="body1" align="left" className={classes.userEmail} color="textSecondary">
            {cookies.load('Username')}
           </Typography>

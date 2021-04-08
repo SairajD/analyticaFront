@@ -146,6 +146,7 @@ function SearchGraph(props) {
 							</Typography>
 						</Paper>
 					</Grid>
+					{/* {props.dataTweet!==undefined} */}
 					<Grid item xs={5} align="center">
 						<Paper elevation={3} className={classes.historyDataSpace} >
 							<Typography variant="body1" color="textPrimary" className={classes.dataText}>
