@@ -42,6 +42,26 @@ const useStyles = makeStyles((theme) => ({
   followerText:{
     fontSize:theme.spacing(2),
     fontWeight:"bold"
+  },
+  '@media only screen and (max-width: 600px)':{
+    followersRoot: {
+      width: "100%",
+      marginLeft:0,
+    },
+    profilePic: {
+      width: theme.spacing(11),
+      height: theme.spacing(11),
+      marginBottom:theme.spacing(4)
+    },
+    followerContainer:{
+      margin:theme.spacing(4),
+      paddingTop:theme.spacing(4),
+      height:"25vh"
+    },
+    followerText:{
+      fontSize:theme.spacing(1.5),
+      fontWeight:"bold"
+    },
   }
 }));
 
@@ -88,7 +108,7 @@ function Followers(){
                {followersData.map((el, index)=>{
                  console.log(el.profilePic)
                  return(
-                  <Grid item xs={3} key={index} align="center">
+                  <Grid item xs={6} sm={3} key={index} align="center">
                   <Paper elevation={3} className={classes.followerContainer}>
                     <Avatar alt="Profile Picture" src={el.profilePic} className={classes.profilePic}/>
                     <Typography className={classes.followerText}>

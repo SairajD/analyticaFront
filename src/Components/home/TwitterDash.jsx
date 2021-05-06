@@ -86,6 +86,40 @@ const useStyles = makeStyles((theme) => ({
   },
   textData:{
     marginTop:theme.spacing(2)
+  },
+  '@media only screen and (max-width: 600px)':{
+    dataSpace:{
+      margin:theme.spacing(2),
+      padding:theme.spacing(2),      
+      height:"45vh"
+    },
+    textDataSpace:{
+      margin:theme.spacing(2),
+      padding:theme.spacing(2),
+      height:"25vh"
+    },
+    textDataSpaceText:{
+      marginTop:theme.spacing(2)
+    },
+    feedSpace:{
+      margin:theme.spacing(2),
+      height:"60vh",
+      overflowY:"scroll",
+      padding: '6px 16px',
+    },
+    timelineContent:{
+      marginBottom: theme.spacing(2),
+      marginLeft: theme.spacing(2),
+      wordWrap: 'break-word',
+      width:"70vw"
+  },
+  textData:{
+    marginTop:theme.spacing(2),
+    fontSize:theme.spacing(1.7)
+  },
+  textDataTitle:{
+    fontSize:theme.spacing(1.7)
+  }
   }
   }));
 
@@ -274,51 +308,51 @@ const postFrequencyData={
       <div className={classes.twitterRoot}>
         <CssBaseline />  
         <Grid container>
-          <Grid item xs={8}>
+          <Grid item xs={12} sm={8}>
             <Paper elevation={3} className={classes.textDataSpace}>
             <Grid container>
-              <Grid item xs={2}>
-                <Typography align="center">
+              <Grid item xs={4} sm={2} className={classes.textDataSpaceText}>
+                <Typography align="center" className={classes.textDataTitle}>
                 Engagement
                 </Typography>
                 <Typography align="center" className={classes.textData}>
                   {tweetData.engagement}
                 </Typography>
               </Grid>
-              <Grid item xs={2}>
-                <Typography align="center">
+              <Grid item xs={4} sm={2} className={classes.textDataSpaceText}>
+                <Typography align="center" className={classes.textDataTitle}>
                   Likes
                 </Typography>
                 <Typography align="center" className={classes.textData}>
                 {tweetData.likes}
                 </Typography>
               </Grid>
-              <Grid item xs={2}>
-                <Typography align="center">
+              <Grid item xs={4} sm={2} className={classes.textDataSpaceText}>
+                <Typography align="center" className={classes.textDataTitle}>
                   Comments
                 </Typography>
                 <Typography align="center" className={classes.textData}>
                 {tweetData.comments}
                 </Typography>
               </Grid>
-              <Grid item xs={2}>
-                <Typography align="center">
+              <Grid item xs={4} sm={2} className={classes.textDataSpaceText}>
+                <Typography align="center" className={classes.textDataTitle}>
                   Posts
                 </Typography>
                 <Typography align="center" className={classes.textData}>
                 {tweetData.posts}
                 </Typography>
               </Grid>
-              <Grid item xs={2}>
-                <Typography align="center">
+              <Grid item xs={4} sm={2} className={classes.textDataSpaceText}>
+                <Typography align="center" className={classes.textDataTitle}>
                   Followers
                 </Typography>
                 <Typography align="center" className={classes.textData}>
                 {tweetData.followers}
                 </Typography>
               </Grid>
-              <Grid item xs={2}>
-                <Typography align="center">
+              <Grid item xs={4} sm={2} className={classes.textDataSpaceText}>
+                <Typography align="center" className={classes.textDataTitle}>
                   Post Frequency
                 </Typography>
                 <Typography align="center" className={classes.textData}>
@@ -328,7 +362,7 @@ const postFrequencyData={
             </Grid>
             </Paper>
             <Grid container>
-              <Grid item xs={6} align="center">
+              <Grid item xs={12} sm={6} align="center">
                 <Paper elevation={3} className={classes.dataSpace}>
                   <Typography variant="body1" color="textPrimary"> 
                     Likeability Analysis
@@ -336,7 +370,7 @@ const postFrequencyData={
                   <LineChart data = {tweetLineData} width = "280" height = "300"/>
                 </Paper>
               </Grid>
-              <Grid item xs={6} align="center">
+              <Grid item xs={12} sm={6} align="center">
                 <Paper elevation={3} className={classes.dataSpace}>
                   <Typography variant="body1" color="textPrimary"> 
                    Engagement Details
@@ -346,7 +380,7 @@ const postFrequencyData={
               </Grid>
             </Grid>
             <Grid container>
-              <Grid item xs={6} align="center">
+              <Grid item xs={12} sm={6} align="center">
                 <Paper elevation={3} className={classes.dataSpace}>
                   <Typography variant="body1" color="textPrimary"> 
                    Frequency Details
@@ -354,7 +388,7 @@ const postFrequencyData={
                   <BarChart data = {postFrequencyData} width = "280" height = "300"/>
                 </Paper>
               </Grid>
-              <Grid item xs={6} align="center">
+              <Grid item xs={12} sm={6} align="center">
                 <Paper elevation={3} className={classes.dataSpace}>
                   <Typography variant="body1" color="textPrimary"> 
                     Comment Frequency
@@ -364,7 +398,7 @@ const postFrequencyData={
               </Grid>
             </Grid>
           </Grid>
-          <Grid item xs={4}>
+          <Grid item xs={12} sm={4}>
             <Paper elevation={3} className={classes.feedSpace} >
               {tweetFeeds.map((item, index) => (
    

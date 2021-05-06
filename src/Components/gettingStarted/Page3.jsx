@@ -23,6 +23,35 @@ const useStyles = makeStyles((theme) => ({
 			marginTop:theme.spacing(2),
 			fontWeight:500
 		},
+        '@media only screen and (max-width: 600px)':{
+            loginButton:{
+                marginTop:theme.spacing(2),
+				fontSize:theme.spacing(1.5)
+            },
+            svgVector:{
+                top:"25vh",
+                left:"30vw",
+                transform:"scale(2, 2)"
+            },
+            infoContainer:{
+                position:"absolute",
+                top:"52vh",
+                left:"10vw",
+                width:"80vw"
+            },
+            infoTitle:{
+                fontSize:theme.spacing(2.5),
+                fontWeight:"bold",
+            },
+            infoDesc:{
+                marginTop:theme.spacing(2),
+                fontSize:theme.spacing(1.5),
+                fontWeight:500
+            },
+            pageRoot:{
+                scrollbarWidth:"none"
+            }
+        }
 }))
 
 function Page3() {
@@ -31,10 +60,10 @@ function Page3() {
 
 
     return (
-        <div>
+        <div className={classes.pageRoot}>
             <CssBaseline/>
             <svg className={classes.svgVector} width="36vw" viewBox="0 0 548 432" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <g clip-path="url(#clip0)">
+                <g clipPath="url(#clip0)">
                 <path d="M125.414 431.691C171.7 431.691 209.222 427.167 209.222 421.586C209.222 416.005 171.7 411.48 125.414 411.48C79.1285 411.48 41.6066 416.005 41.6066 421.586C41.6066 427.167 79.1285 431.691 125.414 431.691Z" fill="#F79999"/>
                 <path d="M301.945 431.691C348.231 431.691 385.752 427.167 385.752 421.586C385.752 416.005 348.231 411.48 301.945 411.48C255.659 411.48 218.137 416.005 218.137 421.586C218.137 427.167 255.659 431.691 301.945 431.691Z" fill="#F79999"/>
                 <path d="M411.114 242.524L418.443 198.343L326.94 178.955L330.696 66.2578H285.915L282.473 169.534L159.295 143.435L161.867 66.2578H117.086L114.828 134.013L24.8294 114.945L17.5005 159.125L113.315 179.426L110.395 267.018L7.32885 245.18L0 289.361L108.881 312.431L105.248 421.446H150.029L153.348 321.852L276.526 347.951L274.077 421.446H318.857L320.993 357.373L393.614 372.76L400.943 328.579L322.507 311.96L325.426 224.368L411.114 242.524ZM278.04 302.538L154.862 276.439L157.781 188.848L280.959 214.947L278.04 302.538Z" fill="#3F3D56"/>

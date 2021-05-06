@@ -18,11 +18,12 @@ import SettingsIcon from '@material-ui/icons/Settings';
 import Avatar from '@material-ui/core/Avatar';
 import ProfilePic from "./prof-pic.jpg";
 import Typography from '@material-ui/core/Typography';
-import {useDispatch} from 'react-redux';
-import {dashLoc} from '../reduxStore/actions/addTweets';
+import {useDispatch, useSelector} from 'react-redux';
+import {closeDrawer, dashLoc} from '../reduxStore/actions/addTweets';
 import cookies from 'react-cookies';
 import Logo from '../logo/Logo';
-
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
 
 const drawerWidth = 240;
 
@@ -101,12 +102,69 @@ const useStyles = makeStyles((theme) => ({
     height:theme.spacing(6),			
     paddingLeft:theme.spacing(0.7)
   },
+  mobileDrawerClose:{
+    display:"none",
+  },
+	'@media only screen and (max-width: 600px)':{
+    drawer: {
+      width: "100vw",
+      flexShrink: 0,
+      height:"100vh"
+    },
+    drawerPaper: {
+      width: "100vw",
+      height:"100vh"
+    },
+    userInfo: {
+      display:"flex",
+      flexDirection:"column",
+      alignItems:"center",
+      backgroundColor: theme.palette.secondary.light,
+    },
+    profilePic: {
+      width: theme.spacing(9),
+      height: theme.spacing(9),
+    },
+    userEmail: {
+      marginTop: theme.spacing(4),
+      color:"#ffffff",
+      fontSize:"1em",
+      fontWeight:"bold"
+    },
+    mobileDrawerClose:{
+      display:"block",
+      color:"#ffffff",
+      position:"absolute",
+      top:"2vh",
+      left:"2vw"
+    },
+    content: {
+      flexGrow: 1,
+      backgroundColor: theme.palette.background.default,
+      padding: theme.spacing(3),
+    },
+    linkStyle:{
+      textDecoration: "none",
+      color: theme.palette.text.primary,
+    },
+    logoIcon:{
+      backgroundColor:theme.palette.secondary.main,
+      width:theme.spacing(6),
+      height:theme.spacing(6),			
+      paddingLeft:theme.spacing(0.7)
+    },
+		}
 }));
 
 export default function PermanentDrawerLeft() {
   const classes = useStyles();
   const [dash, setDash] = useState("Home"); 
   const dispatch = useDispatch();
+  const drawerBool = useSelector(state => state.openCloseDrawer);
+
+  const handleDrawerClose = () => {
+    dispatch(closeDrawer());
+  }
 
   return (
     <div className={classes.root}>
@@ -120,6 +178,12 @@ export default function PermanentDrawerLeft() {
         anchor="left"
       >
         <div className={classes.userInfo}> 
+        <IconButton
+            onClick={handleDrawerClose}
+            className={classes.mobileDrawerClose}
+          >
+          <CloseIcon />
+        </IconButton>
 						<Logo color="#ffffff" width="80" height="80"/>
 				
           <Typography variant="body1" align="left" className={classes.userEmail} color="textSecondary">
@@ -129,7 +193,7 @@ export default function PermanentDrawerLeft() {
         <List>
           {SidebarData.map((item, index) => (
             <Link to={item.path} className={classes.linkStyle} key={index}>
-            <ListItem button onClick={()=>dispatch(dashLoc(item.text))}>
+            <ListItem button onClick={()=>{dispatch(closeDrawer());dispatch(dashLoc(item.text));}}>
               <ListItemIcon>{item.icon}</ListItemIcon>
               <ListItemText primary={item.text} />
             </ListItem>

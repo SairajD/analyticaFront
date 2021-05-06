@@ -67,6 +67,12 @@ const useStyles = makeStyles((theme) => ({
           outline: '1px solid slategrey'
         }
       },
+      '@media only screen and (max-width: 600px)':{
+        loadingRoot: {
+          width: "100%",
+          marginLeft:0,
+        },
+      }
 }));
 
 function TwitterLogin() {

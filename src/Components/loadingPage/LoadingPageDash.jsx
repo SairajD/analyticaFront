@@ -51,6 +51,26 @@ const useStyles = makeStyles((theme) => ({
         "0%": { transform: "translateY(0)" },
         "100%": { transform: "translateY(-50px)" }
     },
+    profilePic: {
+    width: theme.spacing(11),
+    height: theme.spacing(11),
+    marginBottom:theme.spacing(4)
+  },
+  followerContainer:{
+    margin:theme.spacing(4),
+    paddingTop:theme.spacing(4),
+    height:"30vh"
+  },
+  followerText:{
+    fontSize:theme.spacing(2),
+    fontWeight:"bold"
+  },
+  '@media only screen and (max-width: 600px)':{
+    loadingRoot: {
+      width: "100%",
+      marginLeft:0,
+    },
+  }
 }));
 
 function LoadingPageDash() {

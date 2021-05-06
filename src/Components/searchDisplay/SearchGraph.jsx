@@ -69,6 +69,65 @@ const useStyles = makeStyles((theme) => ({
         flexWrap: 'wrap',
         wordWrap: 'break-word',
     },
+		'@media only screen and (max-width: 600px)':{
+      dataSpace: {
+				margin: theme.spacing(2),
+				padding: theme.spacing(2),
+				width:"88vw",
+				height:"55vh"
+			},
+			profileBtn: {
+				fontSize: theme.spacing(2),
+				paddingTop: theme.spacing(1),
+				paddingBottom: theme.spacing(1),
+				width:"80vw",
+				height:"10vh",
+				margin:"10px auto"
+			},
+			profileChanges: {
+				paddingLeft: theme.spacing(4),
+				paddingRight: theme.spacing(4),
+			},
+			historyDataSpace:{
+				margin: theme.spacing(2),
+				padding: theme.spacing(2),
+				width:"88vw",
+				height:"55vh"
+			},
+			historyTitleSpace:{
+				margin: theme.spacing(2),
+				padding: theme.spacing(1),
+			},
+			dataText:{
+				fontSize:theme.spacing(2),
+				fontWeight:"bold",
+				marginTop:theme.spacing(1.5),		
+				marginBottom:theme.spacing(1.5)
+			},
+			dataTitle:{
+				fontSize:theme.spacing(3),
+				fontWeight:"bold",
+				marginTop:theme.spacing(1.5),		
+				marginBottom:theme.spacing(1.5)
+			},
+			historyPostSpace:{		
+				margin: theme.spacing(2),
+				padding: theme.spacing(2),
+			},
+			timelineCommentTitle:{
+						fontWeight:"bold",
+						fontSize:theme.spacing(2.5),
+						marginLeft: theme.spacing(2),
+						marginTop:theme.spacing(2),
+				},
+			timelineContent:{
+						width : 1000,
+						marginBottom: theme.spacing(2),
+						marginLeft: theme.spacing(2),
+						flexWrap: 'wrap',
+						wordWrap: 'break-word',
+				},
+    }
 }));
 
 
@@ -139,7 +198,7 @@ function SearchGraph(props) {
 		if (dashLoc === "History") {
 			return (
 				<Grid container>
-					<Grid item xs={12} align="center">
+					<Grid item xs={12} sm={12} align="center">
 						<Paper elevation={3} className={classes.historyTitleSpace} >
 							<Typography variant="body1" color="textPrimary" className={classes.dataTitle}>
 								{props.Querry}
@@ -147,7 +206,7 @@ function SearchGraph(props) {
 						</Paper>
 					</Grid>
 					{/* {props.dataTweet!==undefined} */}
-					<Grid item xs={5} align="center">
+					<Grid item xs={12} sm={5} align="center">
 						<Paper elevation={3} className={classes.historyDataSpace} >
 							<Typography variant="body1" color="textPrimary" className={classes.dataText}>
 								Twitter Sentiment Analysis
@@ -155,7 +214,7 @@ function SearchGraph(props) {
 							<DougnutChart data={props.dataTweet} width="300" height="350" />
 						</Paper>
 					</Grid>
-					<Grid item xs={5} align="center">
+					<Grid item xs={12} sm={5} align="center">
 						<Paper elevation={3} className={classes.historyDataSpace}>
 							<Typography variant="body1" color="textPrimary" className={classes.dataText}>
 								Instagram Sentiment Analysis
@@ -163,12 +222,12 @@ function SearchGraph(props) {
 							<DougnutChart data={props.dataInsta} width="300" height="350" />
 						</Paper>
 					</Grid>
-					<Grid item xs={2} align="center" className={classes.profileChanges}>
+					<Grid item xs={12} sm={2} align="center" className={classes.profileChanges}>
 						<Button variant="contained" fullWidth color="secondary" className={classes.profileBtn} >
 							Show More
 						</Button>
 					</Grid>
-					{/* <Grid item xs={12} align="center" className={classes.postChanges}>
+					{/* <Grid item xs={} sm={12} align="center" className={classes.postChanges}>
 						<Paper elevation={3} className={classes.historyPostSpace} id="post-space">
 							<Collapse in={commentOpen} timeout="auto" unmountOnExit>
 								<Typography className={classes.timelineCommentTitle}>Posts</Typography>
@@ -186,7 +245,7 @@ function SearchGraph(props) {
 		}
 		else {
 			return (<Grid container>
-				<Grid item xs={6} align="center">
+				<Grid item xs={12} sm={6} align="center">
 					<Paper elevation={3} className={classes.dataSpace}>
 						<Typography variant="body1" color="textPrimary" className={classes.dataText}>
 							Twitter Sentiment Analysis
@@ -194,7 +253,7 @@ function SearchGraph(props) {
 						<DougnutChart data={props.dataTweet} width="300" height="350" />
 					</Paper>
 				</Grid>
-				<Grid item xs={6} align="center">
+				<Grid item xs={12} sm={6} align="center">
 					<Paper elevation={3} className={classes.dataSpace}>
 						<Typography variant="body1" color="textPrimary" className={classes.dataText}>
 							Instagram Sentiment Analysis

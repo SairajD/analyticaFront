@@ -11,31 +11,68 @@ import History from '../history/History';
 import Followers from '../followers/Followers';
 import LoadingPageDash from '../loadingPage/LoadingPageDash';
 import TwitterLogin from '../settings/TwitterLogin';
+import InnerRoute from '../innerRoutes/InnerRoutes';
+import {useSelector} from 'react-redux';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-  }
+  },
+  '@media only screen and (max-width: 600px)':{
+    
+		}
 }));
 
 
 function Dashboard() {
   const classes = useStyles();
-  return (
-    <div className={classes.root}>
-      <Router>
+  const drawerBool = useSelector(state => state.openCloseDrawer);
+
+  const dashboardDisplay = () => {
+    if(window.matchMedia("(max-width: 600px)").matches)
+    {
+      if(drawerBool)
+      {
+        return <PermanentDrawerLeft/>
+      }
+      else
+      {
+        return <Router>
+      <PrimarySearchAppBar/>
+        <Switch>
+          <InnerRoute path ="/Dashboard" exact component={Home} location ="/Dashboard"/>
+          <InnerRoute path ="/Dashboard/Timeline"  component={CustomTimeline} location ="/Dashboard/Timeline"/>
+          <InnerRoute path ="/Dashboard/SearchDisplay"  component={SearchDataDisplay} location ="/Dashboard/SearchDisplay"/>
+          <InnerRoute path ="/Dashboard/Settings"  component={Settings} location ="/Dashboard/Settings"/>            
+          <InnerRoute path ="/Dashboard/History"  component={History} location ="/Dashboard/History"/>            
+          <InnerRoute path ="/Dashboard/Followers"  component={Followers} location ="/Dashboard/Followers"/>       
+          <Route path ="/Dashboard/load"  component={LoadingPageDash}/>                            
+          <InnerRoute path ="/Dashboard/twitter/login-next"  component={TwitterLogin} location ="/Dashboard/twitter/login-next"/> 
+        </Switch>
+        </Router>
+      }
+    }
+    else
+    {
+      return <Router>
       <PermanentDrawerLeft/>
       <PrimarySearchAppBar/>
         <Switch>
-          <Route path ="/Dashboard" exact component={Home}/>
-          <Route path ="/Dashboard/Timeline"  component={CustomTimeline}/>
-          <Route path ="/Dashboard/SearchDisplay"  component={SearchDataDisplay}/>
-          <Route path ="/Dashboard/Settings"  component={Settings}/>            
-          <Route path ="/Dashboard/History"  component={History}/>            
-          <Route path ="/Dashboard/Followers"  component={Followers}/>       
+          <InnerRoute path ="/Dashboard" exact component={Home} location ="/Dashboard"/>
+          <InnerRoute path ="/Dashboard/Timeline"  component={CustomTimeline} location ="/Dashboard/Timeline"/>
+          <InnerRoute path ="/Dashboard/SearchDisplay"  component={SearchDataDisplay} location ="/Dashboard/SearchDisplay"/>
+          <InnerRoute path ="/Dashboard/Settings"  component={Settings} location ="/Dashboard/Settings"/>            
+          <InnerRoute path ="/Dashboard/History"  component={History} location ="/Dashboard/History"/>            
+          <InnerRoute path ="/Dashboard/Followers"  component={Followers} location ="/Dashboard/Followers"/>       
           <Route path ="/Dashboard/load"  component={LoadingPageDash}/>                            
-          <Route path ="/Dashboard/twitter/login-next"  component={TwitterLogin}/> 
+          <InnerRoute path ="/Dashboard/twitter/login-next"  component={TwitterLogin} location ="/Dashboard/twitter/login-next"/> 
         </Switch>
         </Router>
+    }
+  }
+
+  return (
+    <div className={classes.root}>
+      {dashboardDisplay()}
     </div>
   );
 }

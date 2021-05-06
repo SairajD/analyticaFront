@@ -30,6 +30,12 @@ const useStyles = makeStyles((theme) => ({
       outline: '1px solid slategrey'
     }
   },
+  '@media only screen and (max-width: 600px)':{
+    historyRoot: {
+      width: "100%",
+      marginLeft:0,
+    },
+  }
 }));
 
 function History() {
@@ -44,7 +50,8 @@ function History() {
     console.log(tokenValue)
   })();
   const [tweetData, setTweetData] = useState([]);
-  const [instaData, setInStaData] = useState([]);
+  const [instaData, setInStaData] = useState([]);  
+  const [totalData, setTotalData] = useState([]);
 
   const dispatch = useDispatch();
   const classes = useStyles();
@@ -205,14 +212,14 @@ function History() {
     <div className={classes.historyRoot}>
       <CssBaseline />
       <div className={classes.historyToolbar} />
-      {instaData.map((el, index) => {
+      {tweetData.map((el, index) => {
 
-          console.log(tweetData[index])
+          console.log(instaData[index])
           return <SearchGraph
           key={index}
           Querry={el.Querry}
           dataTweet={el.data}
-          dataInsta={el.data}
+          dataInsta={instaData[index].data}
           />}
 )}
 

@@ -47,6 +47,11 @@ const useStyles = makeStyles((theme) => ({
       marginTop:theme.spacing(2),
       marginBottom:theme.spacing(2),
   },
+  likeCommentSub:{
+    display:"flex",
+    justifyContent:"center",
+    flexDirection:"row"
+  },
   likeComItem:{
       marginLeft:theme.spacing(4),
       marginRight:theme.spacing(2),
@@ -70,6 +75,42 @@ const useStyles = makeStyles((theme) => ({
       outline: '1px solid slategrey'
     }
   },
+  '@media only screen and (max-width: 600px)':{
+    timelineRoot: {
+      width: "100%",
+      marginLeft:0,
+    },
+    paper: {
+      padding: '6px 12px',
+    },
+    timelineContent:{
+        width : "38vw",
+        marginBottom: theme.spacing(2),
+        flexWrap: 'wrap',
+        wordWrap: 'break-word',
+    },
+    likeComment:{
+      display:"flex",
+      justifyContent:"center",
+      marginTop:theme.spacing(2),
+      marginBottom:theme.spacing(2),
+      flexDirection:"column"
+  },
+  likeCommentSub:{
+    display:"flex",
+    justifyContent:"center",
+    flexDirection:"row",
+    marginTop:theme.spacing(2),
+  },
+  likeComItem:{
+    fontSize: theme.spacing(1.5),
+      marginLeft:theme.spacing(4),
+      marginRight:theme.spacing(2),
+  },
+  captionText:{
+    fontSize: theme.spacing(1.5),
+  }
+  }
 }));
 
 export default function CustomTimeline() {
@@ -142,7 +183,7 @@ const getIcon= (data)=>{
     {timelineData.map((item, index) => (
       <TimelineItem key={index}>
         <TimelineOppositeContent>
-          <Typography variant="body2" color="textSecondary">
+          <Typography variant="body2" color="textSecondary" className={classes.dateText}>
             {new Intl.DateTimeFormat('en-US', {year: 'numeric', month: '2-digit',day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit'}).format(item.timeStamp)}
           </Typography>
         </TimelineOppositeContent>
@@ -154,12 +195,16 @@ const getIcon= (data)=>{
         </TimelineSeparator>
         <TimelineContent className={classes.timelineContent}>
           <Paper elevation={3} className={classes.paper}>
-            <Typography >{item.caption}</Typography>
+            <Typography className={classes.captionText}>{item.caption}</Typography>
             <div className={classes.likeComment}>
+              <div className={classes.likeCommentSub}>
                 <Typography className={classes.likeComItem}>{item.likeCount}</Typography>
                 <ThumbUpIcon color="primary"/>
+              </div>
+              <div className={classes.likeCommentSub}>
                 <Typography className={classes.likeComItem}>{item.commentCount}</Typography>
                 <CommentIcon color="primary"/>
+              </div>          
             </div>
           </Paper>
         </TimelineContent>

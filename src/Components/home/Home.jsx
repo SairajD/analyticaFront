@@ -15,101 +15,6 @@ const useStyles = makeStyles((theme) => ({
       marginLeft: drawerWidth
     },
     homeToolbar: theme.mixins.toolbar,
-    Facebook: {
-      width: 250,
-      height: 150,
-      backgroundColor: "#5F77A9",
-      borderRadius: theme.spacing(1)
-    },
-    Twitter: {
-      width: 250,
-      height: 150,
-      backgroundColor: "#30B9EE",
-      borderRadius: theme.spacing(1)
-    },
-    Linkedin: {
-      width: 250,
-      height: 150,
-      backgroundColor: "#3B8EB6",
-      borderRadius: theme.spacing(1)
-    },
-    Instagram: {
-      width: 250,
-      height: 150,
-      backgroundColor: "#F48451",
-      borderRadius: theme.spacing(1)
-    },    
-    socialCards: {
-        display: "flex",
-        flexDirection: "row",
-        justifyContent: "space-around",
-        width: "100%",
-        marginTop: theme.spacing(3),
-    },
-    pieChart: {
-        width: 250,
-        height: 340,
-        backgroundColor: "#ffffff",
-        borderRadius: theme.spacing(1),
-        marginTop: theme.spacing(5),
-        marginLeft: theme.spacing(2),
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        paddingTop:theme.spacing(3)
-    },
-    lineChart: {
-        width: 650,
-        height: 340,
-        backgroundColor: "#ffffff",
-        borderRadius: theme.spacing(1),
-        marginTop: theme.spacing(5),
-        marginLeft: theme.spacing(5),
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        paddingTop:theme.spacing(3)
-    },
-    chartRow:{
-        display:"flex"
-    },
-    paper: {
-        width:460,
-        padding: '6px 16px',
-        margin: theme.spacing(3),
-        borderRadius:theme.spacing(1),
-        height:"60vh",
-        overflowY:"scroll"
-    },
-    timelineContent:{
-        width: 360,
-        marginBottom: theme.spacing(2),
-        marginLeft: theme.spacing(2),
-        flexWrap: 'wrap',
-        wordWrap: 'break-word',
-    },
-    likeComment:{
-        display:"flex",
-        justifyContent:"flex-start",
-        marginTop:theme.spacing(2),
-        marginBottom:theme.spacing(2),
-    },
-    likeComItem:{
-        marginLeft:theme.spacing(4),
-        marginRight:theme.spacing(2),
-    },
-    timelineTitle:{      
-        marginLeft: theme.spacing(2),
-    },
-    socialSnippets:{
-        marginTop:theme.spacing(2),
-        marginBottom:theme.spacing(2),
-        display:"flex",
-    },
-    socialSnippetIcon:{
-        color: theme.palette.getContrastText(theme.palette.primary.main),
-        backgroundColor: theme.palette.primary.main
-    },
     '@global': {
         '*::-webkit-scrollbar': {
           width: '0.4em'
@@ -121,7 +26,13 @@ const useStyles = makeStyles((theme) => ({
           backgroundColor: 'rgba(0,0,0,.1)',
           outline: '1px solid slategrey'
         }
-      }
+      },
+    '@media only screen and (max-width: 600px)':{
+      homeRoot: {
+        width: "100%",
+        marginLeft:0,
+      },
+    }
   }));
 
   

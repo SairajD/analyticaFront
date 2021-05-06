@@ -111,3 +111,15 @@ export const darkLight = (obj) => {
         type: "changeTheme",
     }
 }
+
+export const openDrawer = () => {
+    return {
+        type: "openDrawer",
+    }
+}
+
+export const closeDrawer = () => {
+    return {
+        type: "closeDrawer",
+    }
+}

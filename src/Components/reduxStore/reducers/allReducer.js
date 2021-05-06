@@ -8,6 +8,7 @@ import changeSocialReducer from './changeSocialReducer';
 import changeThemeReducer from './changeThemeReducer';
 import addNeutralInstaReducer from './addNeutralInstaReducer';
 import addNeutralTweetReducer from './addNeutralTweetReducer';
+import openCloseDrawerReducer from './openCloseDrawerReducer';
 
 
 const allReducer = combineReducers({
@@ -20,5 +21,6 @@ const allReducer = combineReducers({
     changeTheme: changeThemeReducer,
     neutralTweets: addNeutralTweetReducer,
     neutralInsta: addNeutralInstaReducer,
+    openCloseDrawer: openCloseDrawerReducer,
 });
 export default allReducer;

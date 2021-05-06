@@ -15,12 +15,13 @@ import NotificationsIcon from "@material-ui/icons/Notifications";
 import MoreIcon from "@material-ui/icons/MoreVert";
 import Axios from "axios";
 import { useDispatch, useSelector } from 'react-redux';
-import { addNegatives, addPositives, socialLoc, removeNegatives, removePositives, addInstaNegatives, addInstaPositives, removeInstaPositives, removeInstaNegatives, addNeutrals, removeNeutrals, removeInstaNeutrals, addInstaNeutrals } from '../reduxStore/actions/addTweets';
+import { addNegatives, addPositives, socialLoc, removeNegatives, removePositives, addInstaNegatives, addInstaPositives, removeInstaPositives, removeInstaNegatives, addNeutrals, removeNeutrals, removeInstaNeutrals, addInstaNeutrals, openDrawer, dashLoc } from '../reduxStore/actions/addTweets';
 import TwitterIcon from '@material-ui/icons/Twitter';
 import InstagramIcon from '@material-ui/icons/Instagram';
 import Avatar from '@material-ui/core/Avatar';
 import cookies from 'react-cookies';
 import Logo from '../logo/Logo';
+import MenuIcon from '@material-ui/icons/Menu';
 
 const url = 'https://analytica-parsb-api.herokuapp.com'
 const useStyles = makeStyles((theme) => ({
@@ -30,15 +31,6 @@ const useStyles = makeStyles((theme) => ({
   },
   grow: {
     flexGrow: 1,
-  },
-  menuButton: {
-    marginRight: theme.spacing(2),
-  },
-  title: {
-    display: "none",
-    [theme.breakpoints.up("sm")]: {
-      display: "block",
-    },
   },
   search: {
     position: "relative",
@@ -123,6 +115,53 @@ const useStyles = makeStyles((theme) => ({
     height:theme.spacing(6),			
     paddingLeft:theme.spacing(0.7)
   },
+  mobileDrawerOpen:{
+    display:"none"
+  },
+  '@media only screen and (max-width: 600px)':{
+    mobileDrawerOpen:{
+      display:"block",
+      color:"#ffffff"
+    },
+    appBar: {
+      width: `100%`
+    },
+    sectionDesktop: {
+      display: "none",
+      [theme.breakpoints.up("md")]: {
+        display: "flex",
+      },
+    },
+    sectionMobile: {
+      display: "flex",
+      [theme.breakpoints.up("md")]: {
+        display: "none",
+      },
+    },
+    socialButton: {
+      backgroundColor: theme.palette.alternate.main,
+      marginLeft: theme.spacing(0.5),
+      marginRight: theme.spacing(0.5),
+      color: "#ffffff"
+    },
+    iconBtn: {
+      padding: 0,
+      marginLeft: theme.spacing(1),
+      marginRight: theme.spacing(1),
+    },
+    search:{
+      marginLeft:theme.spacing(1)
+    },
+    searchIconColor: {
+      color: "#ffffff"
+    },
+    logoIcon:{
+      backgroundColor:theme.palette.alternate.main,
+      width:theme.spacing(6),
+      height:theme.spacing(6),			
+      paddingLeft:theme.spacing(0.7)
+    },
+		}
 }));
 //functions
 // 
@@ -143,7 +182,8 @@ export default function PrimarySearchAppBar() {
   const [timerId, setTimerId] = useState("");
   const [instaTimerId, setInstaTimerId] = useState("");
 
-  const dashLoc = useSelector(state => state.changeDash);
+  const dashLocs = useSelector(state => state.changeDash);
+  const drawerBool = useSelector(state => state.openCloseDrawer);
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -337,21 +377,29 @@ export default function PrimarySearchAppBar() {
     setAnchorEl(null);
     handleMobileMenuClose();
   };
-  const logoutClicked = async () => {
+
+  const handleDrawerOpen = () => {
+    dispatch(openDrawer());
+  };
+
+  const logoutClicked = async (e) => {
 
 
 
     const result = await Axios.post(url + '/Analytica/users/Logout')
     if (result.status === 200) {
+      e.preventDefault();
       cookies.remove('Username')
       cookies.remove('Token');
-      history.replace("/Login"); window.location.reload(false);
+      history.push("/Login"); 
+      window.location.reload(false);
     }
     else {
       console.log('error')
-      cookies.remove('Username')
-      cookies.remove('Token');
-      history.replace("/Login"); window.location.reload(false);
+      // cookies.remove('Username')
+      // cookies.remove('Token');
+      // history.push("/Login"); 
+      // window.location.reload(false);
     }
 
 
@@ -359,6 +407,11 @@ export default function PrimarySearchAppBar() {
   const handleMobileMenuOpen = (event) => {
     setMobileMoreAnchorEl(event.currentTarget);
   };
+
+  const logoClickHandle = () => {
+    dispatch(dashLoc("Home"));
+    history.push("/Dashboard");
+  }
 
   const menuId = "primary-search-account-menu";
   const renderMenu = (
@@ -376,7 +429,7 @@ export default function PrimarySearchAppBar() {
   );
 
   const socialBtnDisplay = () => {
-    if (dashLoc === "Home") {
+    if (dashLocs === "Home") {
       return (
         <div className={classes.socialIcon}>
           <Avatar className={classes.socialButton} onClick={() => dispatch(socialLoc("Twitter"))}>
@@ -437,7 +490,13 @@ export default function PrimarySearchAppBar() {
     <div className={classes.grow}>
       <AppBar position="fixed" className={classes.appBar}>
         <Toolbar>
-              <Avatar className={classes.logoIcon} onClick={()=>{history.push("/Dashboard")}}> 
+          <IconButton
+              onClick={handleDrawerOpen}
+              className={classes.mobileDrawerOpen}
+            >
+            <MenuIcon />
+          </IconButton>
+              <Avatar className={classes.logoIcon} onClick={logoClickHandle}> 
 								<Logo color="#ffffff" width="64" height="64"/>
 							</Avatar>
           <div className={classes.search}>

@@ -62,6 +62,19 @@ const useStyles = makeStyles((theme) => ({
 				outline: '1px solid slategrey'
 			}
 		},
+		'@media only screen and (max-width: 600px)':{
+			settingsRoot: {
+				width: `100%`,
+				marginLeft:0
+			},
+			profileChanges:{
+				paddingTop:theme.spacing(5),
+				paddingLeft:0,
+				paddingRight:0,
+				marginLeft:theme.spacing(2.5),
+				marginRight:theme.spacing(2.5),
+			},
+		  }
   }));
 
 function Settings() {
@@ -179,12 +192,12 @@ function Settings() {
 					<div className={classes.settingsToolbar}/>
           <div className={classes.accountSettings}>
 						<Grid container>
-								<Grid item xs={12} className={classes.profileChanges}>
+								<Grid item xs={12} sm={12} className={classes.profileChanges}>
 									<Typography className={classes.subTitle}>
 										Profile Settings
 									</Typography>
 								</Grid>
-								<Grid item xs={4} align="center" className={classes.profileChanges}>
+								<Grid item xs={12} sm={4} align="center" className={classes.profileChanges}>
 									<TextField
 										fullWidth
 										type="text"
@@ -194,7 +207,7 @@ function Settings() {
 										variant="outlined"
 									/>
 								</Grid>
-								<Grid item xs={4} align="center" className={classes.profileChanges}>
+								<Grid item xs={12} sm={4} align="center" className={classes.profileChanges}>
 									<TextField
 										fullWidth
 										type="text"
@@ -204,7 +217,7 @@ function Settings() {
 										variant="outlined"
 									/>
 								</Grid>
-								<Grid item xs={4} align="center" className={classes.profileChanges}>
+								<Grid item xs={12} sm={4} align="center" className={classes.profileChanges}>
 									<TextField
 										fullWidth
 										type="text"
@@ -214,7 +227,7 @@ function Settings() {
 										variant="outlined"
 									/>
 								</Grid>
-								<Grid item xs={4} align="center" className={classes.profileChanges}>
+								<Grid item xs={12} sm={4} align="center" className={classes.profileChanges}>
 									<MuiPhoneNumber
 										fullWidth
 										type="text"
@@ -225,7 +238,7 @@ function Settings() {
 										value="+911234567890"
                   />
 								</Grid>
-								<Grid item xs={4} align="center" className={classes.profileChanges}>
+								<Grid item xs={12} sm={4} align="center" className={classes.profileChanges}>
 									<TextField
 										fullWidth
 										type="email"
@@ -235,7 +248,7 @@ function Settings() {
 										variant="outlined"
 									/>
 								</Grid>
-								<Grid item xs={4} align="center" className={classes.profileChanges}>
+								<Grid item xs={12} sm={4} align="center" className={classes.profileChanges}>
 									<Button variant="contained" fullWidth color="Secondary" className={classes.profileBtn}>
 										Make Changes
 									</Button>
@@ -244,12 +257,12 @@ function Settings() {
           </div>
 					<div className={classes.accountSettings}>
 						<Grid container>
-								<Grid item xs={12} className={classes.profileChanges}>
+								<Grid item xs={12} sm={12} className={classes.profileChanges}>
 									<Typography className={classes.subTitle}>
 										Change Password
 									</Typography>
 								</Grid>
-								<Grid item xs={4} align="center" className={classes.profileChanges}>
+								<Grid item xs={12} sm={4} align="center" className={classes.profileChanges}>
 									<TextField
 										fullWidth
 										type="password"
@@ -258,7 +271,7 @@ function Settings() {
 										variant="outlined"
 									/>
 								</Grid>
-								<Grid item xs={4} align="center" className={classes.profileChanges}>
+								<Grid item xs={12} sm={4} align="center" className={classes.profileChanges}>
 									<TextField
 										fullWidth
 										type="password"
@@ -267,7 +280,7 @@ function Settings() {
 										variant="outlined"
 									/>
 								</Grid>
-								<Grid item xs={4} align="center" className={classes.profileChanges}>
+								<Grid item xs={12} sm={4} align="center" className={classes.profileChanges}>
 									<TextField
 										fullWidth
 										type="password"
@@ -276,29 +289,29 @@ function Settings() {
 										variant="outlined"
 									/>
 								</Grid>
-								<Grid item xs={12}><p id="displayFault"></p></Grid>
-								<Grid item xs={4}></Grid>
-								<Grid item xs={4} align="center" className={classes.profileChanges}>
+								<Grid item xs={12} sm={12}><p id="displayFault"></p></Grid>
+								<Grid item xs={0} sm={4}></Grid>
+								<Grid item xs={12} sm={4} align="center" className={classes.profileChanges}>
 									<Button variant="contained" fullWidth color="Secondary" className={classes.profileBtn} onClick={changePassword}>
 										Change Password 
 									</Button>
 								</Grid>
-								<Grid item xs={4}></Grid>
+								<Grid item xs={0} sm={4}></Grid>
 						</Grid>
           </div>
 					<div className={classes.accountSettings}>
 						<Grid container>
-								<Grid item xs={6} className={classes.profileChanges}>
+								<Grid item xs={6} sm={6} className={classes.profileChanges}>
 									<Typography className={classes.subTitle}>
 										Link Account
 									</Typography>
 								</Grid>
-								<Grid item xs={6} className={classes.profileChanges}>
+								<Grid item xs={6} sm={6} className={classes.profileChanges}>
 									<Typography className={classes.subTitle}>
 										Account Settings
 									</Typography>
 								</Grid>
-								<Grid item xs={6} allign="center">
+								<Grid item xs={6} sm={6} allign="center">
 									<FormControlLabel
 										control={<Switch checked={checkedTwitter} onChange={handleChangeTwitter} />}
 										label="Link Twitter"
@@ -310,7 +323,7 @@ function Settings() {
 										className={classes.profileChanges}
 									/>
 								</Grid>
-								<Grid item xs={6} allign="center">
+								<Grid item xs={6} sm={6} allign="center">
 									<FormControlLabel
 										control={<Switch checked={checkedNotifications} onChange={handleChangeNotifications} />}
 										label="Allow Notifications"
@@ -326,12 +339,12 @@ function Settings() {
           </div>
 					<div className={classes.accountSettings}>
 						<Grid container>
-								<Grid item xs={12} className={classes.profileChanges}>
+								<Grid item xs={12} sm={12} className={classes.profileChanges}>
 									<Typography className={classes.subTitle}>
 										Permanently Delete Account
 									</Typography>
 								</Grid>
-								<Grid item xs={4} align="center" className={classes.profileChanges}>
+								<Grid item xs={12} sm={4} align="center" className={classes.profileChanges}>
 									<Button variant="contained" fullWidth className={classes.deleteBtn}>
 										Delete 
 									</Button>
