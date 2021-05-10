@@ -69,10 +69,19 @@ const useStyles = makeStyles((theme) => ({
 			},
 			profileChanges:{
 				paddingTop:theme.spacing(5),
-				paddingLeft:0,
-				paddingRight:0,
-				marginLeft:theme.spacing(2.5),
-				marginRight:theme.spacing(2.5),
+				paddingLeft:theme.spacing(1.8),
+				paddingRight:theme.spacing(1.8),
+				marginLeft:0,
+				marginRight:0,
+			},
+			subTitle:{
+				fontSize:theme.spacing(2),
+				fontWeight:"bold"
+			},
+			label:{
+				backgroundColor:"#fafafa",
+				paddingLeft:theme.spacing(1),
+				paddingRight:theme.spacing(1),
 			},
 		  }
   }));
@@ -200,11 +209,17 @@ function Settings() {
 								<Grid item xs={12} sm={4} align="center" className={classes.profileChanges}>
 									<TextField
 										fullWidth
-										type="text"
+										type="text"										
+										key="change-userName"
 										id="change-userName"
 										label="User Name"
 										defaultValue="Value"
 										variant="outlined"
+										InputLabelProps={{
+											classes:{
+												root:classes.label
+											}
+										}}
 									/>
 								</Grid>
 								<Grid item xs={12} sm={4} align="center" className={classes.profileChanges}>
@@ -215,6 +230,11 @@ function Settings() {
 										label="First Name"
 										defaultValue="Value"
 										variant="outlined"
+										InputLabelProps={{
+											classes:{
+												root:classes.label
+											}
+										}}
 									/>
 								</Grid>
 								<Grid item xs={12} sm={4} align="center" className={classes.profileChanges}>
@@ -225,6 +245,11 @@ function Settings() {
 										label="Last Name"
 										defaultValue="Value"
 										variant="outlined"
+										InputLabelProps={{
+											classes:{
+												root:classes.label
+											}
+										}}
 									/>
 								</Grid>
 								<Grid item xs={12} sm={4} align="center" className={classes.profileChanges}>
@@ -236,6 +261,11 @@ function Settings() {
 										variant="outlined"
                     defaultCountry={"in"}
 										value="+911234567890"
+										InputLabelProps={{
+											classes:{
+												root:classes.label
+											}
+										}}
                   />
 								</Grid>
 								<Grid item xs={12} sm={4} align="center" className={classes.profileChanges}>
@@ -246,6 +276,11 @@ function Settings() {
 										label="E-mail"
 										defaultValue="Value"
 										variant="outlined"
+										InputLabelProps={{
+											classes:{
+												root:classes.label
+											}
+										}}
 									/>
 								</Grid>
 								<Grid item xs={12} sm={4} align="center" className={classes.profileChanges}>
@@ -269,6 +304,11 @@ function Settings() {
 										id="current-password"
 										label="Current Password"
 										variant="outlined"
+										InputLabelProps={{
+											classes:{
+												root:classes.label
+											}
+										}}
 									/>
 								</Grid>
 								<Grid item xs={12} sm={4} align="center" className={classes.profileChanges}>
@@ -278,6 +318,11 @@ function Settings() {
 										id="new-password"
 										label="New Password"
 										variant="outlined"
+										InputLabelProps={{
+											classes:{
+												root:classes.label
+											}
+										}}
 									/>
 								</Grid>
 								<Grid item xs={12} sm={4} align="center" className={classes.profileChanges}>
@@ -287,16 +332,21 @@ function Settings() {
 										id="confirm-password"
 										label="Confirm Password"
 										variant="outlined"
+										InputLabelProps={{
+											classes:{
+												root:classes.label
+											}
+										}}
 									/>
 								</Grid>
 								<Grid item xs={12} sm={12}><p id="displayFault"></p></Grid>
-								<Grid item xs={0} sm={4}></Grid>
+								<Grid item xs={12} sm={4}></Grid>
 								<Grid item xs={12} sm={4} align="center" className={classes.profileChanges}>
 									<Button variant="contained" fullWidth color="Secondary" className={classes.profileBtn} onClick={changePassword}>
 										Change Password 
 									</Button>
 								</Grid>
-								<Grid item xs={0} sm={4}></Grid>
+								<Grid item xs={12} sm={4}></Grid>
 						</Grid>
           </div>
 					<div className={classes.accountSettings}>

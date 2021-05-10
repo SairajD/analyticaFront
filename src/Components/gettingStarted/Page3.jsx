@@ -29,13 +29,13 @@ const useStyles = makeStyles((theme) => ({
 				fontSize:theme.spacing(1.5)
             },
             svgVector:{
-                top:"25vh",
+                top:"22vh",
                 left:"30vw",
                 transform:"scale(2, 2)"
             },
             infoContainer:{
                 position:"absolute",
-                top:"52vh",
+                top:"50vh",
                 left:"10vw",
                 width:"80vw"
             },

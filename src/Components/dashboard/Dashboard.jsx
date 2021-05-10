@@ -13,6 +13,7 @@ import LoadingPageDash from '../loadingPage/LoadingPageDash';
 import TwitterLogin from '../settings/TwitterLogin';
 import InnerRoute from '../innerRoutes/InnerRoutes';
 import {useSelector} from 'react-redux';
+import Upload from '../upload/Upload';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -44,7 +45,8 @@ function Dashboard() {
           <InnerRoute path ="/Dashboard/SearchDisplay"  component={SearchDataDisplay} location ="/Dashboard/SearchDisplay"/>
           <InnerRoute path ="/Dashboard/Settings"  component={Settings} location ="/Dashboard/Settings"/>            
           <InnerRoute path ="/Dashboard/History"  component={History} location ="/Dashboard/History"/>            
-          <InnerRoute path ="/Dashboard/Followers"  component={Followers} location ="/Dashboard/Followers"/>       
+          <InnerRoute path ="/Dashboard/Followers"  component={Followers} location ="/Dashboard/Followers"/>        
+          <InnerRoute path ="/Dashboard/Upload"  component={Upload} location ="/Dashboard/Upload"/>       
           <Route path ="/Dashboard/load"  component={LoadingPageDash}/>                            
           <InnerRoute path ="/Dashboard/twitter/login-next"  component={TwitterLogin} location ="/Dashboard/twitter/login-next"/> 
         </Switch>
@@ -62,7 +64,8 @@ function Dashboard() {
           <InnerRoute path ="/Dashboard/SearchDisplay"  component={SearchDataDisplay} location ="/Dashboard/SearchDisplay"/>
           <InnerRoute path ="/Dashboard/Settings"  component={Settings} location ="/Dashboard/Settings"/>            
           <InnerRoute path ="/Dashboard/History"  component={History} location ="/Dashboard/History"/>            
-          <InnerRoute path ="/Dashboard/Followers"  component={Followers} location ="/Dashboard/Followers"/>       
+          <InnerRoute path ="/Dashboard/Followers"  component={Followers} location ="/Dashboard/Followers"/>  
+          <InnerRoute path ="/Dashboard/Upload"  component={Upload} location ="/Dashboard/Upload"/>       
           <Route path ="/Dashboard/load"  component={LoadingPageDash}/>                            
           <InnerRoute path ="/Dashboard/twitter/login-next"  component={TwitterLogin} location ="/Dashboard/twitter/login-next"/> 
         </Switch>

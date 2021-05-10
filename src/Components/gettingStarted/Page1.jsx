@@ -50,13 +50,13 @@ const useStyles = makeStyles((theme) => ({
 				fontSize:theme.spacing(1.5)
             },
             svgVector:{
-                top:"25vh",
+                top:"22vh",
                 left:"30vw",
                 transform:"scale(2, 2)"
             },
             infoContainer:{
                 position:"absolute",
-                top:"55vh",
+                top:"52vh",
                 left:"10vw",
                 width:"35vw"
             },
@@ -71,7 +71,7 @@ const useStyles = makeStyles((theme) => ({
             },
             btnContainer:{
                 position:"absolute",
-                top:"58vh",
+                top:"55vh",
                 right:"10vw",
                 width:"35vw"
             },
