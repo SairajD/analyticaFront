@@ -205,11 +205,8 @@ function Register() {
             }
 
         }
-
-
-
-
     }
+		
     return (
         <div className={classes.signUpRoot}>
             <CssBaseline />

@@ -7,6 +7,7 @@ import Switch from '@material-ui/core/Switch';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Typography from '@material-ui/core/Typography';
 import CssBaseline from '@material-ui/core/CssBaseline';
+import TextareaAutosize from '@material-ui/core/TextareaAutosize';
 import FacebookIcon from '@material-ui/icons/Facebook';
 import TwitterIcon from '@material-ui/icons/Twitter';
 import InstagramIcon from '@material-ui/icons/Instagram';
@@ -37,6 +38,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import PublicIcon from '@material-ui/icons/Public';
 import HowToRegIcon from '@material-ui/icons/HowToReg';
 import TagFacesIcon from '@material-ui/icons/TagFaces';
+import Picker from 'emoji-picker-react';
 
 const drawerWidth = 240;
 
@@ -96,10 +98,28 @@ const useStyles = makeStyles((theme) => ({
   },
 	descriptionArea:{
 		display:"flex",
-		alignItems:"center"
+		alignItems:"flex-start"
 	},
 	descriptionText:{
-		marginLeft:theme.spacing(4)
+		width:"100%",
+		marginLeft:theme.spacing(4),
+		marginTop:theme.spacing(5),
+    marginBottom:theme.spacing(2),
+		border:"none",
+		'&:focus':{
+			border:"none",
+			outline:"none"
+		},
+		'&:active':{
+			border:"none",
+			outline:"none"
+		},
+		fontFamily:theme.typography.body1.fontFamily,
+		fontSize:theme.typography.body1.fontSize,
+		lineHeight:theme.typography.body1.lineHeight,
+		letterSpacing:theme.typography.body1.letterSpacing,
+		fontWeight:theme.typography.body1.fontWeight,
+		resize:"none",
 	},
 	buttonArea:{
     margin: theme.spacing(1,1,1,1),
@@ -234,6 +254,12 @@ const useStyles = makeStyles((theme) => ({
 		display:"flex",
 		alignItems:"center"
 	},
+	emojiDisplayZone:{
+		display:"flex",
+		alignItems:"center",
+		justifyContent:"center",
+		paddingBottom:theme.spacing(2),
+	},
   '@global': {
     '*::-webkit-scrollbar': {
       width: '0.4em'
@@ -302,6 +328,7 @@ function Upload() {
 	const [gifArray, setGifArray] = useState([]);
 	//Video Button clicked related variables
 	const [videoArray, setVideoArray] = useState([]);	
+	//Emoji Button Clicked related variables
 
 	const dispatch = useDispatch();
   const classes = useStyles();
@@ -379,6 +406,26 @@ function Upload() {
 		setGridBreak(4);
 	}
 
+	const emojiPickerClickHandler = (event, emojiObject) => {
+    const descriptionText = document.getElementById('descriptionText');
+		const curPos = descriptionText.selectionStart;
+		let val = descriptionText.value;
+		descriptionText.value=val.slice(0,curPos)+emojiObject.emoji+val.slice(curPos,val.length);
+		descriptionText.focus()
+		var offset;
+		if(emojiObject.unified.length<=5){
+			offset=2;
+		}else if(emojiObject.unified.length<=10){
+			offset=3;
+		}else if(emojiObject.unified.length<=15){
+			offset=4;
+		}else if(emojiObject.unified.length<=20){
+			offset=5;
+		}else{
+			offset=6;
+		}
+		descriptionText.setSelectionRange(curPos+offset, curPos+offset)
+  };
 
 	const displayMode = () => {
 		if(displayCode==="schedule"){
@@ -632,7 +679,12 @@ function Upload() {
 					</Grid>
 				</Paper>
 			);
-		}else if(displayCode==="emoticon"){
+		}
+	}
+
+	const emojiDisplayMode = () => {
+		if(displayCode==="emoticon"){
+			return <Picker className={classes.emojiPicker} id="emojiPicker" onEmojiClick={emojiPickerClickHandler}/>
 		}
 	}
 
@@ -692,8 +744,18 @@ function Upload() {
 	}
 
 	const handleEmoticonClick = () => {
-		changeDisplayBackOnClick();
-		setDisplayCode("emoticon");
+		if(displayCode==="emoticon"){			
+			changeDisplayBackOnClick();
+			setDisplayCode("");
+		}else{
+			changeDisplayBackOnClick();
+			setDisplayCode("emoticon");
+			changeDisplayOnClick();
+			var emojiPicker = document.getElementById('emojiPicker');
+			if(emojiPicker){
+				emojiPicker.click();
+		}
+		}
 	}
 
 	const handlePollClick = () => {
@@ -796,11 +858,14 @@ function Upload() {
       <Paper elevation={3} className={classes.paper}>
 				<div className={classes.descriptionArea}>
 					<Avatar alt="Profile Picture" className={classes.profilePic}></Avatar>
-					<InputBase
-					className={classes.descriptionText}
-					placeholder="What's Happening?"
-					inputProps={{ 'aria-label': 'description' }}
+					<TextareaAutosize
+						id="descriptionText"
+						className={classes.descriptionText}
+						placeholder="What's Happening?"
 					/>
+				</div>
+				<div className={classes.emojiDisplayZone}>
+					{emojiDisplayMode()}
 				</div>
 				<div className={classes.displayZone} id="displayZone">
 					{displayMode()}
