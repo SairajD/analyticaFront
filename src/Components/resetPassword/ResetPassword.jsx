@@ -199,7 +199,7 @@ function Register() {
         catch (e) {
             console.log(e.response.status)
             if (e.response.status) {
-                displayFault.innerHTML = "User with Id Already exits"
+                displayFault.innerHTML = e.response.data.Error
                 displayFault.style.color = "red"
                 return;
             }
