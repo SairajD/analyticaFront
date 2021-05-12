@@ -277,14 +277,195 @@ const useStyles = makeStyles((theme) => ({
       width: "100%",
       marginLeft:0,
     },
-    paper: {
-      padding: '6px 12px',
-    },
 		label:{
 			backgroundColor:"#fafafa",
 			paddingLeft:theme.spacing(1),
 			paddingRight:theme.spacing(1),
 		},    
+		paper: {
+			margin: theme.spacing(2,2,2,2),
+			padding: theme.spacing(0,2,2,2),
+			borderRadius:theme.spacing(3),
+		},
+		profilePic: {
+			width: theme.spacing(6),
+			height: theme.spacing(6),
+			marginBottom:theme.spacing(4),
+			marginTop:theme.spacing(4)
+		},
+		descriptionArea:{
+			display:"flex",
+			alignItems:"flex-start"
+		},
+		descriptionText:{
+			width:"100%",
+			marginLeft:theme.spacing(2),
+			marginTop:theme.spacing(5),
+			marginBottom:theme.spacing(2),
+			border:"none",
+			'&:focus':{
+				border:"none",
+				outline:"none"
+			},
+			'&:active':{
+				border:"none",
+				outline:"none"
+			},
+			fontFamily:theme.typography.body1.fontFamily,
+			fontSize:theme.typography.body1.fontSize,
+			lineHeight:theme.typography.body1.lineHeight,
+			letterSpacing:theme.typography.body1.letterSpacing,
+			fontWeight:theme.typography.body1.fontWeight,
+			resize:"none",
+		},
+		buttonArea:{
+			margin: theme.spacing(1,1,1,1),
+			placeItems:"center"
+		},
+		buttonAreaItem:{
+			padding: theme.spacing(0,1,1,1),
+		},
+		buttonAreaIcon:{
+			width:theme.spacing(7.5),
+			height:theme.spacing(7.5),
+		},
+		postButton:{
+			marginLeft:theme.spacing(15),
+			marginTop:theme.spacing(1),
+			marginBottom:theme.spacing(1),
+		},
+		postSocialCheck:{
+			paddingLeft:theme.spacing(10),
+			marginTop:theme.spacing(1),
+		},
+		formControl:{
+			minWidth:theme.spacing(35),
+			marginLeft:theme.spacing(3),
+			marginRight:theme.spacing(3),
+		},
+		displayZone:{
+			display:"none",
+			width:"80vw",
+			margin:"0 auto",
+		},
+		paperPoll:{
+			marginBottom:theme.spacing(4),
+			padding: theme.spacing(1,1,1,1),
+			borderRadius:theme.spacing(2),
+			display:"flex",
+			flexDirection:"column",
+			alignItems:"center",
+			justifyContent:"space-around"
+		},
+		pollChoice:{
+			width:theme.spacing(35),
+		},
+		pollButton:{
+			height:theme.spacing(8),
+			width:theme.spacing(8),
+			borderRadius:"50%",
+			margin:theme.spacing(2,0,2,0)
+		},
+		pollChoiceGroup:{
+			display:"flex",
+			flexDirection:"column",
+			alignItems:"center",
+		},
+		removePollButton:{
+			color:theme.palette.alternate.main,
+			borderColor:theme.palette.alternate.main,
+			margin:theme.spacing(2,0,2,0)
+		},
+		formControlPoll:{
+			minWidth:theme.spacing(30),
+			marginTop:theme.spacing(1),
+			marginBottom:theme.spacing(1),
+		},
+		pollLengthTitle:{
+			fontSize:theme.spacing(2),
+			fontWeight:"bold",
+			marginTop:theme.spacing(2)
+		},
+		schedulerSubTitle:{		
+			fontSize:theme.spacing(2),
+			fontWeight:"bold",
+			marginTop:theme.spacing(2)
+		},
+		schedulerTitle:{		
+			fontSize:theme.spacing(2.5),
+			fontWeight:"bold",
+			marginTop:theme.spacing(2)
+		},
+		paperSchedule:{
+			padding: theme.spacing(1,1,3,1),
+			borderRadius:theme.spacing(2),
+			display:"flex",
+			flexDirection:"column",
+			alignItems:"center",
+			justifyContent:"space-around"	,
+			marginBottom:theme.spacing(3)	
+		},
+		scheduler:{
+			display:"flex",
+			flexDirection:"column",
+		},
+		scheduler2:{
+			display:"flex",
+			flexDirection:"column",
+			paddingTop:theme.spacing(2)
+		},
+		schedulerButton:{
+			display:"flex",
+			flexDirection:"column",
+			alignItems:"center"
+		},
+		formControlScheduler:{
+			minWidth:theme.spacing(30),
+			marginTop:theme.spacing(2),
+		},
+		confirmSchedulerButton:{
+			margin:theme.spacing(2,0,2,0)
+		},
+		cancelSchedulerButton:{
+			height:theme.spacing(8),
+			width:theme.spacing(8),
+			borderRadius:"50%",
+			color:theme.palette.alternate.main,
+			borderColor:theme.palette.alternate.main,
+			margin:theme.spacing(2,0,2,0)
+		},
+		paperImage:{
+			padding: theme.spacing(2, 0),
+			marginBottom:theme.spacing(3),
+			borderRadius:theme.spacing(2),
+			display:"flex",
+			alignItems:"center",
+			justifyContent:"space-around"	
+		},
+		paperImageItem:{
+			padding:theme.spacing(1,0,0,0),
+			margin:"0 auto"
+		},
+		paperImageImg:{		
+			height:theme.spacing(20),
+			borderRadius:theme.spacing(2),
+		},
+		visibleCodeIcon:{
+			marginRight:theme.spacing(2),
+		},
+		visibleCodeClass:{
+			padingBottom:theme.spacing(2)
+		},
+		visibleCodeGroup:{
+			display:"flex",
+			alignItems:"center"
+		},
+		emojiDisplayZone:{
+			display:"flex",
+			alignItems:"center",
+			justifyContent:"center",
+			paddingBottom:theme.spacing(2),
+		},
   }
 }));
 
@@ -359,6 +540,14 @@ function Upload() {
 
 
 	const changeDisplayOnClick = () => {
+		var widSize = 24;
+		var heiSize = 48;
+		var breakSize = 2;
+		if(window.matchMedia("(max-width: 600px)").matches){
+			widSize=36;
+			heiSize=36;
+			breakSize = 4;
+		}
 		var displayZone = document.getElementById('displayZone');
 		var buttonIcon1 = document.getElementById('buttonAreaIcon1');
 		var buttonIcon2 = document.getElementById('buttonAreaIcon2');
@@ -366,23 +555,29 @@ function Upload() {
 		var buttonIcon4 = document.getElementById('buttonAreaIcon4');
 		var buttonIcon5 = document.getElementById('buttonAreaIcon5');
 		var buttonIcon6 = document.getElementById('buttonAreaIcon6');
-		buttonIcon1.style.width="24px";
-		buttonIcon2.style.width="24px";
-		buttonIcon3.style.width="24px";
-		buttonIcon4.style.width="24px";
-		buttonIcon5.style.width="24px";
-		buttonIcon6.style.width="24px";
-		buttonIcon1.style.height="48px";
-		buttonIcon2.style.height="48px";
-		buttonIcon3.style.height="48px";
-		buttonIcon4.style.height="48px";
-		buttonIcon5.style.height="48px";
-		buttonIcon6.style.height="48px";
+		buttonIcon1.style.width=`${widSize}px`;
+		buttonIcon2.style.width=`${widSize}px`;
+		buttonIcon3.style.width=`${widSize}px`;
+		buttonIcon4.style.width=`${widSize}px`;
+		buttonIcon5.style.width=`${widSize}px`;
+		buttonIcon6.style.width=`${widSize}px`;
+		buttonIcon1.style.height=`${heiSize}px`;
+		buttonIcon2.style.height=`${heiSize}px`;
+		buttonIcon3.style.height=`${heiSize}px`;
+		buttonIcon4.style.height=`${heiSize}px`;
+		buttonIcon5.style.height=`${heiSize}px`;
+		buttonIcon6.style.height=`${heiSize}px`;
 		displayZone.style.display="block";
-		setGridBreak(2);
+		setGridBreak(breakSize);
 	}
 
-	const changeDisplayBackOnClick = () => {
+	const changeDisplayBackOnClick = () => {		
+		var widSize = 80;
+		var heiSize = 80;
+		if(window.matchMedia("(max-width: 600px)").matches){
+			widSize=60;
+			heiSize=60;
+		}
 		var displayZone = document.getElementById('displayZone');
 		var buttonIcon1 = document.getElementById('buttonAreaIcon1');
 		var buttonIcon2 = document.getElementById('buttonAreaIcon2');
@@ -390,18 +585,18 @@ function Upload() {
 		var buttonIcon4 = document.getElementById('buttonAreaIcon4');
 		var buttonIcon5 = document.getElementById('buttonAreaIcon5');
 		var buttonIcon6 = document.getElementById('buttonAreaIcon6');
-		buttonIcon1.style.width="80px";
-		buttonIcon2.style.width="80px";
-		buttonIcon3.style.width="80px";
-		buttonIcon4.style.width="80px";
-		buttonIcon5.style.width="80px";
-		buttonIcon6.style.width="80px";
-		buttonIcon1.style.height="80px";
-		buttonIcon2.style.height="80px";
-		buttonIcon3.style.height="80px";
-		buttonIcon4.style.height="80px";
-		buttonIcon5.style.height="80px";
-		buttonIcon6.style.height="80px";
+		buttonIcon1.style.width=`${widSize}px`;
+		buttonIcon2.style.width=`${widSize}px`;
+		buttonIcon3.style.width=`${widSize}px`;
+		buttonIcon4.style.width=`${widSize}px`;
+		buttonIcon5.style.width=`${widSize}px`;
+		buttonIcon6.style.width=`${widSize}px`;
+		buttonIcon1.style.height=`${heiSize}px`;
+		buttonIcon2.style.height=`${heiSize}px`;
+		buttonIcon3.style.height=`${heiSize}px`;
+		buttonIcon4.style.height=`${heiSize}px`;
+		buttonIcon5.style.height=`${heiSize}px`;
+		buttonIcon6.style.height=`${heiSize}px`;
 		displayZone.style.display="none";
 		setGridBreak(4);
 	}
@@ -871,8 +1066,9 @@ function Upload() {
 					{displayMode()}
 				</div>
 				<Grid container className={classes.buttonArea}>
-					<Grid item sm={gridBreak} align="center" className={classes.buttonAreaItem}>
+					<Grid item xs={gridBreak} sm={gridBreak} align="center" className={classes.buttonAreaItem}>
 						<Button
+							id="buttonAreaBtn1"
 							variant="outlined"
 							component="label"
 							color="secondary"
@@ -890,11 +1086,12 @@ function Upload() {
 							/>
 						</Button>
 					</Grid>
-					<Grid item sm={gridBreak} align="center" className={classes.buttonAreaItem}>
+					<Grid item xs={gridBreak} sm={gridBreak} align="center" className={classes.buttonAreaItem}>
 						<Button
 							variant="outlined"
 							component="label"
 							color="secondary"
+							id="buttonAreaBtn2"
 							onClick={handleVideoClick}
 						>
 							<VideocamIcon className={classes.buttonAreaIcon} id="buttonAreaIcon2"/>
@@ -908,11 +1105,12 @@ function Upload() {
 							/>
 						</Button>
 					</Grid>
-					<Grid item sm={gridBreak} align="center" className={classes.buttonAreaItem}>
+					<Grid item xs={gridBreak} sm={gridBreak} align="center" className={classes.buttonAreaItem}>
 						<Button
 							variant="outlined"
 							component="label"
 							color="secondary"
+							id="buttonAreaBtn3"
 							onClick={handleGifClick}
 						>
 							<GifIcon className={classes.buttonAreaIcon} id="buttonAreaIcon3"/>
@@ -926,31 +1124,34 @@ function Upload() {
 							/>
 						</Button>
 					</Grid>
-					<Grid item sm={gridBreak} align="center" className={classes.buttonAreaItem}>
+					<Grid item xs={gridBreak} sm={gridBreak} align="center" className={classes.buttonAreaItem}>
 						<Button
 							variant="outlined"
 							component="label"
 							color="secondary"
+							id="buttonAreaBtn4"
 							onClick={handleEmoticonClick}
 						>
 							<InsertEmoticonIcon className={classes.buttonAreaIcon} id="buttonAreaIcon4"/>
 						</Button>
 					</Grid>
-					<Grid item sm={gridBreak} align="center" className={classes.buttonAreaItem}>
+					<Grid item xs={gridBreak} sm={gridBreak} align="center" className={classes.buttonAreaItem}>
 						<Button
 							variant="outlined"
 							component="label"
 							color="secondary"
+							id="buttonAreaBtn5"
 							onClick={handlePollClick}
 						>
 							<PollIcon className={classes.buttonAreaIcon} id="buttonAreaIcon5"/>
 						</Button>
 					</Grid>
-					<Grid item sm={gridBreak} align="center" className={classes.buttonAreaItem}>
+					<Grid item xs={gridBreak} sm={gridBreak} align="center" className={classes.buttonAreaItem}>
 						<Button
 							variant="outlined"
 							component="label"
 							color="secondary"
+							id="buttonAreaBtn6"
 							onClick={handleScheduleClick}
 						>
 							<EventIcon className={classes.buttonAreaIcon} id="buttonAreaIcon6"/>
