@@ -466,7 +466,7 @@ const useStyles = makeStyles((theme) => ({
 			justifyContent:"center",
 			paddingBottom:theme.spacing(2),
 		},
-  }
+  },
 }));
 
 function Upload() {
