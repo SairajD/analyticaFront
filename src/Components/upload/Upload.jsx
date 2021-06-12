@@ -38,7 +38,7 @@ import PublicIcon from '@material-ui/icons/Public';
 import HowToRegIcon from '@material-ui/icons/HowToReg';
 import TagFacesIcon from '@material-ui/icons/TagFaces';
 import Picker from 'emoji-picker-react';
-
+import { CircularProgress } from '@material-ui/core';
 const drawerWidth = 240;
 
 const url = 'https://analytica-parsb-api.herokuapp.com';
@@ -500,6 +500,7 @@ function Upload() {
 	const [scheduleHour, setScheduleHour] = useState(1);
 	const [scheduleMinute, setScheduleMinute] = useState(0);
 	const [scheduleAM, setScheduleAM] = useState("AM");
+	const [btnClicked, setbtnClicked] = useState();
 	const monthArray = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];	
   const AMArray = ["AM","PM"];
 	//Image Button clicked related variables
@@ -537,7 +538,15 @@ function Upload() {
 		}		
 	}
 
-
+	 function CircularIndeterminate() {
+		// const classes = useStyles();
+	  
+		return (
+		  <div >
+			<CircularProgress color="secondary" />
+		  </div>
+		);
+	  }
 	const changeDisplayOnClick = () => {
 		var widSize = 24;
 		var heiSize = 48;
@@ -876,6 +885,7 @@ function Upload() {
 		}
 	}
 const handlePostBtnClick =async()=>{
+	setbtnClicked(true)
 	console.log("here" )
 	console.log(checkedTwitter)
 	const URLTwitter='https://analytica-parsb-api.herokuapp.com/analytica/twitter/personal/update-status'
@@ -916,6 +926,11 @@ const handlePostBtnClick =async()=>{
 		const response=await Axios.post(URLInstagram,formData,headers)
 		console.log(response)
 	}
+	alert("Data uploaded successfully")
+	document.getElementById("descriptionText").value=""
+	document.getElementById("inputImage").value=null;
+
+	setbtnClicked(false)
 	
 }
 	const emojiDisplayMode = () => {
@@ -1091,6 +1106,7 @@ const handlePostBtnClick =async()=>{
   return (
     <div className={classes.uploadRoot}>
     <CssBaseline />
+	{btnClicked?CircularIndeterminate():null}
     <div className={classes.uploadToolbar}/>
       <Paper elevation={3} className={classes.paper}>
 				<div className={classes.descriptionArea}>
