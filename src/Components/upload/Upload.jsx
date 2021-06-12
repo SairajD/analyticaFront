@@ -22,7 +22,6 @@ import PollIcon from '@material-ui/icons/Poll';
 import EventIcon from '@material-ui/icons/Event';
 import SendIcon from '@material-ui/icons/Send';
 import InputBase from '@material-ui/core/InputBase';
-import axios from 'axios';
 import {useDispatch} from 'react-redux';
 import {dashLoc} from '../reduxStore/actions/addTweets';
 import Axios from 'axios';
@@ -876,7 +875,49 @@ function Upload() {
 			);
 		}
 	}
+const handlePostBtnClick =async()=>{
+	console.log("here" )
+	console.log(checkedTwitter)
+	const URLTwitter='https://analytica-parsb-api.herokuapp.com/analytica/twitter/personal/update-status'
+	const URLInstagram="https://analytica-parsb-api.herokuapp.com/Analytica/instagram/InstgarmPost"
+	let descriptionText=document.getElementById("descriptionText").value
+	let formData=new FormData()
+	
 
+	if(imageArray.length>0){
+		let imageInputData=document.getElementById("inputImage").files[0];
+		formData.append("file",imageInputData)
+	}
+	else if(gifArray.length>0){
+		formData.append("file",gifArray)
+	}
+	else if(videoArray.length>0){
+		formData.append("file",videoArray)
+	}
+	formData.append("status",descriptionText)
+	if(checkedTwitter){
+		let tokenValue = cookies.load('Token');
+		const headers={
+			"Content-Type":"multipart/form-data",
+			"Authorization":tokenValue
+		}
+		console.log("pre-Twitter Response")
+		const response=await Axios.post(URLTwitter,formData,headers)
+	
+	}
+	if(checkedInstagram){
+		let tokenValue = cookies.load('Token');
+		const headers={
+			"Content-Type":"multipart/form-data",
+			"Authorization":tokenValue
+
+		}
+		console.log("pre-instagram")
+		const response=await Axios.post(URLInstagram,formData,headers)
+		console.log(response)
+	}
+	
+}
 	const emojiDisplayMode = () => {
 		if(displayCode==="emoticon"){
 			return <Picker className={classes.emojiPicker} id="emojiPicker" onEmojiClick={emojiPickerClickHandler}/>
@@ -990,6 +1031,7 @@ function Upload() {
 					console.error(error);
 			});
 		}
+	
 	}
 
 	const gifHandler = (e) => {
@@ -1186,6 +1228,7 @@ function Upload() {
 				component="label"
 				color="secondary"
 				className={classes.postButton}
+				onClick={handlePostBtnClick}
 			>
 				Post
 				<SendIcon style={{marginLeft:"8px"}}/>
