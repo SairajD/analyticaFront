@@ -245,12 +245,12 @@ const useStyles = makeStyles((theme) => ({
                 })
 
                 setInstaData({
-                  "engagement": response.data.engagement,
+                  "engagement": parseFloat(response.data.engagement).toFixed(3),
                   "likes": response.data.likes,
                   "comments": response.data.comments,
                   "posts": response.data.posts,
                   "followers": response.data.followers,
-                  "postFrequency": response.data.postFrequency,
+                  "postFrequency": parseFloat(response.data.postFrequency).toFixed(4),
                 })
               
                               
@@ -329,10 +329,10 @@ const userFeeds= async ()=>{
 
   
 const EngagementData={
-  series:[{data:[0.047,0.059,instaData.engagement,0.05]}],options:{xaxis:{categories:["World","India","User","Optimal"]}}
+  series:[{data:[0.047,0.059,instaData.engagement,0.05]}],options:{xaxis:{categories:["World","India","User","Optimal"]},yaxis:{forceNiceScale:true}}
 }
 const postFrequencyData={
-  series:[{data:[2,3,instaData.postFrequency,1]}],options:{xaxis:{categories:["World","India","User","Optimal"]}}
+  series:[{data:[2,3,instaData.postFrequency,1]}],options:{xaxis:{categories:["World","India","User","Optimal"]},yaxis:{forceNiceScale:true}}
 }
   
   
