@@ -231,7 +231,8 @@ const useStyles = makeStyles((theme) => ({
   const instaCharts = () => {
     
       Axios
-          .post(url+`/analytica/analysis/profile/engagement/`+usernameDisplay)
+          //.post(url+`/analytica/analysis/profile/engagement/`+usernameDisplay)
+          .post(url+`/analytica/analysis/profile/engagement/jeffbezos`)
           .then(response => {
                 setInstaLineData({
                   series:[{data:response.data.postLikes}],
