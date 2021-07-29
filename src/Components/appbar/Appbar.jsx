@@ -454,24 +454,7 @@ export default function PrimarySearchAppBar() {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      <MenuItem>
-        <IconButton aria-label="mails" >
-          <Badge badgeContent={7} classes={{ badge: classes.customBadge }} className={classes.badgeContent}>
-            <Avatar className={classes.socialButton}>
-              <MailIcon />
-            </Avatar>
-          </Badge>
-        </IconButton>
-      </MenuItem>
-      <MenuItem>
-        <IconButton aria-label="notifications" >
-          <Badge badgeContent={12} classes={{ badge: classes.customBadge }} className={classes.badgeContent}>
-            <Avatar className={classes.socialButton}>
-              <NotificationsIcon />
-            </Avatar>
-          </Badge>
-        </IconButton>
-      </MenuItem>
+      
       <MenuItem onClick={handleProfileMenuOpen}>
         <IconButton
           aria-label="user-account"
@@ -520,20 +503,7 @@ export default function PrimarySearchAppBar() {
 
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
-            <IconButton aria-label="mails" className={classes.iconBtn}>
-              <Badge badgeContent={9} classes={{ badge: classes.customBadge }} className={classes.badgeContent}>
-                <Avatar className={classes.socialButton}>
-                  <MailIcon />
-                </Avatar>
-              </Badge>
-            </IconButton>
-            <IconButton aria-label="notifications" className={classes.iconBtn}>
-              <Badge badgeContent={11} classes={{ badge: classes.customBadge }} className={classes.badgeContent}>
-                <Avatar className={classes.socialButton}>
-                  <NotificationsIcon />
-                </Avatar>
-              </Badge>
-            </IconButton>
+           
             <IconButton
               edge="end"
               aria-label="account of current user"

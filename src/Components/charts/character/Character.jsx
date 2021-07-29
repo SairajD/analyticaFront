@@ -67,7 +67,7 @@ function Character() {
     const similarCharacters = () => {
         let charArr=[];
         let userObjt={};
-
+        
         Axios
                 .get(url+"/analytica/analysis/profile/getsimilarcharacters/jeffbezos" )
                 .then(response => {

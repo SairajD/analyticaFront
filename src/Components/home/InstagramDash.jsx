@@ -265,9 +265,9 @@ const userFeeds= async ()=>{
   const results=await Axios.get(url+'/analytica/instagram/personalprofile/getfeeds')
   let feedArray=[];
   console.log('userFeeds')
-   console.log( results.data.data.user.edge_web_feed_timeline.edges[0])
+  console.log( results.data.data.user.edge_web_feed_timeline.edges[0])
+
   results.data.data.user.edge_web_feed_timeline.edges.forEach((el)=>{
-  
     if(el.node.__typename=="GraphSidecar"||el.node.__typename=="GraphImage"||el.node.__typename=="GraphVideo")
     {
      
@@ -329,7 +329,7 @@ const userFeeds= async ()=>{
 
   
 const EngagementData={
-  series:[{data:[0.047,0.059,instaData.engagement,0.05]}],options:{xaxis:{categories:["World","India","User","Optimal"]},yaxis:{forceNiceScale:true}}
+  series:[{data:[0.47,0.59,instaData.engagement,0.5]}],options:{xaxis:{categories:["World","India","User","Optimal"]},yaxis:{forceNiceScale:true}}
 }
 const postFrequencyData={
   series:[{data:[2,3,instaData.postFrequency,1]}],options:{xaxis:{categories:["World","India","User","Optimal"]},yaxis:{forceNiceScale:true}}

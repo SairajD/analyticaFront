@@ -38,6 +38,11 @@ import PublicIcon from '@material-ui/icons/Public';
 import HowToRegIcon from '@material-ui/icons/HowToReg';
 import TagFacesIcon from '@material-ui/icons/TagFaces';
 import Picker from 'emoji-picker-react';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
 
 const drawerWidth = 240;
 
@@ -484,10 +489,13 @@ function Upload() {
 	//Post on social media variables
 	const [checkedTwitter, setCheckedTwitter] = useState(false);
 	const [checkedInstagram, setCheckedInstagram] = useState(false);
+	const [twitSuccess, setTwitSuccess] = useState(false);
+	const [instaSuccess, setInstaSuccess] = useState(false);
 	//display specific code based on button clicked
 	const [visibilityCode, setVisibilityCode] = useState(1);
 	const [gridBreak, setGridBreak] = useState(4);
 	const [displayCode, setDisplayCode] = useState("schedule");
+	const [btnClicked, setbtnClicked] = useState(false);
 	//Poll button clicked related variables
 	const [poll, setPoll] = useState([1,2]);
 	const [pollDays, setPollDays] = useState(1);
@@ -875,49 +883,68 @@ function Upload() {
 			);
 		}
 	}
-const handlePostBtnClick =async()=>{
-	console.log("here" )
-	console.log(checkedTwitter)
-	const URLTwitter='https://analytica-parsb-api.herokuapp.com/analytica/twitter/personal/update-status'
-	const URLInstagram="https://analytica-parsb-api.herokuapp.com/Analytica/instagram/InstgarmPost"
-	let descriptionText=document.getElementById("descriptionText").value
-	let formData=new FormData()
-	
 
-	if(imageArray.length>0){
-		let imageInputData=document.getElementById("inputImage").files[0];
-		formData.append("file",imageInputData)
+	const handlePopClose = () => {
+		setbtnClicked(false)
+		document.getElementById("descriptionText").value=""
+		document.getElementById("inputImage").value=null;
+		changeDisplayBackOnClick();
+		setImageArray([]);
+		setGifArray([]);
+		setVideoArray([]);
 	}
-	else if(gifArray.length>0){
-		formData.append("file",gifArray)
-	}
-	else if(videoArray.length>0){
-		formData.append("file",videoArray)
-	}
-	formData.append("status",descriptionText)
-	if(checkedTwitter){
-		let tokenValue = cookies.load('Token');
-		const headers={
-			"Content-Type":"multipart/form-data",
-			"Authorization":tokenValue
-		}
-		console.log("pre-Twitter Response")
-		const response=await Axios.post(URLTwitter,formData,headers)
-	
-	}
-	if(checkedInstagram){
-		let tokenValue = cookies.load('Token');
-		const headers={
-			"Content-Type":"multipart/form-data",
-			"Authorization":tokenValue
 
+	const handlePostBtnClick =async()=>{
+		
+		console.log("here" )
+		console.log(checkedTwitter)
+		const URLTwitter='https://analytica-parsb-api.herokuapp.com/analytica/twitter/personal/update-status'
+		const URLInstagram="https://analytica-parsb-api.herokuapp.com/Analytica/instagram/InstgarmPost"
+		let descriptionText=document.getElementById("descriptionText").value
+		let formData=new FormData()
+		
+
+		if(imageArray.length>0){
+			let imageInputData=document.getElementById("inputImage").files[0];
+			formData.append("file",imageInputData)
 		}
-		console.log("pre-instagram")
-		const response=await Axios.post(URLInstagram,formData,headers)
-		console.log(response)
+		else if(gifArray.length>0){
+			formData.append("file",gifArray)
+		}
+		else if(videoArray.length>0){
+			formData.append("file",videoArray)
+		}
+		formData.append("status",descriptionText)
+		if(checkedTwitter){
+			let tokenValue = cookies.load('Token');
+			const headers={
+				"Content-Type":"multipart/form-data",
+				"Authorization":tokenValue
+			}
+			console.log("pre-Twitter Response")
+			const response=await Axios.post(URLTwitter,formData,headers)
+			console.log(response)
+			if(response.status === 200){
+				setTwitSuccess(true)
+			}
+		}
+		if(checkedInstagram){
+			let tokenValue = cookies.load('Token');
+			const headers={
+				"Content-Type":"multipart/form-data",
+				"Authorization":tokenValue
+
+			}
+			console.log("pre-instagram")
+			const response=await Axios.post(URLInstagram,formData,headers)
+			console.log(response)
+			if(response.status === 200){
+				setInstaSuccess(true)
+			}
+		}
+		setbtnClicked(true)
 	}
-	
-}
+
 	const emojiDisplayMode = () => {
 		if(displayCode==="emoticon"){
 			return <Picker className={classes.emojiPicker} id="emojiPicker" onEmojiClick={emojiPickerClickHandler}/>
@@ -1233,6 +1260,21 @@ const handlePostBtnClick =async()=>{
 				Post
 				<SendIcon style={{marginLeft:"8px"}}/>
 			</Button>
+			<Dialog
+				open={btnClicked}
+				onClose={handlePopClose}
+			>
+				<DialogContent>
+				<DialogContentText id="alert-dialog-description">
+					Upload Successful
+				</DialogContentText>
+				</DialogContent>
+				<DialogActions>
+				<Button onClick={handlePopClose} color="secondary" autoFocus>
+					OK
+				</Button>
+				</DialogActions>
+			</Dialog>
       </Paper>
     </div>
   );

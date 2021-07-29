@@ -160,6 +160,7 @@ function Login() {
 	const [visibility, setVisibility] = useState(false);
 	const History = useHistory();
 	const loggedin = async () => {
+		let name = "";
 		let username = document.getElementById('user-name')
 		let password = document.getElementById('password')
 		let displayFault = document.getElementById('displayFault')
@@ -190,6 +191,19 @@ function Login() {
 				// httpOnly: true
 			})
 			cookies.save('Username', response.data.Username, {
+				path: '/',
+				expires,
+
+
+				// secure: true,
+				// httpOnly: true
+			})
+			if(response.data.Name === ""){
+				name = response.data.Username.substring(0, response.data.Username.lastIndexOf("@"))
+			}else{
+				name = response.data.Name
+			}
+			cookies.save('Name', name, {
 				path: '/',
 				expires,
 

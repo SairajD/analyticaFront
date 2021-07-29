@@ -81,9 +81,8 @@ function History() {
         }
 
         el.results.forEach((al) => {
-
           let eachCaptionResult = {
-            Caption: al.caption,
+            Caption: al.full_text,
             Sentiment: al.sentiment
           }
           if (al.sentiment === "Positive") {
@@ -215,11 +214,13 @@ function History() {
       {tweetData.map((el, index) => {
 
           console.log(instaData[index])
+          console.log(el)
           return <SearchGraph
           key={index}
           Querry={el.Querry}
-          dataTweet={el.data}
-          dataInsta={instaData[index].data}
+          dataTweet={el}
+          dataInsta={instaData[index]}
+          
           />}
 )}
 

@@ -61,9 +61,18 @@ const useStyles = makeStyles((theme) => ({
         fontSize:theme.spacing(2.5),
         marginLeft: theme.spacing(2),
         marginTop:theme.spacing(2),
+		marginBottom:theme.spacing(2),
     },
+	timelineCommentSubTitle:{
+		fontWeight:"bold",
+		fontSize:theme.spacing(2),
+		marginLeft: theme.spacing(2),
+		marginTop:theme.spacing(2),
+		marginBottom:theme.spacing(2),
+	},
 	timelineContent:{
         width : 1000,
+		marginTop: theme.spacing(2),
         marginBottom: theme.spacing(2),
         marginLeft: theme.spacing(2),
         flexWrap: 'wrap',
@@ -119,9 +128,18 @@ const useStyles = makeStyles((theme) => ({
 						fontSize:theme.spacing(2.5),
 						marginLeft: theme.spacing(2),
 						marginTop:theme.spacing(2),
+						marginBottom:theme.spacing(2),
 				},
+			timelineCommentSubTitle:{
+				fontWeight:"bold",
+				fontSize:theme.spacing(2),
+				marginLeft: theme.spacing(2),
+				marginTop:theme.spacing(2),
+				marginBottom:theme.spacing(2),
+			},
 			timelineContent:{
 						width : 1000,
+						marginTop: theme.spacing(2),
 						marginBottom: theme.spacing(2),
 						marginLeft: theme.spacing(2),
 						flexWrap: 'wrap',
@@ -132,7 +150,6 @@ const useStyles = makeStyles((theme) => ({
 
 
 function SearchGraph(props) {
-
 	const classes = useStyles();
 	const dashLoc = useSelector(state => state.changeDash);
 
@@ -188,11 +205,11 @@ function SearchGraph(props) {
 		}
 	})
 
-    // const [commentOpen, setCommentOpen] = useState(false);
+    const [commentOpen, setCommentOpen] = useState(false);
   
-    // const handleClick = () => {
-    //   setCommentOpen(!commentOpen);
-    // };
+    const handleClick = () => {
+      setCommentOpen(!commentOpen);
+    };
 
 	const graphDisplay = () => {
 		if (dashLoc === "History") {
@@ -211,7 +228,7 @@ function SearchGraph(props) {
 							<Typography variant="body1" color="textPrimary" className={classes.dataText}>
 								Twitter Sentiment Analysis
 							</Typography>
-							<DougnutChart data={props.dataTweet} width="300" height="350" />
+							<DougnutChart data={props.dataTweet.data} width="300" height="350" />
 						</Paper>
 					</Grid>
 					<Grid item xs={12} sm={5} align="center">
@@ -219,27 +236,66 @@ function SearchGraph(props) {
 							<Typography variant="body1" color="textPrimary" className={classes.dataText}>
 								Instagram Sentiment Analysis
 							</Typography>
-							<DougnutChart data={props.dataInsta} width="300" height="350" />
+							<DougnutChart data={props.dataInsta.data} width="300" height="350" />
 						</Paper>
 					</Grid>
 					<Grid item xs={12} sm={2} align="center" className={classes.profileChanges}>
-						<Button variant="contained" fullWidth color="secondary" className={classes.profileBtn} >
+						<Button variant="contained" fullWidth color="secondary" className={classes.profileBtn} onClick={handleClick}>
 							Show More
 						</Button>
 					</Grid>
-					{/* <Grid item xs={} sm={12} align="center" className={classes.postChanges}>
+					<Grid item xs={12} sm={12} align="center" className={classes.postChanges}>
 						<Paper elevation={3} className={classes.historyPostSpace} id="post-space">
 							<Collapse in={commentOpen} timeout="auto" unmountOnExit>
 								<Typography className={classes.timelineCommentTitle}>Posts</Typography>
+								<Typography className={classes.timelineCommentTitle}>Twitter</Typography>
+								<Typography className={classes.timelineCommentSubTitle}>Positive</Typography>
+								{
+									props.dataTweet.Positive.map((el, i)=>{
+										return(<React.Fragment key = {i}><Typography className={classes.timelineContent}>{el.Caption}</Typography>       
+												<Divider/></React.Fragment> )
+									})
+								}
+								<Typography className={classes.timelineCommentSubTitle}>Negative</Typography>
+								{
+									props.dataTweet.Negative.map((el, i)=>{
+										return(<React.Fragment key = {i}><Typography className={classes.timelineContent}>{el.Caption}</Typography>       
+												<Divider/></React.Fragment> )
+									})
+								}
+								<Typography className={classes.timelineCommentSubTitle}>Neutral</Typography>
+								{
+									props.dataTweet.Neutral.map((el, i)=>{
+										return(<React.Fragment key = {i}><Typography className={classes.timelineContent}>{el.Caption}</Typography>       
+												<Divider/></React.Fragment> )
+									})
+								}
+								
+								<Typography className={classes.timelineCommentTitle}>Instagram</Typography>
+								<Typography className={classes.timelineCommentSubTitle}>Positive</Typography>	
+								{
+									props.dataInsta.Positive.map((el, i)=>{
+										return(<React.Fragment key = {i}><Typography className={classes.timelineContent}>{el.Caption}</Typography>       
+												<Divider/></React.Fragment> )
+									})
+								}
+								<Typography className={classes.timelineCommentSubTitle}>Negative</Typography>
 								{
 									props.dataInsta.Negative.map((el, i)=>{
-										return(<React.Fragment><Typography className={classes.timelineContent}>hi</Typography>       
+										return(<React.Fragment key = {i}><Typography className={classes.timelineContent}>{el.Caption}</Typography>       
+												<Divider/></React.Fragment> )
+									})
+								}
+								<Typography className={classes.timelineCommentSubTitle}>Neutral</Typography>
+								{
+									props.dataInsta.Neutral.map((el, i)=>{
+										return(<React.Fragment key = {i}><Typography className={classes.timelineContent}>{el.Caption}</Typography>       
 												<Divider/></React.Fragment> )
 									})
 								}								  
 							</Collapse>
 						</Paper>
-					</Grid> */}
+					</Grid> 
 				</Grid>
 			)
 		}
@@ -250,7 +306,7 @@ function SearchGraph(props) {
 						<Typography variant="body1" color="textPrimary" className={classes.dataText}>
 							Twitter Sentiment Analysis
 						</Typography>
-						<DougnutChart data={props.dataTweet} width="300" height="350" />
+						<DougnutChart data={props.dataTweet.data} width="300" height="350" />
 					</Paper>
 				</Grid>
 				<Grid item xs={12} sm={6} align="center">
@@ -258,7 +314,7 @@ function SearchGraph(props) {
 						<Typography variant="body1" color="textPrimary" className={classes.dataText}>
 							Instagram Sentiment Analysis
 						</Typography>
-						<DougnutChart data={props.dataInsta} width="300" height="350" />
+						<DougnutChart data={props.dataInsta.data} width="300" height="350" />
 					</Paper>
 				</Grid>
 			</Grid>)

@@ -294,7 +294,7 @@ const userFeeds= async ()=>{
 
   
 const EngagementData={
-  series:[{data:[0.047,0.059,tweetData.engagement,0.05]}],options:{xaxis:{categories:["World","India","User","Optimal"],yaxis:{forceNiceScale:true}},
+  series:[{data:[0.47,0.59,tweetData.engagement,0.5]}],options:{xaxis:{categories:["World","India","User","Optimal"],yaxis:{forceNiceScale:true}},
 
 },
 

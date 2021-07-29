@@ -12,6 +12,11 @@ import cookies from 'react-cookies';
 import Axios from "axios";
 import {useHistory, Redirect} from "react-router-dom";
 import {browserHistory} from "react-router";
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
 
 const drawerWidth = 240;
 const url = ' https://analytica-parsb-api.herokuapp.com'
@@ -106,6 +111,27 @@ function Settings() {
 		const [checkedInstagram, setCheckedInstagram] = useState(false);
 		const [checkedNotifications, setCheckedNotifications] = useState(false);
 		const checkedDarkLight = useSelector(state=>state.changeTheme);
+		const [open, setOpen] = useState(false);
+		const [passOpen, setPassOpen] = useState(false);
+
+		const handleClickOpen = () => {
+			setOpen(true);
+		};
+	
+		const handleClose = () => {
+			setOpen(false);
+		};
+
+		const handleClickPassOpen = () => {
+			setPassOpen(true);
+		};
+	
+		const handlePassClose = () => {
+			setPassOpen(false);
+			document.getElementById('current-password').value = ''
+			document.getElementById('new-password').value = ''
+			document.getElementById('confirm-password').value = ''
+		};
 
 		const handleChangeTwitter = () => {
 			setCheckedTwitter((prev) => !prev);
@@ -117,6 +143,9 @@ function Settings() {
 
 		const handleChangeInstagram = () => {
 			setCheckedInstagram((prev) => !prev);
+			if(checkedInstagram){
+				handleClickOpen();
+			}
 		};
 
 		const handleChangeNotifications = () => {
@@ -169,7 +198,7 @@ function Settings() {
 			}
 
 			displayFault.style.display="none";
-
+			handleClickPassOpen();
 			Axios.post(url+"/Analytica/users/changePassword", {currentPassword:currentPass.value, Password:newPass.value})
 		}
 
@@ -212,8 +241,8 @@ function Settings() {
 										type="text"										
 										key="change-userName"
 										id="change-userName"
-										label="User Name"
-										defaultValue="Value"
+										label="User Name"										
+										defaultValue={cookies.load('Name')}
 										variant="outlined"
 										InputLabelProps={{
 											classes:{
@@ -221,52 +250,6 @@ function Settings() {
 											}
 										}}
 									/>
-								</Grid>
-								<Grid item xs={12} sm={4} align="center" className={classes.profileChanges}>
-									<TextField
-										fullWidth
-										type="text"
-										id="change-firstName"
-										label="First Name"
-										defaultValue="Value"
-										variant="outlined"
-										InputLabelProps={{
-											classes:{
-												root:classes.label
-											}
-										}}
-									/>
-								</Grid>
-								<Grid item xs={12} sm={4} align="center" className={classes.profileChanges}>
-									<TextField
-										fullWidth
-										type="text"
-										id="change-lastName"
-										label="Last Name"
-										defaultValue="Value"
-										variant="outlined"
-										InputLabelProps={{
-											classes:{
-												root:classes.label
-											}
-										}}
-									/>
-								</Grid>
-								<Grid item xs={12} sm={4} align="center" className={classes.profileChanges}>
-									<MuiPhoneNumber
-										fullWidth
-										type="text"
-										id="change-mobile"
-										label="Mobile Number"
-										variant="outlined"
-                    defaultCountry={"in"}
-										value="+911234567890"
-										InputLabelProps={{
-											classes:{
-												root:classes.label
-											}
-										}}
-                  />
 								</Grid>
 								<Grid item xs={12} sm={4} align="center" className={classes.profileChanges}>
 									<TextField
@@ -274,7 +257,7 @@ function Settings() {
 										type="email"
 										id="change-email"
 										label="E-mail"
-										defaultValue="Value"
+										defaultValue={cookies.load('Username')}
 										variant="outlined"
 										InputLabelProps={{
 											classes:{
@@ -401,6 +384,53 @@ function Settings() {
 								</Grid>								
 						</Grid>
           </div> 
+					<Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+						<DialogTitle id="form-dialog-title">Link Your Instagram</DialogTitle>
+						<DialogContent>
+							<DialogContentText>
+								To link your account to Instagram, please enter your email address and password here. The linking process will
+								begin shortly.
+							</DialogContentText>
+							<TextField
+								autoFocus
+								margin="dense"
+								id="name"
+								label="Email Address"
+								type="email"
+								fullWidth
+							/>
+							<TextField
+								margin="dense"
+								id="name"
+								label="Password"
+								type="password"
+								fullWidth
+							/>
+						</DialogContent>
+						<DialogActions>
+							<Button onClick={handleClose} color="secondary">
+								Cancel
+							</Button>
+							<Button onClick={handleClose} color="secondary">
+								Submit
+							</Button>
+						</DialogActions>
+					</Dialog>
+					<Dialog
+						open={passOpen}
+						onClose={handlePassClose}
+					>
+						<DialogContent>
+						<DialogContentText id="alert-dialog-description">
+							Successfully Changed Password
+						</DialogContentText>
+						</DialogContent>
+						<DialogActions>
+						<Button onClick={handlePassClose} color="secondary" autoFocus>
+							OK
+						</Button>
+						</DialogActions>
+					</Dialog>
 					<div className={classes.settingsToolbar}/>           
         </div>
     )

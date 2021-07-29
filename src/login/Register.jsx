@@ -158,7 +158,7 @@ function Register() {
 
 	const loginClicked = async () => {
 
-
+		let name = "";
 		let username = document.getElementById('user-name')
 		let mainPass = document.getElementById('password')
 		let checkPass = document.getElementById('confirm-password')
@@ -231,6 +231,19 @@ function Register() {
 				// httpOnly: true
 			})
 
+			if(response.data.Name === ""){
+				name = response.data.Username.substring(0, response.data.Username.lastIndexOf("@"))
+			}else{
+				name = response.data.Name
+			}
+			cookies.save('Name', name, {
+				path: '/',
+				expires,
+
+
+				// secure: true,
+				// httpOnly: true
+			})
 
 			console.log(response.data)
 			History.push("./Dashboard");

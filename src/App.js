@@ -14,6 +14,7 @@ import {useSelector} from 'react-redux';
 import {useHistory} from 'react-router-dom';
 import ConfirmEmail from './Components/resetPassword/ConfirmationEmail'
 import ResetPassword from './Components/resetPassword/ResetPassword'
+import Avatar from '@material-ui/core/Avatar';
 
 const url="https://analytica-parsb-api.herokuapp.com"
 
@@ -32,7 +33,6 @@ function App() {
   const classes = useStyles();
   const checkedDarkLight = useSelector(state=>state.changeTheme);
   return (
-
       <ThemeProvider theme ={checkedDarkLight? DarkTheme : Theme}>
         <div className={classes.root}>
           <Router>
