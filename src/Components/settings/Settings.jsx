@@ -143,7 +143,7 @@ function Settings() {
 
 		const handleChangeInstagram = () => {
 			setCheckedInstagram((prev) => !prev);
-			if(checkedInstagram){
+			if(!checkedInstagram){
 				handleClickOpen();
 			}
 		};

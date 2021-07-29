@@ -508,7 +508,6 @@ function Upload() {
 	const [scheduleHour, setScheduleHour] = useState(1);
 	const [scheduleMinute, setScheduleMinute] = useState(0);
 	const [scheduleAM, setScheduleAM] = useState("AM");
-	const [btnClicked, setbtnClicked] = useState();
 	const monthArray = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];	
   const AMArray = ["AM","PM"];
 	//Image Button clicked related variables
@@ -546,15 +545,7 @@ function Upload() {
 		}		
 	}
 
-	 function CircularIndeterminate() {
-		// const classes = useStyles();
-	  
-		return (
-		  <div >
-			<CircularProgress color="secondary" />
-		  </div>
-		);
-	  }
+	 
 	const changeDisplayOnClick = () => {
 		var widSize = 24;
 		var heiSize = 48;
@@ -1126,7 +1117,6 @@ function Upload() {
   return (
     <div className={classes.uploadRoot}>
     <CssBaseline />
-	{btnClicked?CircularIndeterminate():null}
     <div className={classes.uploadToolbar}/>
       <Paper elevation={3} className={classes.paper}>
 				<div className={classes.descriptionArea}>
