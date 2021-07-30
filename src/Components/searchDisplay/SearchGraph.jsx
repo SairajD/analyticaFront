@@ -306,7 +306,7 @@ function SearchGraph(props) {
 						<Typography variant="body1" color="textPrimary" className={classes.dataText}>
 							Twitter Sentiment Analysis
 						</Typography>
-						<DougnutChart data={props.dataTweet.data} width="300" height="350" />
+						<DougnutChart data={props.dataTweet} width="300" height="350" />
 					</Paper>
 				</Grid>
 				<Grid item xs={12} sm={6} align="center">
@@ -314,7 +314,7 @@ function SearchGraph(props) {
 						<Typography variant="body1" color="textPrimary" className={classes.dataText}>
 							Instagram Sentiment Analysis
 						</Typography>
-						<DougnutChart data={props.dataInsta.data} width="300" height="350" />
+						<DougnutChart data={props.dataInsta} width="300" height="350" />
 					</Paper>
 				</Grid>
 			</Grid>)
